@@ -34,7 +34,8 @@ jobs:
       - name: Build Storybook into /storybook
         run: pnpm --filter @zzz/web exec storybook build -o out/storybook
         env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # Same base path as the site, so assets from public/ (e.g. the logo) resolve on Pages.
+          BASE_PATH: /${{ github.event.repository.name }}
       - run: touch apps/web/out/.nojekyll
       - uses: actions/upload-pages-artifact@v5
         with:
