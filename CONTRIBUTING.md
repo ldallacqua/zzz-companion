@@ -8,4 +8,9 @@ Thanks for helping! Read [`AGENTS.md`](AGENTS.md) first — the same rules apply
    set `unlockedAt` correctly. The content tests will tell you if something leaks.
 4. Keep the docs in sync: update **README.md** and the landing page feature registry
    (`apps/web/src/lib/features.ts`) whenever a change affects them — see AGENTS.md.
-5. Run `pnpm verify` (and `pnpm e2e` for UI work) before opening a PR. Use Conventional Commits.
+5. Work on a branch and open a PR. Before it, run `pnpm verify`; for UI work also `pnpm e2e` and
+   `pnpm test:storybook` (every component needs stories, and every story must pass with zero axe
+   violations); and run `pnpm lighthouse` before a feature is merged. CI runs all of them.
+   Use Conventional Commits.
+6. Glossary and character texts change over time: add `revisions` instead of rewriting them, and
+   show them with `knownTextAt` (see AGENTS.md → "Entries change as the story goes on").

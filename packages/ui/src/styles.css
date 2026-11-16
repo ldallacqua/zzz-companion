@@ -17,7 +17,7 @@
   /* Text */
   --color-foreground: #f3f3ee;
   --color-muted: #9a9aa3;
-  --color-subtle: #6b6b74;
+  --color-subtle: #8a8a93; /* ≥ 4.5:1 on every surface token (WCAG AA) */
 
   /* Brand */
   --color-primary: #c6ff2e;

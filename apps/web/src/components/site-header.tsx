@@ -8,6 +8,7 @@ import type { Locale } from '@zzz/core'
 import { Link, usePathname } from '@/i18n/navigation'
 import { useStory } from '@/lib/use-story'
 import { useUi } from '@/lib/ui-store'
+import { GameMark } from './game-mark'
 
 const NAV = [
   { href: '/', key: 'home', icon: Home },
@@ -31,11 +32,9 @@ export function SiteHeader() {
   return (
     <header className="top-0 backdrop-blur-md sticky z-40 border-b border-border bg-background/85">
       <div className="h-16 max-w-6xl gap-3 px-4 sm:px-6 mx-auto flex items-center">
-        <Link href="/" className="group gap-2 flex items-center" aria-label="ZZZ Companion">
-          <span className="text-3xl display text-primary transition-transform duration-300 group-hover:-skew-x-12">
-            ZZZ
-          </span>
-          <span className="leading-tight sm:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase">
+        <Link href="/" className="group gap-2.5 flex items-center" aria-label="ZZZ Companion">
+          <GameMark className="h-9 transition-transform duration-300 group-hover:-skew-x-6" />
+          <span className="leading-tight sm:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase transition-colors group-hover:text-primary">
             {'//'}
             <br />
             Companion

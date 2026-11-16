@@ -1,13 +1,16 @@
-import { getTranslations } from 'next-intl/server'
+'use client'
+
+import { useTranslations } from 'next-intl'
 import { Marquee } from '@zzz/ui'
 
-export async function SiteFooter() {
-  const t = await getTranslations('footer')
+export function SiteFooter() {
+  const t = useTranslations('footer')
   return (
     <footer className="mt-24 pb-24 md:pb-0">
       <Marquee items={['Zenless Zone Zero', 'Companion', 'Fan made']} tone="dark" duration={40} />
       <div className="max-w-6xl space-y-2 px-4 py-8 text-xs leading-relaxed sm:px-6 mx-auto text-muted">
         <p>{t('disclaimer')}</p>
+        <p>{t('legal')}</p>
         <p>
           {t('sources')}{' '}
           <a

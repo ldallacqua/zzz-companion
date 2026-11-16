@@ -224,6 +224,16 @@ export const glossary = [
   },
   {
     id: 'blg-prototype',
+    revisions: [
+      {
+        at: 'c2b-monster',
+        text: {
+          en: 'Belobog’s first smart construction machine, lost when the old capital fell. Found in the monument, it held the receipt that cleared Khors.',
+          'pt-BR':
+            'A primeira máquina de construção inteligente da Belobog, perdida na queda da antiga capital. Encontrada no monumento, guardava o recibo que inocentou Khors.',
+        },
+      },
+    ],
     unlockedAt: 'c2a-khors',
     term: { en: 'BLG_prototype', 'pt-BR': 'BLG_prototype' },
     definition: {
@@ -234,6 +244,16 @@ export const glossary = [
   },
   {
     id: 'emp',
+    revisions: [
+      {
+        at: 'i2b-convoy',
+        text: {
+          en: 'An illegal device that fries nearby electronics. The gang using it was really after the convoy carrying the monster’s remains.',
+          'pt-BR':
+            'Aparelho ilegal que frita os eletrônicos ao redor. A gangue que o usava queria, na verdade, o comboio com os restos do monstro.',
+        },
+      },
+    ],
     aliases: { en: ['EMP emitter', 'EMP'], 'pt-BR': ['emissor de PEM', 'PEM'] },
     unlockedAt: 'i2a-emp',
     term: { en: 'EMP emitter', 'pt-BR': 'Emissor de PEM' },
@@ -285,6 +305,16 @@ export const glossary = [
   },
   {
     id: 'dead-end-butcher',
+    revisions: [
+      {
+        at: 'c1b-butcher',
+        text: {
+          en: 'The enormous Ethereal that ruled the Dead End Hollow — until Phaethon killed it with Vision’s own explosives and the Hollow shrank.',
+          'pt-BR':
+            'O Etéreo enorme que dominava a Esfera Sem Saída — até Phaethon matá-lo com os explosivos da própria Visão e a Esfera encolher.',
+        },
+      },
+    ],
     unlockedAt: 'c1a-hideouts',
     term: { en: 'Dead End Butcher', 'pt-BR': 'Carniceiro do Beco' },
     aliases: { en: ['Butcher'], 'pt-BR': ['Carniceiro'] },

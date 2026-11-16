@@ -17,6 +17,7 @@ export type Localized<T> = Record<Locale, T>
 
 const nonEmpty = z.string().trim().min(1)
 export const LocalizedTextSchema = localized(nonEmpty)
+export type LocalizedText = z.infer<typeof LocalizedTextSchema>
 export const LocalizedParagraphsSchema = localized(z.array(nonEmpty).min(1))
 
 /** kebab-case ids keep URLs, storage keys and test names predictable. */
@@ -74,6 +75,18 @@ export type ChapterInput = z.input<typeof ChapterSchema>
 export const GatedSchema = z.object({ unlockedAt: IdSchema })
 
 /**
+ * What the reader knows about an entry changes as the story goes on (a suspect is cleared, a
+ * secret comes out). A revision replaces the entry's text from segment `at` onward. Revisions are
+ * gated like everything else: they are never shown to a reader (or in a recap part) before `at`.
+ */
+export const RevisionSchema = z.object({
+  at: IdSchema,
+  text: LocalizedTextSchema,
+})
+export type Revision = z.infer<typeof RevisionSchema>
+const revisions = z.array(RevisionSchema).default([])
+
+/**
  * Extra spellings that should link to an entity inside recap text (plurals, short names,
  * official pt-BR variants). The canonical name/term is always included automatically.
  */
@@ -84,6 +97,8 @@ export const FactionSchema = GatedSchema.extend({
   name: LocalizedTextSchema,
   /** What the reader knows about the group at `unlockedAt`. */
   description: LocalizedTextSchema,
+  /** Later versions of `description`, in story order (see RevisionSchema). */
+  revisions,
   aliases: LocalizedAliasesSchema,
 })
 export type Faction = z.infer<typeof FactionSchema>
@@ -96,7 +111,23 @@ export const CharacterSchema = GatedSchema.extend({
   factions: z.array(IdSchema).default([]),
   /** What the reader knows about them at `unlockedAt` - never later facts. */
   blurb: LocalizedTextSchema,
+  /** Later versions of `blurb`, in story order (see RevisionSchema). */
+  revisions,
   image: z.url().optional(),
+  /**
+   * Framing for crops of `image`: where the face is (fractions of the image's width/height)
+   * and how far to zoom for a waist-up shot (image height ÷ frame height).
+   * Full-body art usually needs ~2; head-and-shoulders art ~1.
+   */
+  focus: z
+    .object({
+      x: z.number().min(0).max(1),
+      y: z.number().min(0).max(1),
+      zoom: z.number().min(0.5).max(5),
+      /** The art has its own background, so crops must cover the whole frame (no visible edge). */
+      opaque: z.boolean().optional(),
+    })
+    .default({ x: 0.5, y: 0.13, zoom: 2.1 }),
   /** Accent color used by the card frame. */
   color: nonEmpty,
   /** Short names / nicknames used in recap text (same in every locale). */
@@ -109,6 +140,8 @@ export const GlossaryTermSchema = GatedSchema.extend({
   id: IdSchema,
   term: LocalizedTextSchema,
   definition: LocalizedTextSchema,
+  /** Later versions of `definition`, in story order (see RevisionSchema). */
+  revisions,
   aliases: LocalizedAliasesSchema,
 })
 export type GlossaryTerm = z.infer<typeof GlossaryTermSchema>

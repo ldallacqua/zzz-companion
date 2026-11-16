@@ -10,3 +10,6 @@ playwright-report
 test-results
 out
 docs/assets/*.svg
+
+.lighthouseci
+storybook-static

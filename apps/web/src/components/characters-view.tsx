@@ -68,54 +68,56 @@ export function CharactersView() {
         </div>
       )}
 
-      {!story.hydrated ? (
-        <p className="py-20 text-sm text-center font-mono text-muted" role="status">
-          …
-        </p>
-      ) : (
-        <motion.ul
-          layout
-          className="gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 grid grid-cols-2"
-          data-testid="character-grid"
-        >
-          <AnimatePresence mode="popLayout">
-            {visible.map((character, i) => (
-              <motion.li
-                key={character.id}
-                id={`character-${character.id}`}
-                className="scroll-mt-28 data-[flash=true]:[&_article]:drop-shadow-[0_0_18px_var(--color-primary)]"
-                layout
-                initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  transition: {
-                    delay: Math.min(i * 0.04, 0.4),
-                    duration: 0.45,
-                    ease: ease.outExpo,
-                  },
-                }}
-                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-              >
-                <CharacterCard character={character} priority={i < 4} />
-              </motion.li>
-            ))}
-            {activeFaction === 'all' &&
-              Array.from({ length: Math.min(story.characters.lockedCount, 4) }, (_, i) => (
+      <div className="min-h-[70dvh]">
+        {!story.hydrated ? (
+          <p className="py-20 text-sm text-center font-mono text-muted" role="status">
+            …
+          </p>
+        ) : (
+          <motion.ul
+            layout
+            className="gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 grid grid-cols-2"
+            data-testid="character-grid"
+          >
+            <AnimatePresence mode="popLayout">
+              {visible.map((character, i) => (
                 <motion.li
-                  key={`locked-${i}`}
+                  key={character.id}
+                  id={`character-${character.id}`}
+                  className="scroll-mt-28 data-[flash=true]:[&_article]:drop-shadow-[0_0_18px_var(--color-primary)]"
                   layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      delay: Math.min(i * 0.04, 0.4),
+                      duration: 0.45,
+                      ease: ease.outExpo,
+                    },
+                  }}
+                  exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                 >
-                  <LockedCard label={t('lockedName')} />
+                  <CharacterCard character={character} priority={i < 4} />
                 </motion.li>
               ))}
-          </AnimatePresence>
-        </motion.ul>
-      )}
+              {activeFaction === 'all' &&
+                Array.from({ length: Math.min(story.characters.lockedCount, 4) }, (_, i) => (
+                  <motion.li
+                    key={`locked-${i}`}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <LockedCard label={t('lockedName')} />
+                  </motion.li>
+                ))}
+            </AnimatePresence>
+          </motion.ul>
+        )}
+      </div>
 
       {story.hydrated && story.characters.lockedCount > 0 && (
         <p className="mt-8 text-xs font-mono text-subtle">

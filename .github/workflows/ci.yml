@@ -1,5 +1,6 @@
 name: CI
 
+# Every job here is a required gate before merging into main (see AGENTS.md → "Quality gates").
 on:
   push:
     branches: [main]
@@ -13,9 +14,9 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -27,9 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: verify
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -38,8 +39,44 @@ jobs:
       - run: pnpm e2e
         env:
           CI: true
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report
           path: apps/web/playwright-report
+
+  storybook:
+    name: storybook (stories + a11y)
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @zzz/web exec playwright install --with-deps chromium
+      # Every story renders, passes its play function and has zero axe violations.
+      - run: pnpm test:storybook
+      - run: pnpm build-storybook
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Audits the static export like GitHub Pages serves it; thresholds live in lighthouserc.cjs.
+      - run: pnpm lighthouse
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/reports

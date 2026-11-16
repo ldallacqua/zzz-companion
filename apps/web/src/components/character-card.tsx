@@ -3,8 +3,9 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { cn } from '@zzz/ui'
-import type { Character, Locale } from '@zzz/core'
-import { factionsById } from '@zzz/story'
+import { knownTextAt, type Character, type Locale } from '@zzz/core'
+import { factionsById, timeline } from '@zzz/story'
+import { useStory } from '@/lib/use-story'
 import { useMotionLevel } from './providers'
 import { Portrait } from './portrait'
 
@@ -20,6 +21,7 @@ export function CharacterCard({
   priority?: boolean
 }) {
   const locale = useLocale() as Locale
+  const { progress } = useStory()
   const level = useMotionLevel()
   const px = useMotionValue(0.5)
   const py = useMotionValue(0.5)
@@ -68,9 +70,11 @@ export function CharacterCard({
               src={character.image}
               name={character.name}
               color={character.color}
+              focus={character.focus}
+              framing="bust"
               priority={priority}
               sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 46vw"
-              className="object-contain object-bottom transition-transform duration-500 ease-(--ease-out-expo) group-hover:scale-[1.06]"
+              className="transition-[scale] duration-500 ease-(--ease-out-expo) group-hover:scale-[1.06]"
             />
             <div className="inset-0 pointer-events-none absolute scanlines" aria-hidden />
             <div
@@ -88,13 +92,15 @@ export function CharacterCard({
               style={{ backgroundColor: character.color }}
               aria-hidden
             />
-            <h3 className="text-2xl display leading-none">{character.name}</h3>
+            <h2 className="text-2xl display leading-none">{character.name}</h2>
             {character.factions.length > 0 && (
               <p className="mt-1 truncate font-mono text-[0.62rem] tracking-[0.14em] text-subtle uppercase">
                 {character.factions.map((id) => factionsById.get(id)?.name[locale]).join(' / ')}
               </p>
             )}
-            <p className={cn('mt-2 text-sm leading-snug text-muted')}>{character.blurb[locale]}</p>
+            <p className={cn('mt-2 text-sm leading-snug text-muted')}>
+              {knownTextAt(timeline, progress, character.blurb, character.revisions)[locale]}
+            </p>
           </div>
         </div>
       </motion.div>
@@ -105,7 +111,7 @@ export function CharacterCard({
 /** Placeholder for a character the reader hasn't met yet. Reveals nothing. */
 export function LockedCard({ label }: { label: string }) {
   return (
-    <div className="bg-border p-px opacity-60 chamfer">
+    <div className="bg-border p-px chamfer">
       <div className="relative grid aspect-[4/5] place-items-center overflow-hidden bg-surface chamfer">
         <div className="inset-0 absolute scanlines" aria-hidden />
         <div className="inset-0 absolute halftone text-subtle opacity-20" aria-hidden />

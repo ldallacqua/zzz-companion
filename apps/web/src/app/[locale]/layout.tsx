@@ -6,7 +6,8 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Marquee } from '@zzz/ui'
 import { routing } from '@/i18n/routing'
-import { motionBootScript, Providers } from '@/components/providers'
+import { localizedAlternates, SITE_ORIGIN } from '@/lib/seo'
+import { bootScript, Providers } from '@/components/providers'
 import { MobileNav, SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { ProgressPicker } from '@/components/progress-picker'
@@ -37,7 +38,9 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   return {
     title: { default: t('title'), template: `%s · ZZZ Companion` },
     description: t('description'),
-    alternates: { languages: { en: '/en', 'pt-BR': '/pt-BR' } },
+    metadataBase: new URL(SITE_ORIGIN),
+    // The home page's links; every other page overrides them with its own path.
+    alternates: localizedAlternates(locale),
   }
 }
 
@@ -57,7 +60,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
+        {/* Character art and the game logo are served by the community wiki's CDN. */}
+        <link rel="preconnect" href="https://static.wikia.nocookie.net" />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body className="min-h-dvh overflow-x-clip">
         <NextIntlClientProvider>

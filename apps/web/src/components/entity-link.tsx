@@ -3,24 +3,37 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { ArrowUpRight, BookMarked, Flag, UserRound } from 'lucide-react'
 import { cn, Popover, PopoverClose, PopoverContent, PopoverTrigger } from '@zzz/ui'
-import type { EntityKey, Locale } from '@zzz/core'
-import { factionsById, linkableByKey } from '@zzz/story'
+import { knownTextAt, type EntityKey, type Locale } from '@zzz/core'
+import { factionsById, linkableByKey, timeline } from '@zzz/story'
 import { Link } from '@/i18n/navigation'
+import { useContextProgress } from '@/lib/use-entities'
 import { Portrait } from './portrait'
 
-/** Inline, tappable name inside recap text that opens an "intel card" about it. */
+/**
+ * Inline, tappable name inside recap text that opens an "intel card" about it.
+ * `at` is the recap part the name appears in: the card explains it as known at that point.
+ */
 export function EntityLink({
   entityKey,
   children,
   strong,
+  at,
 }: {
   entityKey: EntityKey
   children: string
   strong?: boolean
+  at?: string
 }) {
+  const locale = useLocale() as Locale
   const entity = linkableByKey.get(entityKey)
   if (!entity) return <>{children}</>
   const color = entity.kind === 'character' ? entity.data.color : 'var(--color-primary)'
+  const name =
+    entity.kind === 'character'
+      ? entity.data.name
+      : entity.kind === 'term'
+        ? entity.data.term[locale]
+        : entity.data.name[locale]
   return (
     <Popover>
       <PopoverTrigger
@@ -34,17 +47,19 @@ export function EntityLink({
       >
         {children}
       </PopoverTrigger>
-      <PopoverContent frame={color} side="top" align="center">
-        <EntityCard entityKey={entityKey} />
+      <PopoverContent frame={color} side="top" align="center" aria-label={name}>
+        <EntityCard entityKey={entityKey} at={at} />
       </PopoverContent>
     </Popover>
   )
 }
 
-function EntityCard({ entityKey }: { entityKey: EntityKey }) {
+function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
   const t = useTranslations('entity')
   const locale = useLocale() as Locale
+  const progress = useContextProgress(at)
   const entity = linkableByKey.get(entityKey)!
+  const asOf = at ? <AsOf at={at} /> : null
 
   if (entity.kind === 'character') {
     const c = entity.data
@@ -58,9 +73,10 @@ function EntityCard({ entityKey }: { entityKey: EntityKey }) {
             src={c.image}
             name={c.name}
             color={c.color}
+            focus={c.focus}
+            framing="face"
             sizes="80px"
             monogram="sm"
-            className="object-cover object-top"
           />
         </span>
         <div className="min-w-0">
@@ -71,7 +87,10 @@ function EntityCard({ entityKey }: { entityKey: EntityKey }) {
               {c.factions.map((id) => factionsById.get(id)?.name[locale]).join(' / ')}
             </p>
           )}
-          <p className="mt-2 text-sm leading-snug text-muted">{c.blurb[locale]}</p>
+          <p className="mt-2 text-sm leading-snug text-muted">
+            {knownTextAt(timeline, progress, c.blurb, c.revisions)[locale]}
+          </p>
+          {asOf}
           <MoreLink href={`/characters#character-${c.id}`} label={t('seeAllCharacters')} />
         </div>
       </div>
@@ -80,7 +99,12 @@ function EntityCard({ entityKey }: { entityKey: EntityKey }) {
 
   const isTerm = entity.kind === 'term'
   const title = isTerm ? entity.data.term[locale] : entity.data.name[locale]
-  const body = isTerm ? entity.data.definition[locale] : entity.data.description[locale]
+  const body = knownTextAt(
+    timeline,
+    progress,
+    isTerm ? entity.data.definition : entity.data.description,
+    entity.data.revisions,
+  )[locale]
   const anchor = `/glossary#${entity.kind}-${entity.data.id}`
   return (
     <div className="p-4">
@@ -101,8 +125,24 @@ function EntityCard({ entityKey }: { entityKey: EntityKey }) {
       </Kicker>
       <p className="mt-1 text-2xl relative display leading-none">{title}</p>
       <p className="mt-2 text-sm leading-snug relative text-muted">{body}</p>
+      {asOf}
       <MoreLink href={anchor} label={t('seeGlossary')} />
     </div>
+  )
+}
+
+/** "As of Ch. 1A · The Hideouts": the point of the story this card describes. */
+function AsOf({ at }: { at: string }) {
+  const t = useTranslations('entity')
+  const locale = useLocale() as Locale
+  const segment = timeline.getSegment(at)
+  if (!segment) return null
+  const chapter = timeline.getChapter(segment.chapterId)
+  const part = `${chapter?.label[locale] ?? ''} · ${segment.title[locale]}`
+  return (
+    <p className="mt-2 relative font-mono text-[0.6rem] tracking-[0.12em] text-subtle uppercase">
+      {t('asOf', { part })}
+    </p>
   )
 }
 

@@ -3,8 +3,14 @@
   "compilerOptions": {
     "allowJs": false,
     "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -12,7 +18,9 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts",
     "e2e/**/*.ts",
-    "*.ts"
+    "*.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

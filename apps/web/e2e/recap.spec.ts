@@ -87,12 +87,8 @@ test.describe('accessibility', () => {
       await seedProgress(page, 'i2b-farewell')
       await page.goto(path)
       await page.waitForLoadState('networkidle')
-      const results = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa'])
-        // Decorative glitch/marquee duplicates are aria-hidden; color-contrast on
-        // animated layers is checked manually (docs/adr/0005-motion-system.md).
-        .disableRules(['color-contrast'])
-        .analyze()
+      // Includes colour contrast: the seed sets motion "off", so nothing is measured mid-fade.
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()
       const serious = results.violations.filter((v) =>
         ['serious', 'critical'].includes(v.impact ?? ''),
       )

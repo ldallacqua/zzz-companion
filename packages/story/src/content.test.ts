@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LOCALES } from '@zzz/core'
+import { createEntityMatcher, LOCALES, type LocalizedText, type Revision } from '@zzz/core'
 import {
   characters,
   charactersById,
@@ -89,6 +89,55 @@ describe('story content', () => {
     for (const list of [characters, factions, glossary]) {
       const ids = list.map((i) => i.id)
       expect(new Set(ids).size).toBe(ids.length)
+    }
+  })
+
+  // Every entry text, with the segment from which a reader can see it.
+  const versions = linkableEntities.flatMap((entity) => {
+    const base: LocalizedText =
+      entity.kind === 'character'
+        ? entity.data.blurb
+        : entity.kind === 'term'
+          ? entity.data.definition
+          : entity.data.description
+    const revisions: Revision[] = entity.data.revisions
+    return [
+      { key: entity.key, at: entity.unlockedAt, text: base },
+      ...revisions.map((r) => ({ key: entity.key, at: r.at, text: r.text })),
+    ]
+  })
+
+  it('revisions come after the entry is unlocked, in story order', () => {
+    for (const entity of linkableEntities) {
+      let previous = timeline.orderOf(entity.unlockedAt)
+      for (const revision of entity.data.revisions) {
+        const order = timeline.orderOf(revision.at)
+        expect(order, `${entity.key} revision → unknown segment ${revision.at}`).not.toBe(-1)
+        expect(
+          order,
+          `${entity.key} revision at ${revision.at} is not after the previous text`,
+        ).toBeGreaterThan(previous)
+        previous = order
+      }
+    }
+  })
+
+  it('no entry text names anything the reader has not met by the time it is shown', () => {
+    for (const locale of LOCALES) {
+      const matcher = createEntityMatcher(
+        linkableEntities.map((e) => ({ key: e.key, aliases: e.aliases[locale] })),
+      )
+      const unlockedAtByKey = new Map(linkableEntities.map((e) => [e.key, e.unlockedAt]))
+      for (const version of versions) {
+        const shownAt = timeline.orderOf(version.at)
+        for (const match of version.text[locale].matchAll(matcher.pattern!)) {
+          const key = matcher.keyByAlias.get(match[0])!
+          expect(
+            timeline.orderOf(unlockedAtByKey.get(key)!),
+            `${version.key} (${locale}, from ${version.at}) mentions ${key} before it is unlocked`,
+          ).toBeLessThanOrEqual(shownAt)
+        }
+      }
     }
   })
 })

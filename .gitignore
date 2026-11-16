@@ -15,3 +15,7 @@ next-env.d.ts
 
 # Local tool config
 .claude/
+
+# Lighthouse CI + Storybook build output
+.lighthouseci/
+storybook-static/

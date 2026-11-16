@@ -7,6 +7,7 @@ import { CheckCheck, CircleDashed, Info, Tv } from 'lucide-react'
 import {
   Badge,
   Button,
+  cn,
   ease,
   Panel,
   ProgressTicks,
@@ -63,24 +64,31 @@ export function RecapView() {
         </div>
       </PageHeading>
 
-      {!story.hydrated ? (
-        <p className="py-20 text-sm text-center font-mono text-muted" role="status">
-          …
-        </p>
-      ) : story.recap.length === 0 ? (
-        <EmptyRecap onPick={() => setPickerOpen(true)} />
-      ) : (
-        <Timeline chapters={story.recap} mode={mode} />
-      )}
+      <div className="min-h-[70dvh]">
+        {story.hydrated && story.recap.length > 0 ? (
+          <Timeline chapters={story.recap} mode={mode} />
+        ) : (
+          <EmptyRecap pending={!story.hydrated} onPick={() => setPickerOpen(true)} />
+        )}
+      </div>
     </>
   )
 }
 
-function EmptyRecap({ onPick }: { onPick: () => void }) {
+/**
+ * Shown to readers without progress. Before hydration (`pending`) it is already in the HTML, so a
+ * first visit paints it immediately; the boot script marks <html data-progress="set"> for readers
+ * with saved progress, and for them it stays invisible until their timeline replaces it.
+ */
+function EmptyRecap({ onPick, pending }: { onPick: () => void; pending: boolean }) {
   const t = useTranslations('recap')
   const tp = useTranslations('progress')
   return (
-    <Panel className="mt-6 max-w-xl mx-auto" innerClassName="p-8 text-center">
+    <Panel
+      className={cn('mt-6 max-w-xl mx-auto', pending && 'in-data-[progress=set]:invisible')}
+      innerClassName="p-8 text-center"
+      aria-busy={pending || undefined}
+    >
       <Tv className="size-10 mx-auto text-primary" aria-hidden />
       <h2 className="mt-4 text-4xl display">{t('emptyTitle')}</h2>
       <p className="mt-3 text-muted">{t('emptyBody')}</p>
@@ -91,16 +99,31 @@ function EmptyRecap({ onPick }: { onPick: () => void }) {
   )
 }
 
+/** Timeline geometry (md+): the spine and every chapter node share one axis. */
+const SPINE_X = '1rem'
+const TIMELINE_PAD = '3.5rem'
+
 function Timeline({ chapters, mode }: { chapters: RecapChapter[]; mode: RecapMode }) {
   const t = useTranslations('recap')
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 70%', 'end 70%'] })
+  // Starts filling when the timeline reaches 70% of the viewport and is full once its end is on
+  // screen — so the spine always reaches the "you're caught up" card at the bottom of the page.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 70%', 'end end'] })
   const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
 
   return (
-    <div ref={ref} className="md:pl-14 relative" data-testid="recap-timeline">
-      {/* Scroll-linked spine (md+) */}
-      <div className="top-0 bottom-0 left-4 w-0.5 md:block absolute hidden bg-border" aria-hidden>
+    <div
+      ref={ref}
+      className="md:pl-(--timeline-pad) relative"
+      style={{ ['--timeline-pad' as string]: TIMELINE_PAD }}
+      data-testid="recap-timeline"
+    >
+      {/* Scroll-linked spine (md+), 2px wide, centred on SPINE_X */}
+      <div
+        className="top-0 bottom-0 w-0.5 md:block absolute hidden -translate-x-1/2 bg-border"
+        style={{ left: SPINE_X }}
+        aria-hidden
+      >
         <motion.div className="h-full w-full origin-top bg-primary" style={{ scaleY: fill }} />
       </div>
 
@@ -129,10 +152,10 @@ function ChapterBlock({ chapter, mode }: { chapter: RecapChapter; mode: RecapMod
   const locale = useLocale() as Locale
   return (
     <section aria-labelledby={`ch-${chapter.id}`} className="relative">
-      {/* Node on the spine */}
+      {/* Node on the spine: centred on the spine's axis (see SPINE_X), whatever the padding */}
       <span
-        className="top-6 size-4 md:block absolute -left-[2.65rem] hidden rotate-45"
-        style={{ backgroundColor: chapter.accent }}
+        className="top-6 size-4 md:block absolute hidden -translate-x-1/2 rotate-45 ring-4 ring-background"
+        style={{ backgroundColor: chapter.accent, left: `calc(${SPINE_X} - ${TIMELINE_PAD})` }}
         aria-hidden
       />
       {/* VHS tape label */}
@@ -251,6 +274,7 @@ function SegmentCard({
         >
           {mode === 'tldr' ? (
             <RichBlock
+              at={segment.id}
               paragraphs={[segment.tldr[locale]]}
               render={(children) => (
                 <p
@@ -264,6 +288,7 @@ function SegmentCard({
           ) : (
             <div className="space-y-3 leading-relaxed sm:text-base text-[0.98rem] text-muted">
               <RichBlock
+                at={segment.id}
                 paragraphs={segment.summary[locale]}
                 render={(children) => <p>{children}</p>}
               />
