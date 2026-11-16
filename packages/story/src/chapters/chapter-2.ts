@@ -22,7 +22,10 @@ export const chapter2a = {
     {
       id: 'c2a-belobog',
       title: { en: 'Belobog Calls', 'pt-BR': 'A Belobog chama' },
-      episodes: ['Assigned Commission', 'Problem Child'],
+      episodes: {
+        en: ['Assigned Commission', 'Problem Child'],
+        'pt-BR': ['Comissão Designada', 'Criança Problemática'],
+      },
       characters: ['anton', 'ben', 'grace', 'koleda', 'fairy'],
       tldr: {
         en: 'Short on money, Phaethon takes a mysterious, well-paid job: Belobog Industries, now running the metro project, needs three runaway smart machines brought home.',
@@ -43,7 +46,10 @@ export const chapter2a = {
     {
       id: 'c2a-machines',
       title: { en: 'Problem Children', 'pt-BR': 'Filhos problemáticos' },
-      episodes: ['The Essence of Being a Bro', 'The Only Embrace', 'Savior’s Mission'],
+      episodes: {
+        en: ['The Essence of Being a Bro', 'The Only Embrace', 'Savior’s Mission'],
+        'pt-BR': ['Ser um Homem de Verdade', 'O Único Abraço', 'A Missão do Salvador'],
+      },
       characters: ['anton', 'ben', 'grace', 'koleda'],
       tldr: {
         en: 'Each runaway machine has grown a personality — a self-proclaimed “bro”, a lovestruck borer and a pile driver ranting about a seal and its mentor, Khors.',
@@ -64,7 +70,7 @@ export const chapter2a = {
     {
       id: 'c2a-khors',
       title: { en: 'That Name', 'pt-BR': 'Aquele nome' },
-      episodes: ['That Name'],
+      episodes: { en: ['That Name'], 'pt-BR': ['Aquele Nome'] },
       characters: ['koleda', 'grace', 'ben', 'anton', 'khors'],
       tldr: {
         en: 'Khors Belobog — Koleda’s father — vanished the night before the old capital fell, accused of stealing company funds; now a signal from his lost prototype is calling the machines.',
@@ -105,7 +111,10 @@ export const chapter2b = {
     {
       id: 'c2b-sisters',
       title: { en: 'Sisters', 'pt-BR': 'Irmãs' },
-      episodes: ['Searching for the Prototype', 'Sisters'],
+      episodes: {
+        en: ['Searching for the Prototype', 'Sisters'],
+        'pt-BR': ['A Busca pelo Protótipo', 'Irmãs'],
+      },
       characters: ['koleda', 'grace', 'anton', 'ben', 'fairy'],
       tldr: {
         en: 'Using the three machines as relays, Belobog triangulates the prototype — and Grace’s reckless stand finally gets Koleda to say what she saw the night Khors left.',
@@ -126,7 +135,10 @@ export const chapter2b = {
     {
       id: 'c2b-monster',
       title: { en: 'The Monster in the Monument', 'pt-BR': 'O monstro no monumento' },
-      episodes: ['Steel Devourer', 'Call That Name'],
+      episodes: {
+        en: ['Steel Devourer', 'Call That Name'],
+        'pt-BR': ['Devorador de Aço', 'Chamando Aquele Nome'],
+      },
       characters: ['koleda', 'grace', 'anton', 'ben', 'fairy', 'belle', 'wise'],
       tldr: {
         en: 'The prototype holds a receipt that clears Khors — and the monument hides a monster that devours Belobog’s machines until Koleda pilots her father’s machine.',

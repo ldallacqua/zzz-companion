@@ -27,6 +27,35 @@ export const Primary: Story = {
   },
 }
 
+/**
+ * Keyboard focus is drawn *inside* the chamfered shape (an outer outline would be cut off by the
+ * clip-path), dark on the lime fill and lime on everything else.
+ */
+export const KeyboardFocus: Story = {
+  render: (args) => (
+    <div className="gap-3 flex flex-wrap items-center">
+      <Button {...args}>Primary</Button>
+      <Button {...args} variant="outline" size="sm">
+        Outline
+      </Button>
+    </div>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    for (const name of ['Primary', 'Outline']) {
+      await userEvent.tab()
+      const button = canvas.getByRole('button', { name })
+      await expect(button).toHaveFocus()
+      const style = getComputedStyle(button)
+      await expect(style.outlineStyle).toBe('solid')
+      await expect(parseFloat(style.outlineOffset)).toBeLessThan(0)
+    }
+    // sm buttons are still a 40px tap target.
+    await expect(
+      canvas.getByRole('button', { name: 'Outline' }).offsetHeight,
+    ).toBeGreaterThanOrEqual(40)
+  },
+}
+
 export const Variants: Story = {
   render: (args) => (
     <div className="gap-3 flex flex-wrap items-center">

@@ -228,25 +228,18 @@ export const characters = [
   },
   {
     id: 'sarah',
-    revisions: [
-      {
-        at: 'c1b-butcher',
-        text: {
-          en: 'The woman in red who revealed herself as the real mind behind Vision’s demolition plan — and vanished before she could be caught.',
-          'pt-BR':
-            'A mulher de vermelho que se revelou a verdadeira mente por trás do plano de demolição da Visão — e sumiu antes de ser pega.',
-        },
-      },
-    ],
     name: 'Sarah',
-    unlockedAt: 'c1a-client',
+    // She appears in c1a only as "a woman in red": her name is first given in c1b-butcher, so
+    // that's where she unlocks (her name shows on avatars and cards).
+    unlockedAt: 'c1b-butcher',
     factions: ['vision'],
     color: '#e8364f',
     image: img('6/60/NPC_Sarah_Floren_Icon.png/revision/latest?cb=20250408183612'),
     focus: { x: 0.52, y: 0.37, zoom: 1.05 },
     blurb: {
-      en: 'A woman in red at Perlman’s side, quick to shut down awkward questions.',
-      'pt-BR': 'Uma mulher de vermelho ao lado de Perlman, rápida em encerrar perguntas incômodas.',
+      en: 'The woman in red at Perlman’s side, who revealed herself as the real mind behind Vision’s demolition plan — and vanished before she could be caught.',
+      'pt-BR':
+        'A mulher de vermelho ao lado de Perlman, que se revelou a verdadeira mente por trás do plano de demolição da Visão — e sumiu antes de ser pega.',
     },
   },
   {

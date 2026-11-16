@@ -24,6 +24,8 @@ export const CaughtUp: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByTestId('recap-timeline')).toBeInTheDocument()
     await expect(canvas.getByTestId('segment-i2b-farewell')).toBeInTheDocument()
+    // The end of the recap offers the next step instead of a dead end.
+    await expect(canvas.getByRole('button', { name: /update your progress/i })).toBeVisible()
   },
 }
 
@@ -37,6 +39,19 @@ export const JustStarted: Story = {
 
 export const TldrMode: Story = { parameters: { companion: { recapMode: 'tldr' } } }
 
-export const NoProgress: Story = { parameters: { companion: { lastSegmentId: null } } }
+/** No progress yet: one clear call to action, and no reading controls that would do nothing. */
+export const NoProgress: Story = {
+  parameters: { companion: { lastSegmentId: null } },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('button', { name: /set my progress/i })).toBeVisible()
+    await expect(canvas.queryByRole('radiogroup')).toBeNull()
+  },
+}
 
-export const Portuguese: Story = { globals: { locale: 'pt-BR' } }
+/** pt-BR, with episode names as the Portuguese game client shows them. */
+export const Portuguese: Story = {
+  globals: { locale: 'pt-BR' },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByTestId('segment-p-strongbox')).toHaveTextContent('Uma Surpresa')
+  },
+}

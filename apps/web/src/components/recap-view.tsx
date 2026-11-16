@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { CheckCheck, CircleDashed, Info, Tv } from 'lucide-react'
+import { ArrowUpRight, CheckCheck, CircleDashed, Info, Tv } from 'lucide-react'
 import {
   Badge,
   Button,
@@ -13,6 +13,7 @@ import {
   ProgressTicks,
   Reveal,
   RevealItem,
+  riseInSolid,
   Segmented,
   slideInLeft,
 } from '@zzz/ui'
@@ -31,6 +32,7 @@ export function RecapView() {
   const mode = useCompanion((s) => s.recapMode)
   const setMode = useCompanion((s) => s.setRecapMode)
   const setPickerOpen = useUi((s) => s.setPickerOpen)
+  const hasRecap = story.hydrated && story.recap.length > 0
 
   return (
     <>
@@ -42,11 +44,19 @@ export function RecapView() {
               done={story.hydrated ? story.doneCount : 0}
               label={tp('ratio', { done: story.doneCount, total: story.totalCount })}
             />
-            <p className="mt-2 text-xs font-mono text-muted">
+            {/* Same text as the progress bar's label: visible, but announced only once. */}
+            <p className="mt-2 text-xs font-mono text-muted" aria-hidden>
               {tp('ratio', { done: story.doneCount, total: story.totalCount })}
             </p>
           </div>
-          <div className="gap-3 sm:flex-row sm:items-center flex flex-col">
+          {/* Reading controls only make sense with a recap to read. Before hydration, readers
+              with saved progress (data-progress="set") already get them, so nothing shifts. */}
+          <div
+            className={cn(
+              'gap-3 sm:flex-row sm:items-center flex flex-col',
+              !story.hydrated ? 'hidden in-data-[progress=set]:flex' : !hasRecap && 'hidden',
+            )}
+          >
             <Segmented<RecapMode>
               label={t('mode')}
               layoutId="recap-mode"
@@ -65,8 +75,8 @@ export function RecapView() {
       </PageHeading>
 
       <div className="min-h-[70dvh]">
-        {story.hydrated && story.recap.length > 0 ? (
-          <Timeline chapters={story.recap} mode={mode} />
+        {hasRecap ? (
+          <Timeline chapters={story.recap} mode={mode} onUpdate={() => setPickerOpen(true)} />
         ) : (
           <EmptyRecap pending={!story.hydrated} onPick={() => setPickerOpen(true)} />
         )}
@@ -103,7 +113,15 @@ function EmptyRecap({ onPick, pending }: { onPick: () => void; pending: boolean 
 const SPINE_X = '1rem'
 const TIMELINE_PAD = '3.5rem'
 
-function Timeline({ chapters, mode }: { chapters: RecapChapter[]; mode: RecapMode }) {
+function Timeline({
+  chapters,
+  mode,
+  onUpdate,
+}: {
+  chapters: RecapChapter[]
+  mode: RecapMode
+  onUpdate: () => void
+}) {
   const t = useTranslations('recap')
   const ref = useRef<HTMLDivElement>(null)
   // Starts filling when the timeline reaches 70% of the viewport and is full once its end is on
@@ -137,9 +155,13 @@ function Timeline({ chapters, mode }: { chapters: RecapChapter[]; mode: RecapMod
         <RevealItem>
           <Panel frame="var(--color-primary)" innerClassName="p-6 sm:p-8">
             <p className="text-xs font-mono tracking-[0.3em] text-primary uppercase">
-              ■ {t('endTitle')}
+              <span aria-hidden>■ </span>
+              {t('endTitle')}
             </p>
             <p className="mt-2 max-w-xl text-muted">{t('endBody')}</p>
+            <Button variant="outline" size="sm" className="mt-5" onClick={onUpdate}>
+              {t('endCta')}
+            </Button>
           </Panel>
         </RevealItem>
       </Reveal>
@@ -197,30 +219,35 @@ function ChapterBlock({ chapter, mode }: { chapter: RecapChapter; mode: RecapMod
         </div>
       </Reveal>
 
-      <Reveal className="space-y-4">
+      {/* One reveal per card: a chapter is taller than a phone screen, so revealing the whole
+          list at once would keep cards hidden until most of the chapter had scrolled by. */}
+      <div className="space-y-4">
         {chapter.segments.map((segment, i) => (
-          <RevealItem key={segment.id}>
+          <Reveal key={segment.id} variants={riseInSolid}>
             <SegmentCard segment={segment} index={i} mode={mode} accent={chapter.accent} />
-          </RevealItem>
+          </Reveal>
         ))}
-      </Reveal>
+      </div>
 
-      <p className="mt-4 tracking-wide font-mono text-[0.65rem] text-subtle">
-        {t('sources')}:{' '}
-        {chapter.sources.map((s, i) => (
-          <span key={s.url}>
-            {i > 0 && ' · '}
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-2 hover:text-primary"
-            >
-              {s.label}
-            </a>
-          </span>
-        ))}
-      </p>
+      <div className="mt-3 gap-x-2 tracking-wide flex flex-wrap items-center font-mono text-[0.65rem] text-subtle">
+        <span>{t('sources')}:</span>
+        <ul className="gap-x-4 flex flex-wrap">
+          {chapter.sources.map((s) => (
+            <li key={s.url}>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                className="min-h-10 gap-1 inline-flex items-center underline underline-offset-2 hover:text-primary"
+              >
+                {s.label}
+                <ArrowUpRight className="size-3 shrink-0" aria-hidden />
+                <span className="sr-only"> ({t('newTab')})</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }
@@ -238,9 +265,10 @@ function SegmentCard({
 }) {
   const t = useTranslations('recap')
   const locale = useLocale() as Locale
+  const partial = segment.confidence === 'partial'
   return (
     <Panel innerClassName="p-5 sm:p-7" data-testid={`segment-${segment.id}`}>
-      <div className="gap-x-4 gap-y-2 flex flex-wrap items-start">
+      <div className="gap-4 flex items-start">
         <span
           className="text-5xl sm:text-6xl display leading-none text-outline"
           style={{ color: accent }}
@@ -251,61 +279,70 @@ function SegmentCard({
         <div className="min-w-0 flex-1">
           <p className="font-mono text-[0.65rem] tracking-[0.18em] text-subtle uppercase">
             <span className="sr-only">{t('partNumber', { n: index + 1 })} — </span>
-            {t('episodes')}: {segment.episodes.join(' · ')}
+            {t('episodes')}: {segment.episodes[locale].join(' · ')}
           </p>
           <h3 className="mt-1 text-2xl sm:text-3xl display">{segment.title[locale]}</h3>
+          {partial && (
+            <Badge variant="warning" className="mt-2">
+              <Info className="size-3" aria-hidden />
+              {t('partial')}
+            </Badge>
+          )}
         </div>
-        {segment.confidence === 'partial' && (
-          <Badge variant="warning" title={t('partialHint')}>
-            <Info className="size-3" aria-hidden />
-            {t('partial')}
-          </Badge>
-        )}
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={mode}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25, ease: ease.outExpo }}
-          className="mt-4"
-        >
-          {mode === 'tldr' ? (
-            <RichBlock
-              at={segment.id}
-              paragraphs={[segment.tldr[locale]]}
-              render={(children) => (
-                <p
-                  className="pl-4 text-base leading-relaxed sm:text-lg border-l-2 text-foreground/90"
-                  style={{ borderColor: accent }}
-                >
-                  {children}
-                </p>
+      {/* Text column capped at a comfortable line length; on wide screens the featured
+          characters take the space to its right. */}
+      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,35rem)_1fr] lg:gap-10">
+        <div className="min-w-0 max-w-[35rem]">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={mode}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: ease.outExpo }}
+            >
+              {mode === 'tldr' ? (
+                <RichBlock
+                  at={segment.id}
+                  paragraphs={[segment.tldr[locale]]}
+                  render={(children) => (
+                    <p
+                      className="pl-4 text-base leading-relaxed sm:text-lg border-l-2 text-foreground/90"
+                      style={{ borderColor: accent }}
+                    >
+                      {children}
+                    </p>
+                  )}
+                />
+              ) : (
+                <div className="space-y-3 leading-relaxed sm:text-base text-[0.98rem] text-muted">
+                  <RichBlock
+                    at={segment.id}
+                    paragraphs={segment.summary[locale]}
+                    render={(children) => <p>{children}</p>}
+                  />
+                </div>
               )}
-            />
-          ) : (
-            <div className="space-y-3 leading-relaxed sm:text-base text-[0.98rem] text-muted">
-              <RichBlock
-                at={segment.id}
-                paragraphs={segment.summary[locale]}
-                render={(children) => <p>{children}</p>}
-              />
-            </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {partial && (
+            <p className="mt-4 gap-2 text-xs flex items-start text-warning/80">
+              <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+              {t('partialHint')}
+            </p>
           )}
-        </motion.div>
-      </AnimatePresence>
+        </div>
 
-      {segment.confidence === 'partial' && mode === 'full' && (
-        <p className="mt-4 gap-2 text-xs flex items-start text-warning/80">
-          <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-          {t('partialHint')}
-        </p>
-      )}
-
-      <div className="mt-5 pt-4 border-t border-border">
-        <AvatarStack ids={segment.characters} label={t('featuring')} />
+        <div className="mt-5 pt-4 lg:mt-0 lg:pt-0 lg:pl-6 lg:self-start lg:border-t-0 lg:border-l border-t border-border">
+          <AvatarStack
+            ids={segment.characters}
+            label={t('featuring')}
+            listLabel={t('featuringList')}
+          />
+        </div>
       </div>
     </Panel>
   )

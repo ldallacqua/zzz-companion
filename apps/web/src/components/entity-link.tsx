@@ -160,7 +160,7 @@ function MoreLink({ href, label }: { href: string; label: string }) {
     <PopoverClose asChild>
       <Link
         href={href}
-        className="mt-3 gap-1 font-semibold relative inline-flex items-center font-mono text-[0.65rem] tracking-[0.14em] text-foreground uppercase hover:text-primary"
+        className="mt-1 min-h-10 gap-1 font-semibold relative inline-flex items-center font-mono text-[0.65rem] tracking-[0.14em] text-foreground uppercase hover:text-primary"
       >
         {label}
         <ArrowUpRight className="size-3" aria-hidden />

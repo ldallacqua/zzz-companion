@@ -34,14 +34,14 @@ export function SiteHeader() {
       <div className="h-16 max-w-6xl gap-3 px-4 sm:px-6 mx-auto flex items-center">
         <Link href="/" className="group gap-2.5 flex items-center" aria-label="ZZZ Companion">
           <GameMark className="h-9 transition-transform duration-300 group-hover:-skew-x-6" />
-          <span className="leading-tight sm:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase transition-colors group-hover:text-primary">
+          <span className="leading-tight lg:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase transition-colors group-hover:text-primary">
             {'//'}
             <br />
             Companion
           </span>
         </Link>
 
-        <nav aria-label={t('nav.main')} className="ml-6 gap-1 md:flex hidden items-center">
+        <nav aria-label={t('nav.main')} className="ml-2 gap-1 lg:ml-6 md:flex hidden items-center">
           {NAV.map(({ href, key }) => {
             const active = isActive(pathname, href)
             return (
@@ -67,12 +67,12 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="gap-2 ml-auto flex items-center">
+        <div className="min-w-0 gap-2 ml-auto flex items-center">
           <button
             type="button"
             onClick={() => setPickerOpen(true)}
             data-testid="progress-chip"
-            className="h-10 min-w-0 gap-2 px-3 flex cursor-pointer items-center bg-surface-2 text-left transition-colors chamfer-sm hover:bg-surface-3"
+            className="h-10 min-w-0 gap-2 px-3 flex cursor-pointer items-center bg-surface-2 text-left focus-inset transition-colors chamfer-sm hover:bg-surface-3"
           >
             <span
               className="motion-ambient size-2 shrink-0 animate-[blink_1.4s_steps(2,start)_infinite] bg-primary"
@@ -82,12 +82,20 @@ export function SiteHeader() {
               <span className="font-mono text-[0.6rem] tracking-[0.2em] text-subtle uppercase">
                 {t('progress.chip')}
               </span>
-              <span className="text-xs font-semibold truncate font-mono">
-                {!story.hydrated
-                  ? '—'
-                  : story.currentChapter
-                    ? `${story.currentChapter.label[locale]} · ${story.doneCount}/${story.totalCount}`
-                    : t('progress.notSet')}
+              {/* Long chapter names truncate; the part count always stays visible. */}
+              <span className="text-xs font-semibold min-w-0 flex font-mono">
+                {!story.hydrated ? (
+                  '—'
+                ) : story.currentChapter ? (
+                  <>
+                    <span className="truncate">{story.currentChapter.label[locale]}</span>
+                    <span className="shrink-0 whitespace-pre">
+                      {` · ${story.doneCount}/${story.totalCount}`}
+                    </span>
+                  </>
+                ) : (
+                  <span className="truncate">{t('progress.notSet')}</span>
+                )}
               </span>
             </span>
           </button>
@@ -95,7 +103,7 @@ export function SiteHeader() {
             type="button"
             onClick={() => setSettingsOpen(true)}
             aria-label={t('nav.settings')}
-            className="size-10 grid cursor-pointer place-items-center bg-surface-2 transition-colors chamfer-sm hover:bg-primary hover:text-primary-foreground"
+            className="size-10 grid shrink-0 cursor-pointer place-items-center bg-surface-2 focus-inset transition-colors chamfer-sm hover:bg-primary hover:text-primary-foreground"
           >
             <Settings2 className="size-5" />
           </button>

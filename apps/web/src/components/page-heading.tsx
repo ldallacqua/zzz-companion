@@ -18,16 +18,16 @@ export function PageHeading({
   return (
     <header className="pt-10 pb-8 sm:pt-14 relative">
       <motion.p
-        initial={{ opacity: 0, x: -24 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ x: -24 }}
+        animate={{ x: 0 }}
         transition={{ duration: 0.5, ease: ease.outExpo }}
         className="gap-3 text-xs font-semibold flex items-center font-mono tracking-[0.3em] text-primary uppercase"
       >
         <span className="w-8 h-px bg-primary" aria-hidden />
         {kicker}
       </motion.p>
-      {/* The title is usually the LCP element: it slides in but is never invisible (no opacity
-          fade), so it paints with the HTML instead of waiting for JavaScript. */}
+      {/* The title is usually the LCP element: like the kicker, it slides in but is never invisible
+          (no opacity fade), so it paints with the HTML instead of waiting for JavaScript. */}
       <motion.h1
         initial={{ y: 30, skewX: -8 }}
         animate={{ y: 0, skewX: 0 }}

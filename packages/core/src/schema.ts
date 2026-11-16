@@ -39,8 +39,14 @@ export type Confidence = z.infer<typeof ConfidenceSchema>
 export const SegmentSchema = z.object({
   id: IdSchema,
   title: LocalizedTextSchema,
-  /** In-game episode names this segment covers, as shown in the English client. */
-  episodes: z.array(nonEmpty).min(1),
+  /**
+   * In-game episode names this segment covers, as each language's game client shows them (the
+   * wiki's "Other Languages" table on each episode page). Same episodes, same order, per locale.
+   */
+  episodes: localized(z.array(nonEmpty).min(1)).refine(
+    (e) => e.en.length === e['pt-BR'].length,
+    'Every locale must list the same number of episodes',
+  ),
   /** One-sentence version for the TL;DR mode. */
   tldr: LocalizedTextSchema,
   /** Full recap. Supports **bold** inline markup only. */

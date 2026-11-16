@@ -15,7 +15,7 @@ const t = (s: string) => ({ en: s, 'pt-BR': s })
 const segment = (id: string) => ({
   id,
   title: t(id),
-  episodes: [id],
+  episodes: { en: [id], 'pt-BR': [id] },
   tldr: t(`${id} tldr`),
   summary: { en: [`${id} summary`], 'pt-BR': [`${id} resumo`] },
 })

@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, screen, waitFor } from 'storybook/test'
 import { Button } from './button'
@@ -45,5 +46,37 @@ export const Open: Story = {
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Open settings' }))
     await expect(await screen.findByRole('dialog', { name: 'Where are you?' })).toBeVisible()
+  },
+}
+
+function OpenedFromState(args: React.ComponentProps<typeof SheetContent>) {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <>
+      <Button variant="outline" onClick={() => setOpen(true)}>
+        Change progress
+      </Button>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent {...args}>
+          <p className="text-muted">Opened from app state: there is no SheetTrigger.</p>
+        </SheetContent>
+      </Sheet>
+    </>
+  )
+}
+
+/**
+ * The app opens its sheets from state (several buttons can open the same sheet). Closing must
+ * still return focus to the button that opened it, not drop it on <body>.
+ */
+export const OpenedFromAppState: Story = {
+  render: (args) => <OpenedFromState {...args} />,
+  play: async ({ canvas, userEvent }) => {
+    const opener = canvas.getByRole('button', { name: 'Change progress' })
+    await userEvent.click(opener)
+    await expect(await screen.findByRole('dialog', { name: 'Settings' })).toBeVisible()
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    await waitFor(() => expect(opener).toHaveFocus())
   },
 }

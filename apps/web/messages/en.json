@@ -66,7 +66,10 @@
     "endBody": "That's everything up to your progress. Keep playing and come back for the next part.",
     "chapterDone": "Chapter complete",
     "chapterOngoing": "In progress",
-    "partNumber": "Part {n}"
+    "partNumber": "Part {n}",
+    "endCta": "Played more? Update your progress",
+    "newTab": "opens in a new tab",
+    "featuringList": "Characters in this part"
   },
   "characters": {
     "kicker": "Who's who",
