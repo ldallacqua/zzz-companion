@@ -48,7 +48,7 @@ export function CharactersView() {
                 aria-pressed={active}
                 onClick={() => setFaction(f.id)}
                 className={cn(
-                  'px-3 py-2 font-semibold relative shrink-0 cursor-pointer font-mono text-[0.7rem] tracking-[0.12em] whitespace-nowrap uppercase focus-inset transition-colors',
+                  'px-3 py-2 font-semibold relative isolate shrink-0 cursor-pointer font-mono text-[0.7rem] tracking-[0.12em] whitespace-nowrap uppercase focus-inset transition-colors',
                   active
                     ? 'text-primary-foreground focus-visible:outline-primary-foreground'
                     : 'bg-surface-2 text-muted chamfer-sm hover:text-foreground',
@@ -57,7 +57,7 @@ export function CharactersView() {
                 {active && (
                   <motion.span
                     layoutId="faction-filter"
-                    className="inset-0 absolute bg-primary chamfer-sm"
+                    className="inset-0 absolute -z-10 bg-primary chamfer-sm"
                     transition={spring.snappy}
                   />
                 )}

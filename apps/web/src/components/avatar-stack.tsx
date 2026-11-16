@@ -4,7 +4,17 @@ import { charactersById } from '@zzz/story'
 import { Portrait } from './portrait'
 
 /** Small chamfered portraits for the characters featured in a recap part. */
-export function AvatarStack({ ids, label }: { ids: readonly string[]; label: string }) {
+export function AvatarStack({
+  ids,
+  label,
+  listLabel = label,
+}: {
+  ids: readonly string[]
+  /** Visible caption, e.g. "Featuring". */
+  label: string
+  /** Screen-reader name for the list, when the caption alone says too little. */
+  listLabel?: string
+}) {
   const people = ids.map((id) => charactersById.get(id)).filter((c) => c !== undefined)
   if (people.length === 0) return null
   return (
@@ -15,7 +25,7 @@ export function AvatarStack({ ids, label }: { ids: readonly string[]; label: str
       >
         {label}
       </span>
-      <ul className="gap-1.5 flex flex-wrap" aria-label={label}>
+      <ul className="gap-1.5 flex flex-wrap" aria-label={listLabel}>
         {people.map((c) => (
           <li key={c.id} title={c.name}>
             <span

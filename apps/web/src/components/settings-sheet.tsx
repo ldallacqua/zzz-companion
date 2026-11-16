@@ -62,6 +62,7 @@ export function SettingsSheet() {
           <Segmented<MotionPreference>
             label={t('motion')}
             layoutId="settings-motion"
+            className="grid grid-cols-2"
             value={motion}
             onValueChange={setMotion}
             options={[

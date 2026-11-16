@@ -68,7 +68,8 @@
     "chapterOngoing": "In progress",
     "partNumber": "Part {n}",
     "endCta": "Played more? Update your progress",
-    "newTab": "opens in a new tab"
+    "newTab": "opens in a new tab",
+    "featuringList": "Characters in this part"
   },
   "characters": {
     "kicker": "Who's who",

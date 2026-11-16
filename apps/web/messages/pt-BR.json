@@ -68,7 +68,8 @@
     "chapterOngoing": "Em andamento",
     "partNumber": "Parte {n}",
     "endCta": "Jogou mais? Atualize seu progresso",
-    "newTab": "abre em uma nova aba"
+    "newTab": "abre em uma nova aba",
+    "featuringList": "Personagens nesta parte"
   },
   "characters": {
     "kicker": "Quem é quem",

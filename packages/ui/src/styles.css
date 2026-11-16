@@ -242,7 +242,7 @@
   animation: none !important;
 }
 /* Reduced: popovers, sheets and dialogs (tw-animate-css) fade, but don't zoom or slide. */
-:root[data-motion='reduced'] :is(.animate-in, .animate-out) {
+:root[data-motion='reduced'] :is([class*='animate-in'], [class*='animate-out']) {
   --tw-enter-scale: 1;
   --tw-enter-translate-x: 0;
   --tw-enter-translate-y: 0;

@@ -147,7 +147,10 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
   `chamfer`, `halftone`, `scanlines`, `display`…). No raw hex colors in components except content
   accents that come from data.
 - Focus: a focusable element with a `chamfer*` clip-path adds `focus-inset` (the clip would cut an
-  outer focus ring); on a lime fill also `focus-visible:outline-primary-foreground`.
+  outer focus ring); on a lime fill also `focus-visible:outline-primary-foreground`. A selected
+  highlight drawn by a child layer (e.g. a sliding `motion.span`) gets `-z-10` and the control
+  gets `isolate`, so the highlight sits under the ring instead of covering it. `e2e/focus.spec.ts`
+  checks this with pixels, with motion on.
 - Scroll reveals wrap one card each, never a whole long list (`Reveal` fires when any part is on
   screen; a list taller than a phone would stay hidden). Reading text uses `riseInSolid`.
 - Commits: Conventional Commits (`feat:`, `fix:`, `content:`, `docs:`…).

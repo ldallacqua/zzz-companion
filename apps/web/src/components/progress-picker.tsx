@@ -112,7 +112,7 @@ export function ProgressPicker() {
                                 aria-pressed={selected}
                                 data-testid={`pick-${segment.id}`}
                                 className={cn(
-                                  'gap-3 px-3 py-2.5 relative flex w-full cursor-pointer items-start text-left focus-inset transition-colors',
+                                  'gap-3 px-3 py-2.5 relative isolate flex w-full cursor-pointer items-start text-left focus-inset transition-colors',
                                   selected
                                     ? 'text-primary-foreground focus-visible:outline-primary-foreground'
                                     : 'hover:bg-surface-3',
@@ -121,7 +121,7 @@ export function ProgressPicker() {
                                 {selected && (
                                   <motion.span
                                     layoutId="picker-selected"
-                                    className="inset-0 absolute bg-primary chamfer-sm"
+                                    className="inset-0 absolute -z-10 bg-primary chamfer-sm"
                                     transition={spring.snappy}
                                   />
                                 )}

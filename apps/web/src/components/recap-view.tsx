@@ -293,8 +293,8 @@ function SegmentCard({
 
       {/* Text column capped at a comfortable line length; on wide screens the featured
           characters take the space to its right. */}
-      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,68ch)_1fr] lg:gap-10">
-        <div className="min-w-0 max-w-[68ch]">
+      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,35rem)_1fr] lg:gap-10">
+        <div className="min-w-0 max-w-[35rem]">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={mode}
@@ -337,7 +337,11 @@ function SegmentCard({
         </div>
 
         <div className="mt-5 pt-4 lg:mt-0 lg:pt-0 lg:pl-6 lg:self-start lg:border-t-0 lg:border-l border-t border-border">
-          <AvatarStack ids={segment.characters} label={t('featuring')} />
+          <AvatarStack
+            ids={segment.characters}
+            label={t('featuring')}
+            listLabel={t('featuringList')}
+          />
         </div>
       </div>
     </Panel>

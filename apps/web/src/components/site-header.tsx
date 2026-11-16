@@ -82,12 +82,20 @@ export function SiteHeader() {
               <span className="font-mono text-[0.6rem] tracking-[0.2em] text-subtle uppercase">
                 {t('progress.chip')}
               </span>
-              <span className="text-xs font-semibold truncate font-mono">
-                {!story.hydrated
-                  ? '—'
-                  : story.currentChapter
-                    ? `${story.currentChapter.label[locale]} · ${story.doneCount}/${story.totalCount}`
-                    : t('progress.notSet')}
+              {/* Long chapter names truncate; the part count always stays visible. */}
+              <span className="text-xs font-semibold min-w-0 flex font-mono">
+                {!story.hydrated ? (
+                  '—'
+                ) : story.currentChapter ? (
+                  <>
+                    <span className="truncate">{story.currentChapter.label[locale]}</span>
+                    <span className="shrink-0 whitespace-pre">
+                      {` · ${story.doneCount}/${story.totalCount}`}
+                    </span>
+                  </>
+                ) : (
+                  <span className="truncate">{t('progress.notSet')}</span>
+                )}
               </span>
             </span>
           </button>

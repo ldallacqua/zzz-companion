@@ -46,7 +46,7 @@ export function Segmented<T extends string>({
             key={option.value}
             value={option.value}
             className={cn(
-              'min-h-10 px-3 py-2 text-xs font-semibold sm:flex-none relative flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase focus-inset transition-colors',
+              'min-h-10 px-3 py-2 text-xs font-semibold sm:flex-none relative isolate flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase focus-inset transition-colors',
               'data-[state=on]:focus-visible:outline-primary-foreground',
               active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
               // No slide when motion is reduced/off: the active option paints its own highlight,
@@ -58,7 +58,7 @@ export function Segmented<T extends string>({
             {active && (
               <motion.span
                 layoutId={layoutId}
-                className="inset-0 absolute bg-primary chamfer-sm in-data-[motion=off]:hidden in-data-[motion=reduced]:hidden"
+                className="inset-0 absolute -z-10 bg-primary chamfer-sm in-data-[motion=off]:hidden in-data-[motion=reduced]:hidden"
                 transition={spring.snappy}
               />
             )}
