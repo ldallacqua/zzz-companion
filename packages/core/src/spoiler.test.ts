@@ -6,6 +6,7 @@ import {
   getProgressRatio,
   getRecap,
   isUnlocked,
+  knownTextAt,
   partitionUnlocked,
 } from './spoiler'
 import { parseInlineMarkup } from './inline-markup'
@@ -111,5 +112,37 @@ describe('parseInlineMarkup', () => {
 
   it('keeps plain text intact', () => {
     expect(parseInlineMarkup('plain')).toEqual([{ type: 'text', value: 'plain' }])
+  })
+})
+
+describe('knownTextAt', () => {
+  const base = t('a stranger')
+  const revisions = [
+    { at: 'd', text: t('cleared of all charges') },
+    { at: 'b', text: t('a suspect') },
+  ]
+  const at = (lastSegmentId: string | null) =>
+    knownTextAt(timeline, { lastSegmentId }, base, revisions)
+
+  it('uses the base text before any revision is reached', () => {
+    expect(at('a').en).toBe('a stranger')
+    expect(at(null).en).toBe('a stranger')
+  })
+
+  it('switches to a revision exactly at its segment', () => {
+    expect(at('b').en).toBe('a suspect')
+    expect(at('c').en).toBe('a suspect')
+  })
+
+  it('picks the latest reached revision, whatever the array order', () => {
+    expect(at('d').en).toBe('cleared of all charges')
+    expect(at('e').en).toBe('cleared of all charges')
+  })
+
+  it('works without revisions and rejects unknown segments', () => {
+    expect(knownTextAt(timeline, { lastSegmentId: 'e' }, base).en).toBe('a stranger')
+    expect(() =>
+      knownTextAt(timeline, { lastSegmentId: 'e' }, base, [{ at: 'zz', text: base }]),
+    ).toThrow()
   })
 })

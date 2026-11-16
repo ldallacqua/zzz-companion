@@ -24,6 +24,16 @@ export const factions = [
   },
   {
     id: 'red-fang',
+    revisions: [
+      {
+        at: 'c1b-train',
+        text: {
+          en: 'A street gang that once took in Canvas Street’s orphans and protected the neighborhood — until Miguel Silver changed. Now it is falling apart.',
+          'pt-BR':
+            'Uma gangue de rua que já acolheu os órfãos da Rua Canvas e protegeu o bairro — até Miguel Silver mudar. Agora ela está se desfazendo.',
+        },
+      },
+    ],
     unlockedAt: 'p-strongbox',
     name: { en: 'Red Fang Gang', 'pt-BR': 'Gangue da Presa Rubra' },
     aliases: { en: ['Red Fang'], 'pt-BR': ['Presa Rubra'] },
@@ -39,13 +49,41 @@ export const factions = [
     name: { en: 'Public Security', 'pt-BR': 'Segurança Pública' },
     aliases: { en: ['PubSec'], 'pt-BR': [] },
     description: {
-      en: 'New Eridu’s police. With an election coming, it is cracking down hard on Proxies.',
+      en: 'New Eridu’s police, hunting the Red Fang Gang after its attack on a research institute.',
       'pt-BR':
-        'A polícia de Nova Eridu. Com a eleição chegando, está apertando o cerco aos Proxies.',
+        'A polícia de Nova Eridu, à caça da Gangue da Presa Rubra depois do ataque a um instituto de pesquisa.',
     },
+    revisions: [
+      {
+        at: 'p-phaethon',
+        text: {
+          en: 'New Eridu’s police. With an election coming, it is cracking down hard on Proxies.',
+          'pt-BR':
+            'A polícia de Nova Eridu. Com a eleição chegando, está apertando o cerco aos Proxies.',
+        },
+      },
+    ],
   },
   {
     id: 'vision',
+    revisions: [
+      {
+        at: 'c1b-captives',
+        text: {
+          en: 'A construction company that won the old capital metro renovation by never paying to relocate the residents — more than a hundred were left inside its blast zone.',
+          'pt-BR':
+            'Uma construtora que venceu a reforma do metrô da antiga capital porque nunca pagou para realocar os moradores — mais de cem ficaram dentro da zona de explosão.',
+        },
+      },
+      {
+        at: 'c1b-butcher',
+        text: {
+          en: 'The construction company whose plan to demolish the old metro with residents still inside was exposed live on TV. Its director was arrested; the woman behind the plan escaped.',
+          'pt-BR':
+            'A construtora cujo plano de demolir o antigo metrô com moradores lá dentro foi exposto ao vivo na TV. O diretor foi preso; a mulher por trás do plano escapou.',
+        },
+      },
+    ],
     unlockedAt: 'c1a-client',
     name: { en: 'Vision Corporation', 'pt-BR': 'Corporação Visão' },
     aliases: { en: ['Vision'], 'pt-BR': ['Visão'] },
@@ -57,6 +95,16 @@ export const factions = [
   },
   {
     id: 'belobog',
+    revisions: [
+      {
+        at: 'c2a-belobog',
+        text: {
+          en: 'A construction and smart-machinery company led by its young president Koleda, now in charge of the old capital metro project.',
+          'pt-BR':
+            'Uma empresa de construção e máquinas inteligentes comandada pela jovem presidente Koleda, agora à frente do projeto do metrô da antiga capital.',
+        },
+      },
+    ],
     unlockedAt: 'c1a-client',
     name: { en: 'Belobog Heavy Industries', 'pt-BR': 'Indústrias Pesadas Belobog' },
     aliases: {

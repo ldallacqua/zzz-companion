@@ -52,9 +52,9 @@ export function HomeView() {
           </motion.p>
           <motion.h1
             variants={{
-              hidden: { opacity: 0, y: 40, skewX: -10 },
+              // LCP element: slides in but stays visible from the first paint (no opacity fade).
+              hidden: { y: 40, skewX: -10 },
               show: {
-                opacity: 1,
                 y: 0,
                 skewX: 0,
                 transition: { duration: 0.8, ease: ease.outExpo },
@@ -66,8 +66,8 @@ export function HomeView() {
           </motion.h1>
           <motion.p
             variants={{
-              hidden: { opacity: 0, y: 12 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+              hidden: { y: 12 },
+              show: { y: 0, transition: { duration: 0.6 } },
             }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-muted"
           >
@@ -75,8 +75,8 @@ export function HomeView() {
           </motion.p>
           <motion.div
             variants={{
-              hidden: { opacity: 0, y: 12 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+              hidden: { y: 12 },
+              show: { y: 0, transition: { duration: 0.6 } },
             }}
             className="mt-8 gap-3 sm:flex-row flex flex-col"
           >
@@ -120,8 +120,8 @@ export function HomeView() {
                     <motion.div
                       key={id}
                       className="relative -mx-[3%] h-[92%] w-[38%]"
-                      initial={{ opacity: 0, y: 40 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ y: 40 }}
+                      animate={{ y: 0 }}
                       transition={{ delay: 0.55 + i * 0.12, duration: 0.7, ease: ease.outExpo }}
                       style={{
                         zIndex: id === 'eous' ? 3 : 2 - i,
@@ -133,9 +133,11 @@ export function HomeView() {
                         name={c.name}
                         color={c.color}
                         alt={c.name}
+                        focus={c.focus}
+                        framing={id === 'eous' ? 'full' : 'bust'}
                         priority
                         sizes="(min-width: 1024px) 18vw, 36vw"
-                        className="object-contain object-bottom drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+                        className="drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                       />
                     </motion.div>
                   )

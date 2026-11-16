@@ -24,9 +24,10 @@ export function AvatarStack({ ids, label }: { ids: readonly string[]; label: str
                 name={c.name}
                 color={c.color}
                 alt={c.name}
+                focus={c.focus}
+                framing="face"
                 sizes="36px"
                 monogram="sm"
-                className="object-cover object-top"
               />
             </span>
           </li>

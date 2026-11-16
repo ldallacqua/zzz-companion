@@ -9,6 +9,12 @@ import { LOCALE_STORAGE_KEY } from '@/lib/locale-preference'
 export type MotionLevel = 'full' | 'reduced' | 'off'
 
 const query = '(prefers-reduced-motion: reduce)'
+
+// bootScript has already set <html data-motion> before any module runs, so animations that
+// start during hydration (before <Providers>' effect) already respect "off".
+if (typeof document !== 'undefined' && document.documentElement.dataset.motion === 'off') {
+  MotionGlobalConfig.skipAnimations = true
+}
 function subscribe(callback: () => void) {
   const mql = window.matchMedia(query)
   mql.addEventListener('change', callback)
@@ -59,7 +65,9 @@ export function Providers({ children }: { children: ReactNode }) {
 }
 
 /**
- * Runs before React hydrates so the first paint already honors the saved motion preference.
- * Mirrors resolveMotion(); keep both in sync.
+ * Runs before React hydrates so the first paint already honors the saved preferences:
+ *  - `data-motion`: the motion level (mirrors resolveMotion(); keep both in sync)
+ *  - `data-progress="set"`: the reader has saved progress (lets static HTML pick the right
+ *    first-paint state, e.g. the recap's empty state is only shown to first-time visitors)
  */
-export const motionBootScript = `(()=>{try{var p=(JSON.parse(localStorage.getItem('zzz-companion')||'{}').state||{}).motion||'system';var r=matchMedia('${query}').matches;document.documentElement.dataset.motion=p==='system'?(r?'reduced':'full'):p}catch(e){}})()`
+export const bootScript = `(()=>{try{var d=document.documentElement,s=JSON.parse(localStorage.getItem('zzz-companion')||'{}').state||{},p=s.motion||'system',r=matchMedia('${query}').matches;d.dataset.motion=p==='system'?(r?'reduced':'full'):p;if(s.lastSegmentId)d.dataset.progress='set'}catch(e){}})()`

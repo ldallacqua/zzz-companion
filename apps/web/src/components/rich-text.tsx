@@ -8,31 +8,36 @@ import { EntityLink } from './entity-link'
 /**
  * Renders a block of recap paragraphs: **bold** markup plus clickable characters/terms
  * (first mention per block only). No dangerouslySetInnerHTML anywhere.
+ *
+ * `at` is the recap part the text belongs to: names are linked and explained as of that part, so
+ * an intel card in Chapter 1 never uses facts from Chapter 2.
  */
 export function RichBlock({
   paragraphs,
   render,
+  at,
 }: {
   paragraphs: readonly string[]
   render: (children: React.ReactNode, index: number) => React.ReactNode
+  at?: string
 }) {
-  const matcher = useEntityMatcher()
+  const matcher = useEntityMatcher(at)
   const blocks = useMemo(() => tokenizeRich(paragraphs, matcher), [paragraphs, matcher])
   return (
     <>
       {blocks.map((tokens, i) => (
-        <Fragment key={i}>{render(<Tokens tokens={tokens} />, i)}</Fragment>
+        <Fragment key={i}>{render(<Tokens tokens={tokens} at={at} />, i)}</Fragment>
       ))}
     </>
   )
 }
 
-function Tokens({ tokens }: { tokens: RichToken[] }) {
+function Tokens({ tokens, at }: { tokens: RichToken[]; at?: string }) {
   return (
     <>
       {tokens.map((token, i) =>
         token.entity ? (
-          <EntityLink key={i} entityKey={token.entity} strong={token.strong}>
+          <EntityLink key={i} entityKey={token.entity} strong={token.strong} at={at}>
             {token.value}
           </EntityLink>
         ) : token.strong ? (

@@ -15,6 +15,8 @@
   &nbsp;·&nbsp;
   <a href="#-architecture">Architecture</a>
   &nbsp;·&nbsp;
+  <a href="https://ldallacqua.github.io/zzz-companion/storybook/">Storybook</a>
+  &nbsp;·&nbsp;
   <a href="AGENTS.md">AI agents</a>
 </p>
 
@@ -24,6 +26,12 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-c6ff2e?labelColor=08080a" />
   <img alt="Languages" src="https://img.shields.io/badge/i18n-EN%20%2B%20PT--BR-c6ff2e?labelColor=08080a" />
   <img alt="AI ready" src="https://img.shields.io/badge/AI--ready-AGENTS.md-c6ff2e?labelColor=08080a" />
+</p>
+
+<p>
+  <a href="https://ldallacqua.github.io/zzz-companion/storybook/"><img alt="Storybook" src="https://img.shields.io/badge/Storybook-every_component-ff4785?logo=storybook&logoColor=white&labelColor=08080a" /></a>
+  <img alt="Accessibility" src="https://img.shields.io/badge/a11y-axe_tested_(WCAG_AA)-c6ff2e?labelColor=08080a" />
+  <img alt="Lighthouse" src="https://img.shields.io/badge/Lighthouse-gated_in_CI-f44b21?logo=lighthouse&logoColor=white&labelColor=08080a" />
 </p>
 
 <p>
@@ -59,17 +67,17 @@ you the story up to exactly that point**, in English or Brazilian Portuguese.
 
 ## ✦ Features
 
-|     | Feature                       | What you get                                                                                                                        |
-| :-: | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, in **TL;DR** or **full** mode — researched from the game's transcripts, with sources. |
-| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                           |
-| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap are tappable and open an intel card — _"wait, who is H.A.N.D.?"_ solved.            |
-| 🗂️  | **Character files**           | Everyone you've met, filterable by faction, described only with what you already know.                                              |
-| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                          |
-| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                            |
-| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                            |
-| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                |
-| 🔒  | **Private by default**        | No account, no tracking. Your progress lives only in your browser.                                                                  |
+|     | Feature                       | What you get                                                                                                                           |
+| :-: | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, in **TL;DR** or **full** mode — researched from the game's transcripts, with sources.    |
+| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                              |
+| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap open an intel card — explained _as of that part of the story_, never with later facts. |
+| 🗂️  | **Character files**           | Everyone you've met, filterable by faction, described only with what you already know.                                                 |
+| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                             |
+| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                               |
+| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                               |
+| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                   |
+| 🔒  | **Private by default**        | No account, no tracking. Your progress lives only in your browser.                                                                     |
 
 ### On the roadmap
 
@@ -86,13 +94,16 @@ pnpm install
 pnpm dev                 # → http://localhost:3000
 ```
 
-| Command            | What it does                                                                    |
-| ------------------ | ------------------------------------------------------------------------------- |
-| `pnpm dev`         | Start the app with hot reload                                                   |
-| `pnpm verify`      | Format check + typecheck + lint + unit & content tests (**definition of done**) |
-| `pnpm e2e`         | Playwright on mobile / tablet / desktop + axe accessibility                     |
-| `pnpm build`       | Production build                                                                |
-| `pnpm screenshots` | Regenerate the README screenshots                                               |
+| Command               | What it does                                                                         |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `pnpm dev`            | Start the app with hot reload                                                        |
+| `pnpm verify`         | Format check + typecheck + lint + unit & content tests (**definition of done**)      |
+| `pnpm e2e`            | Playwright on mobile / tablet / desktop + axe accessibility                          |
+| `pnpm build`          | Production build                                                                     |
+| `pnpm screenshots`    | Regenerate the README screenshots                                                    |
+| `pnpm storybook`      | Storybook for every component (http://localhost:6006)                                |
+| `pnpm test:storybook` | Every story as a test: render + interactions + zero axe violations                   |
+| `pnpm lighthouse`     | Static build + Lighthouse CI (Perf ≥ 90 · A11y 100 · Best Practices ≥ 95 · SEO ≥ 95) |
 
 Requires Node ≥ 22.
 
@@ -115,6 +126,8 @@ flowchart LR
 ```
 
 - **Spoiler gating lives in one place** (`@zzz/core`): the UI never compares story order itself.
+- **Entries are time-aware**: characters, factions and terms carry `revisions` that unlock as the
+  story reveals more, so an intel card in Chapter 1 never uses Chapter 2 facts.
 - **Content is code**: every recap part, character and term is typed data with an `unlockedAt`
   gate, validated by Zod and by integrity tests (no character can appear before they're unlocked).
 - **Local-first**: progress and preferences persist in `localStorage`; the site is fully static and
@@ -122,12 +135,23 @@ flowchart LR
 - Decisions are documented as [ADRs](docs/adr); feature specs live in [`docs/features`](docs/features).
 
 ```
-apps/web          Next.js app — routes, screens, i18n messages
+apps/web          Next.js app — routes, screens, i18n messages, Storybook (.storybook)
 packages/core     Pure TypeScript domain (no React, no I/O)
 packages/story    Story content, characters, factions, glossary
 packages/ui       Design system components + tokens
 docs/             ADRs, feature specs, README assets
 ```
+
+## ✦ Quality gates
+
+Nothing reaches `main` without passing every gate — each one is a CI job on the pull request:
+
+| Gate           | What it guarantees                                                                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                |
+| `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                      |
+| **Storybook**  | [Every component has stories](https://ldallacqua.github.io/zzz-companion/storybook/); each story renders, passes its interactions and has zero axe violations |
+| **Lighthouse** | Home, recap, characters and glossary audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                      |
 
 ## ✦ Built for humans _and_ AI agents
 
@@ -148,9 +172,11 @@ words, gated with `unlockedAt` and translated to both languages**.
 - **Recap text** (`packages/story`) — written for this project after researching the
   [Zenless Zone Zero Wiki](https://zenless-zone-zero.fandom.com/) transcripts; CC BY-SA 4.0 with
   attribution to the wiki.
-- **Game assets** — _Zenless Zone Zero_ and all character art are © HoYoverse / COGNOSPHERE. Art is
-  never committed: it's referenced from the community wiki's CDN and loaded by your browser (with a
-  styled fallback if unavailable). README screenshots show the app UI.
+- **Game assets** — _Zenless Zone Zero_, its logo and all character art are © HoYoverse /
+  COGNOSPHERE, used non-commercially in this fan project with HoYoverse's legal statement on every
+  page. Character art is never committed: it's referenced from the community wiki's CDN and loaded
+  by your browser (with a styled fallback if unavailable). The only game file in the repo is the
+  small "ZZ" mark in the nav. README screenshots show the app UI.
 
 <div align="center">
 <br />

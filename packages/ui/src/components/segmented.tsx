@@ -48,12 +48,16 @@ export function Segmented<T extends string>({
             className={cn(
               'px-3 py-2 text-xs font-semibold sm:flex-none relative flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase transition-colors',
               active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
+              // No slide when motion is reduced/off: the active option paints its own highlight,
+              // so its contrast never depends on an animation finishing.
+              active &&
+                'in-data-[motion=off]:bg-primary in-data-[motion=off]:chamfer-sm in-data-[motion=reduced]:bg-primary in-data-[motion=reduced]:chamfer-sm',
             )}
           >
             {active && (
               <motion.span
                 layoutId={layoutId}
-                className="inset-0 absolute bg-primary chamfer-sm"
+                className="inset-0 absolute bg-primary chamfer-sm in-data-[motion=off]:hidden in-data-[motion=reduced]:hidden"
                 transition={spring.snappy}
               />
             )}

@@ -30,13 +30,15 @@ export const stagger = (staggerChildren = 0.07, delayChildren = 0): Variants => 
   show: { transition: { staggerChildren, delayChildren } },
 })
 
-/** CRT power-on: a thin bright line that expands vertically. */
+/**
+ * CRT power-on: a thin bright line that expands vertically. The "off" state is a visible line, not
+ * opacity 0, so content inside paints with the HTML (no Largest Contentful Paint delay).
+ */
 export const crtOn: Variants = {
-  hidden: { scaleY: 0.004, scaleX: 0.6, opacity: 0, filter: 'brightness(3)' },
+  hidden: { scaleY: 0.004, scaleX: 0.6, filter: 'brightness(3)' },
   show: {
     scaleY: [0.004, 0.004, 1],
     scaleX: [0.6, 1, 1],
-    opacity: [0, 1, 1],
     filter: ['brightness(3)', 'brightness(2)', 'brightness(1)'],
     transition: { duration: 0.75, times: [0, 0.35, 1], ease: ease.snap },
   },

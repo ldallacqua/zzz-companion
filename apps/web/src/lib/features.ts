@@ -60,9 +60,9 @@ export const features: Feature[] = [
     icon: 'pointer',
     title: { en: 'Tap-to-explain names', 'pt-BR': 'Nomes clicáveis' },
     description: {
-      en: 'Characters, factions and terms in the recap are tappable: an intel card explains who or what they are.',
+      en: 'Characters, factions and terms in the recap are tappable: an intel card explains who or what they are — as of that point in the story.',
       'pt-BR':
-        'Personagens, facções e termos do recap são clicáveis: um cartão explica quem ou o que eles são.',
+        'Personagens, facções e termos do recap são clicáveis: um cartão explica quem ou o que eles são — naquele ponto da história.',
     },
   },
   {

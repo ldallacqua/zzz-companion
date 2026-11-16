@@ -1,4 +1,4 @@
-import type { Progress } from './schema'
+import type { LocalizedText, Progress, Revision } from './schema'
 import type { Timeline, TimelineChapter, TimelineSegment } from './timeline'
 
 /**
@@ -25,6 +25,28 @@ export function partitionUnlocked<T extends { unlockedAt: string }>(
 ): { unlocked: T[]; lockedCount: number } {
   const unlocked = items.filter((item) => isUnlocked(timeline, progress, item.unlockedAt))
   return { unlocked, lockedCount: items.length - unlocked.length }
+}
+
+/**
+ * An entry's text as the reader knows it at `progress`: the latest revision whose `at` is already
+ * finished, otherwise the base text. Use the reader's progress for reference pages and the
+ * segment being read (`{ lastSegmentId: segment.id }`) inside the recap, so a name tapped in
+ * Chapter 1 explains it as of Chapter 1 — never with later facts.
+ */
+export function knownTextAt(
+  timeline: Timeline,
+  progress: Progress,
+  base: LocalizedText,
+  revisions: readonly Revision[] = [],
+): LocalizedText {
+  const max = progressOrder(timeline, progress)
+  let best = { order: -1, text: base }
+  for (const revision of revisions) {
+    const order = timeline.orderOf(revision.at)
+    if (order === -1) throw new Error(`Unknown segment "${revision.at}"`)
+    if (order <= max && order > best.order) best = { order, text: revision.text }
+  }
+  return best.text
 }
 
 export interface RecapChapter extends Omit<TimelineChapter, 'segments'> {

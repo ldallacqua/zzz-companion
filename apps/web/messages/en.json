@@ -111,7 +111,8 @@
     "version": "v{version}"
   },
   "footer": {
-    "disclaimer": "Unofficial fan project. Not affiliated with or endorsed by HoYoverse. Zenless Zone Zero and all character art © HoYoverse / COGNOSPHERE.",
+    "disclaimer": "Unofficial fan project — not affiliated with or endorsed by HoYoverse. Zenless Zone Zero, its logo and all character art belong to HoYoverse / COGNOSPHERE and are used here non-commercially.",
+    "legal": "© All rights reserved by HoYoverse. Other properties and any right, title and interest thereof (intellectual property rights included) not derived from Zenless Zone Zero belong to their respective owners.",
     "sources": "Recaps researched from the Zenless Zone Zero Wiki (CC BY-SA).",
     "repo": "Open source"
   },
@@ -126,7 +127,8 @@
     "faction": "Faction",
     "seeAllCharacters": "All characters",
     "seeGlossary": "Open glossary",
-    "hint": "Tap underlined names for quick intel."
+    "hint": "Tap underlined names for quick intel.",
+    "asOf": "As of {part}"
   },
   "features": {
     "kicker": "What it does",

@@ -26,9 +26,11 @@ export function PageHeading({
         <span className="w-8 h-px bg-primary" aria-hidden />
         {kicker}
       </motion.p>
+      {/* The title is usually the LCP element: it slides in but is never invisible (no opacity
+          fade), so it paints with the HTML instead of waiting for JavaScript. */}
       <motion.h1
-        initial={{ opacity: 0, y: 30, skewX: -8 }}
-        animate={{ opacity: 1, y: 0, skewX: 0 }}
+        initial={{ y: 30, skewX: -8 }}
+        animate={{ y: 0, skewX: 0 }}
         transition={{ duration: 0.7, ease: ease.outExpo, delay: 0.05 }}
         className="mt-3 display text-[clamp(2.75rem,10vw,6.5rem)]"
       >
@@ -36,9 +38,9 @@ export function PageHeading({
       </motion.h1>
       {lede && (
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ y: 12 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: ease.outExpo }}
           className="mt-4 max-w-2xl text-base sm:text-lg text-muted"
         >
           {lede}
