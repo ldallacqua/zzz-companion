@@ -146,6 +146,10 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
 - Styling: Tailwind v4 tokens from `packages/ui/src/styles.css` (`bg-surface`, `text-primary`,
   `chamfer`, `halftone`, `scanlines`, `display`…). No raw hex colors in components except content
   accents that come from data.
+- Focus: a focusable element with a `chamfer*` clip-path adds `focus-inset` (the clip would cut an
+  outer focus ring); on a lime fill also `focus-visible:outline-primary-foreground`.
+- Scroll reveals wrap one card each, never a whole long list (`Reveal` fires when any part is on
+  screen; a list taller than a phone would stay hidden). Reading text uses `riseInSolid`.
 - Commits: Conventional Commits (`feat:`, `fix:`, `content:`, `docs:`…).
 
 ## Adding story content (checklist)
@@ -153,7 +157,10 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
 1. Research the episodes (transcripts) and list sources.
 2. Add segments to a chapter file in `packages/story/src/chapters/` (or a new chapter appended in
    story order in `packages/story/src/index.ts`).
+   Episode names go in both locales, as each game client shows them (the wiki's "Other
+   Languages" table on the episode page).
 3. Add new characters/glossary terms/factions with the correct `unlockedAt` and `aliases`.
+   A character unlocks where the recap text first _names_ them, not where they first appear.
    If the new part changes what we know about an existing entry, add a `revisions` entry at the
    new segment (don't rewrite the base text).
 4. `pnpm --filter @zzz/story test` — the content tests catch spoiler leaks, missing locales and
