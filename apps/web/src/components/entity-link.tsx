@@ -38,11 +38,11 @@ export function EntityLink({
         data-entity={entityKey}
         className={cn(
           appearance === 'avatar'
-            ? 'hover:-translate-y-0.5 relative block cursor-pointer focus-inset transition-transform chamfer-sm'
+            ? 'hover:-translate-y-0.5 relative block cursor-pointer focus-inset transition-transform chamfer-sm data-[state=open]:outline-2 data-[state=open]:-outline-offset-4 data-[state=open]:outline-primary data-[state=open]:outline-solid'
             : [
                 // One calm, neutral underline for every name; the entity's colour shows on hover,
                 // on focus and in the card's frame.
-                'cursor-pointer rounded-[2px] underline decoration-border-strong decoration-dotted decoration-2 underline-offset-[5px] transition-colors',
+                'cursor-pointer rounded-[2px] underline decoration-subtle decoration-dotted decoration-2 underline-offset-[5px] transition-colors',
                 'hover:bg-primary/15 hover:text-primary hover:decoration-(--entity) focus-visible:bg-primary/15 focus-visible:decoration-(--entity)',
                 'data-[state=open]:bg-primary data-[state=open]:text-primary-foreground',
                 strong ? 'font-semibold text-foreground' : 'text-foreground/90',

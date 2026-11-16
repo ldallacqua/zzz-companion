@@ -143,8 +143,10 @@ describe('story content', () => {
       .join('\n')
       .replace(/\*\*/g, '')
     for (const c of characters) {
-      const ptNames = new Set([c.name['pt-BR'], ...c.aliases['pt-BR']])
-      for (const en of [c.name.en, ...c.aliases.en].filter((n) => !ptNames.has(n))) {
+      // Word by word, so half-translated names (“Argento Tears”) are caught too.
+      const words = (names: string[]) => names.flatMap((n) => n.split(/\s+/)).filter(Boolean)
+      const ptWords = new Set(words([c.name['pt-BR'], ...c.aliases['pt-BR']]))
+      for (const en of words([c.name.en, ...c.aliases.en]).filter((w) => !ptWords.has(w))) {
         const word = new RegExp(
           `(?<![\\p{L}])${en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}])`,
           'u',

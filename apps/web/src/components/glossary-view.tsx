@@ -37,12 +37,14 @@ export function GlossaryView() {
       anchor: `term-${g.id}`,
       kind: 'term' as const,
       title: g.term[locale],
+      alt: g.term.en,
       body: knownTextAt(timeline, story.progress, g.definition, g.revisions)[locale],
     })),
     ...story.factions.unlocked.map((f) => ({
       anchor: `faction-${f.id}`,
       kind: 'faction' as const,
       title: f.name[locale],
+      alt: f.name.en,
       body: knownTextAt(timeline, story.progress, f.description, f.revisions)[locale],
     })),
   ]
@@ -50,7 +52,8 @@ export function GlossaryView() {
     .filter((e) => {
       if (!deferred.trim()) return true
       const q = normalize(deferred)
-      return normalize(e.title).includes(q) || normalize(e.body).includes(q)
+      // Also the English name: readers often know a term from the English client or the wiki.
+      return [e.title, e.alt, e.body].some((s) => normalize(s).includes(q))
     })
 
   const lockedCount = story.glossary.lockedCount + story.factions.lockedCount

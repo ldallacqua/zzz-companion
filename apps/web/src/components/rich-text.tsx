@@ -36,6 +36,9 @@ export function RichBlock({
 const OPENING = /[(\[“"‘]+$/u
 const CLOSING = /^(?:[’']s(?![\p{L}]))?[)\]”"’.,;:!?…]*/u
 
+/** Long names must wrap inside their button: gluing them would overflow narrow screens. */
+const MAX_GLUED = 20
+
 /**
  * A tappable name is an atomic inline, so the browser may break a line right next to it and leave
  * "(" or ")" alone at a line edge. Glue touching punctuation from plain neighbouring text to it.
@@ -43,7 +46,7 @@ const CLOSING = /^(?:[’']s(?![\p{L}]))?[)\]”"’.,;:!?…]*/u
 function glue(tokens: RichToken[]) {
   const items = tokens.map((t) => ({ ...t, before: '', after: '' }))
   items.forEach((item, i) => {
-    if (!item.entity) return
+    if (!item.entity || item.value.length > MAX_GLUED) return
     const prev = items[i - 1]
     const next = items[i + 1]
     if (prev && !prev.entity && !prev.strong) {

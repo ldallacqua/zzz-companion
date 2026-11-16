@@ -61,7 +61,7 @@ export const characters = [
         text: {
           en: 'The late leader of the Red Fang Gang, “Silver Tears”. Ether corruption in a Hollow turned him into an Ethereal, and what is left of his gang blames the Cunning Hares.',
           'pt-BR':
-            'O falecido líder da Gangue da Presa Rubra, o “Argento Tears”. A corrupção por Éter numa Esfera o transformou em Etéreo, e o que restou da gangue culpa as Lebres Astutas.',
+            'O falecido líder da Gangue da Presa Rubra, o “Lágrimas de Prata”. A corrupção por Éter numa Esfera o transformou em Etéreo, e o que restou da gangue culpa as Lebres Astutas.',
         },
       },
     ],

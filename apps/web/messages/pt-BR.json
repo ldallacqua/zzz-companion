@@ -45,12 +45,12 @@
     "nextUp": "Próximo no seu jogo",
     "stepsTitle": "Como funciona",
     "step1": "Escolha a última parte que você terminou.",
-    "step2": "Leia o TL;DR ou o recap completo.",
+    "step2": "Leia a versão resumida ou a completa.",
     "step3": "Personagens e termos desbloqueiam conforme você avança.",
     "coverage": "Cobre a história do Prólogo ao Interlúdio do Capítulo 2 (v{version})."
   },
   "recap": {
-    "kicker": "Anteriormente em Nova Eridu",
+    "kicker": "Recap da história",
     "title": "Sua história até aqui",
     "mode": "Modo de leitura",
     "tldr": "Resumido",
@@ -70,8 +70,9 @@
     "endCta": "Jogou mais? Atualize seu progresso",
     "newTab": "abre em uma nova aba",
     "featuringList": "Personagens nesta parte",
-    "lede": "Tudo até a última parte que você terminou. Toque num nome sublinhado ou num rosto para relembrar quem ou o que é.",
-    "version": "Versão do jogo {v}"
+    "lede": "Tudo até a última parte que você terminou.",
+    "version": "Versão do jogo {v}",
+    "ledeTap": "Toque num nome sublinhado ou num rosto para relembrar quem ou o que é."
   },
   "characters": {
     "kicker": "Quem é quem",

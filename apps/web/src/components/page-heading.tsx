@@ -12,7 +12,7 @@ export function PageHeading({
 }: {
   kicker: string
   title: string
-  lede?: string
+  lede?: React.ReactNode
   children?: React.ReactNode
 }) {
   return (

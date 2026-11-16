@@ -45,12 +45,12 @@
     "nextUp": "Up next in your game",
     "stepsTitle": "How it works",
     "step1": "Pick the last part you finished.",
-    "step2": "Read the TL;DR or the full recap.",
+    "step2": "Read it short or in full.",
     "step3": "Characters and terms unlock as you go.",
     "coverage": "Covers the story from the Prologue to the Chapter 2 Interlude (v{version})."
   },
   "recap": {
-    "kicker": "Previously on New Eridu",
+    "kicker": "Story recap",
     "title": "Your story so far",
     "mode": "Reading mode",
     "tldr": "Short",
@@ -70,8 +70,9 @@
     "endCta": "Played more? Update your progress",
     "newTab": "opens in a new tab",
     "featuringList": "Characters in this part",
-    "lede": "Everything up to the last part you finished. Tap an underlined name or a face for a quick reminder.",
-    "version": "Game version {v}"
+    "lede": "Everything up to the last part you finished.",
+    "version": "Game version {v}",
+    "ledeTap": "Tap an underlined name or a face for a quick reminder."
   },
   "characters": {
     "kicker": "Who's who",
