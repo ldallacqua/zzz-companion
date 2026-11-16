@@ -21,7 +21,8 @@ export interface SheetContentProps extends React.ComponentProps<typeof DialogPri
  *
  * On close, focus returns to whatever was focused when the sheet opened. Radix only does that for
  * a <SheetTrigger>; sheets opened from app state (several buttons, no trigger) would otherwise
- * drop focus on <body> and send keyboard users back to the top of the page.
+ * drop focus on <body> and send keyboard users back to the top of the page. If the opener no
+ * longer exists, focus goes to a focusable `<main tabindex="-1">`.
  */
 export function SheetContent({
   className,
@@ -54,9 +55,15 @@ export function SheetContent({
         }}
         onCloseAutoFocus={(event) => {
           onCloseAutoFocus?.(event)
-          if (!event.defaultPrevented && opener.current?.isConnected) {
+          if (event.defaultPrevented) return
+          // The opener can be gone (e.g. "Set my progress" disappears once progress is set):
+          // then continue from the page's main landmark rather than the top of the document.
+          const target = opener.current?.isConnected
+            ? opener.current
+            : document.querySelector<HTMLElement>('main[tabindex]')
+          if (target) {
             event.preventDefault()
-            opener.current.focus()
+            target.focus({ preventScroll: true })
           }
         }}
         {...props}

@@ -75,7 +75,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
             </a>
             <SiteHeader />
             <Marquee items={ticker} />
-            <main id="main" className="max-w-6xl px-4 sm:px-6 mx-auto w-full">
+            {/* tabIndex -1: focusable by script (skip link, sheets whose opener is gone), not by Tab */}
+            <main
+              id="main"
+              tabIndex={-1}
+              className="max-w-6xl px-4 sm:px-6 mx-auto w-full outline-none"
+            >
               {children}
             </main>
             <SiteFooter />

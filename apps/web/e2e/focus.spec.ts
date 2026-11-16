@@ -90,4 +90,23 @@ test.describe('keyboard focus is visible', () => {
     await expect(page.getByRole('dialog')).toHaveCount(0)
     await expect(change).toBeFocused()
   })
+
+  test('lands on the page content when the opener is gone', async ({ page }) => {
+    // "Set my progress" only exists until progress is set, so it can't get focus back.
+    await seedProgress(page, null, { motion: 'off' })
+    await page.goto('/en/recap/')
+    const set = page.getByRole('button', { name: 'Set my progress' })
+    await set.focus()
+    await page.keyboard.press('Enter')
+    const dialog = page.getByRole('dialog')
+    await dialog.getByRole('button', { name: /Business × Strangeness × Justness/ }).click()
+    await dialog.getByTestId('pick-p-phaethon').click()
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(set).toHaveCount(0)
+    await expect(page.locator('main')).toBeFocused()
+    // The next Tab continues inside the recap, not at the top of the page.
+    await page.keyboard.press('Tab')
+    await expect(page.getByRole('radio', { name: 'Full' })).toBeFocused()
+  })
 })
