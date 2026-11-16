@@ -38,7 +38,7 @@ export const chapter2a = {
           'That worker, **Anton**, meets the siblings at 5 a.m. on Sixth Street (the Cunning Hares recommended Phaethon — for a cut, of course). At the site they meet engineer **Grace Howard**, accountant **Ben Bigger** and the young president **Koleda Belobog**. Rival companies are sabotaging Belobog at every turn, and after a logic-core update using code “he left behind”, three of Grace’s smart construction machines walked off deep into a Hollow.',
         ],
         'pt-BR': [
-          'O dinheiro está curto: a conta nova rende uma fração do que Phaethon ganhava. Chega uma encomenda anônima generosa, e Fairy rastreia a foto de perfil do cliente até a obra do metrô da antiga capital — agora tocada pelas **Indústrias Pesadas Belobog**, que assumiram depois da queda da Visão. Num programa infantil de TV, um funcionário da Belobog é encurralado com perguntas sobre um antigo escândalo da empresa.',
+          'O dinheiro está curto: a conta nova rende uma fração do que Phaethon ganhava. Chega uma encomenda anônima generosa, e Fada rastreia a foto de perfil do cliente até a obra do metrô da Velha Capital — agora tocada pelas **Indústrias Pesadas Belobog**, que assumiram depois da queda da Visão. Num programa infantil de TV, um funcionário da Belobog é encurralado com perguntas sobre um antigo escândalo da empresa.',
           'Esse funcionário, **Anton**, encontra os irmãos às 5 da manhã na Rua Seis (as Lebres Astutas recomendaram Phaethon — em troca de comissão, claro). Na obra eles conhecem a engenheira **Grace Howard**, o contador **Ben Bigger** e a jovem presidente **Koleda Belobog**. Empresas rivais sabotam a Belobog o tempo todo, e, depois de uma atualização de núcleo lógico usando um código que “ele deixou”, três máquinas de construção inteligentes de Grace fugiram para o fundo de uma Esfera.',
         ],
       },
@@ -63,7 +63,7 @@ export const chapter2a = {
         ],
         'pt-BR': [
           'A garra pesada **Hans** agora quer ser um “brother” destemido; Anton o conquista ao salvá-lo de um Etéreo e prometer uma revanche de verdade. A perfuratriz **Greta** se apaixonou por um prédio velho, o “Sr. White” — quando ela o corta sem querer, Grace a convence a voltar para casa e “reconstruí-lo em terra nova”.',
-          'O bate-estacas **Friday** foi o que fugiu para mais longe, perto da antiga capital. Ele se diz o “Pecador Iluminado”, insiste que precisa “estabilizar o selo” antes que ele se rompa e jura ouvir o chamado de seu mestre: **Khors**. Koleda congela ao ouvir o nome.',
+          'O bate-estacas **Friday** foi o que fugiu para mais longe, perto da Velha Capital. Ele se diz o “Pecador Iluminado”, insiste que precisa “estabilizar o selo” antes que ele se rompa e jura ouvir o chamado de seu mestre: **Khors**. Koleda congela ao ouvir o nome.',
         ],
       },
     },
@@ -75,7 +75,7 @@ export const chapter2a = {
       tldr: {
         en: 'Khors Belobog — Koleda’s father — vanished the night before the old capital fell, accused of stealing company funds; now a signal from his lost prototype is calling the machines.',
         'pt-BR':
-          'Khors Belobog — pai de Koleda — sumiu na noite anterior à queda da antiga capital, acusado de desviar dinheiro da empresa; agora um sinal do protótipo perdido dele está chamando as máquinas.',
+          'Khors Belobog — pai de Koleda — sumiu na noite anterior à queda da Velha Capital, acusado de desviar dinheiro da empresa; agora um sinal do protótipo perdido dele está chamando as máquinas.',
       },
       summary: {
         en: [
@@ -83,8 +83,8 @@ export const chapter2a = {
           'Koleda says she stopped thinking of him as her father long ago; Grace insists nobody ever proved he took the money, and the two clash. Then Grace finds why the machines ran: all three received a signal from deep in a Hollow coded **BLG_prototype** — Belobog’s first smart machine, built for Khors and lost along with its manufacturer when the old capital fell.',
         ],
         'pt-BR': [
-          '**Khors Belobog** era o antigo presidente da Belobog e pai de Koleda. Num flashback, ele promete à pequena Koleda que ela vai andar na máquina que ele está construindo e pede que ela escolha um nome para ela. Na noite anterior à queda da antiga capital, uma grande quantia sumiu das contas da empresa e Khors saiu depois de um telefonema estranho (“o que exatamente tem lá dentro?”). A Segurança Pública concluiu que ele desviou o dinheiro e fugiu.',
-          'Koleda diz que deixou de considerá-lo pai há muito tempo; Grace insiste que ninguém nunca provou que ele pegou o dinheiro, e as duas brigam. Então Grace descobre por que as máquinas fugiram: as três receberam um sinal do fundo de uma Esfera com o código **BLG_prototype** — a primeira máquina inteligente da Belobog, feita para Khors e perdida junto com o fabricante quando a antiga capital caiu.',
+          '**Khors Belobog** era o antigo presidente da Belobog e pai de Koleda. Num flashback, ele promete à pequena Koleda que ela vai andar na máquina que ele está construindo e pede que ela escolha um nome para ela. Na noite anterior à queda da Velha Capital, uma grande quantia sumiu das contas da empresa e Khors saiu depois de um telefonema estranho (“o que exatamente tem lá dentro?”). A Segurança Pública concluiu que ele desviou o dinheiro e fugiu.',
+          'Koleda diz que deixou de considerá-lo pai há muito tempo; Grace insiste que ninguém nunca provou que ele pegou o dinheiro, e as duas brigam. Então Grace descobre por que as máquinas fugiram: as três receberam um sinal do fundo de uma Esfera com o código **BLG_prototype** — a primeira máquina inteligente da Belobog, feita para Khors e perdida junto com o fabricante quando a Velha Capital caiu.',
         ],
       },
     },
@@ -127,8 +127,8 @@ export const chapter2b = {
           'Fairy pins down the location: the monument at the center of **Pioneer’s Memorial Plaza**, the project Belobog was building when Khors disappeared. On the way, Koleda confesses that she saw her father leave that night with a bag stuffed with banknotes — why she stopped believing in him. Grace reminds her that facts aren’t always the truth.',
         ],
         'pt-BR': [
-          'Koleda autoriza oficialmente a busca. O plano de Grace: posicionar Hans, Greta e Friday como repetidoras numa Esfera perto da fronteira da antiga capital e triangular as respostas cada vez mais fracas do protótipo. Quando Etéreos cercam a posição dela, Grace se recusa a parar a transmissão; Koleda grita “Mana!” e a equipe corre para salvá-la.',
-          'Fairy encontra a localização: o monumento no centro da **Praça Memorial dos Pioneiros**, a obra que a Belobog estava construindo quando Khors sumiu. No caminho, Koleda confessa que viu o pai sair naquela noite com uma bolsa cheia de dinheiro — o motivo de ter deixado de acreditar nele. Grace lembra que fatos nem sempre são a verdade.',
+          'Koleda autoriza oficialmente a busca. O plano de Grace: posicionar Hans, Greta e Friday como repetidoras numa Esfera perto da fronteira da Velha Capital e triangular as respostas cada vez mais fracas do protótipo. Quando Etéreos cercam a posição dela, Grace se recusa a parar a transmissão; Koleda grita “Mana!” e a equipe corre para salvá-la.',
+          'Fada encontra a localização: o monumento no centro da **Praça Memorial dos Pioneiros**, a obra que a Belobog estava construindo quando Khors sumiu. No caminho, Koleda confessa que viu o pai sair naquela noite com uma bolsa cheia de dinheiro — o motivo de ter deixado de acreditar nele. Grace lembra que fatos nem sempre são a verdade.',
         ],
       },
     },
@@ -154,7 +154,7 @@ export const chapter2b = {
         'pt-BR': [
           'O protótipo está agarrado ao monumento. A cabine está cheia de buracos de bala disparados à queima-roupa, e no painel há uma nota assinada: o dinheiro desaparecido pagou o próprio protótipo. Khors não fugiu com o dinheiro da empresa — algo terrível aconteceu com ele ali, provavelmente ligado àquele último telefonema.',
           'Então o monumento se mexe. Uma criatura com Éter absurdamente alto — nem Etéreo, nem humano corrompido — absorve Hans e Friday e fica gigante. Koleda entra no protótipo, lembra do pai pedindo que ela desse um nome à máquina e prensa o monstro contra o monumento até ele cair.',
-          'A Segurança Pública recolhe os restos. Koleda confia a Phaethon a **unidade de memória criptografada** do protótipo, que pode mostrar o que Khors descobriu. Os irmãos têm motivos próprios para estudar o monstro — ele pode estar ligado ao que eles procuram — e quem estava lá admite que os olhos ficaram estranhos perto dele. Fairy sugere uma hacker chamada **Rain**, contato da Nicole, para quebrar a criptografia.',
+          'A Segurança Pública recolhe os restos. Koleda confia a Phaethon a **unidade de memória criptografada** do protótipo, que pode mostrar o que Khors descobriu. Os irmãos têm motivos próprios para estudar o monstro — ele pode estar ligado ao que eles procuram — e quem estava lá admite que os olhos ficaram estranhos perto dele. Fada sugere uma hacker chamada **Rain**, contato da Nicole, para quebrar a criptografia.',
         ],
       },
     },

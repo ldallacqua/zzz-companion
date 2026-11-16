@@ -68,7 +68,7 @@ export function CharacterCard({
             />
             <Portrait
               src={character.image}
-              name={character.name}
+              name={character.name[locale]}
               color={character.color}
               focus={character.focus}
               framing="bust"
@@ -92,7 +92,7 @@ export function CharacterCard({
               style={{ backgroundColor: character.color }}
               aria-hidden
             />
-            <h2 className="text-2xl display leading-none">{character.name}</h2>
+            <h2 className="text-2xl display leading-none">{character.name[locale]}</h2>
             {character.factions.length > 0 && (
               <p className="mt-1 truncate font-mono text-[0.62rem] tracking-[0.14em] text-subtle uppercase">
                 {character.factions.map((id) => factionsById.get(id)?.name[locale]).join(' / ')}

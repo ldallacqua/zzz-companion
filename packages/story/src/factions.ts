@@ -30,7 +30,7 @@ export const factions = [
         text: {
           en: 'A street gang that once took in Canvas Street’s orphans and protected the neighborhood — until Miguel Silver changed. Now it is falling apart.',
           'pt-BR':
-            'Uma gangue de rua que já acolheu os órfãos da Rua Canvas e protegeu o bairro — até Miguel Silver mudar. Agora ela está se desfazendo.',
+            'Uma gangue de rua que já acolheu os órfãos da Rua Canvas e protegeu o bairro — até Miguel Argento mudar. Agora ela está se desfazendo.',
         },
       },
     ],
@@ -40,7 +40,7 @@ export const factions = [
     description: {
       en: 'A street gang led by Miguel Silver, wanted by Public Security for an attack on a research institute.',
       'pt-BR':
-        'Gangue de rua liderada por Miguel Silver, procurada pela Segurança Pública por um ataque a um instituto de pesquisa.',
+        'Gangue de rua liderada por Miguel Argento, procurada pela Segurança Pública por um ataque a um instituto de pesquisa.',
     },
   },
   {
@@ -72,7 +72,7 @@ export const factions = [
         text: {
           en: 'A construction company that won the old capital metro renovation by never paying to relocate the residents — more than a hundred were left inside its blast zone.',
           'pt-BR':
-            'Uma construtora que venceu a reforma do metrô da antiga capital porque nunca pagou para realocar os moradores — mais de cem ficaram dentro da zona de explosão.',
+            'Uma construtora que venceu a reforma do metrô da Velha Capital porque nunca pagou para realocar os moradores — mais de cem ficaram dentro da zona de explosão.',
         },
       },
       {
@@ -90,7 +90,7 @@ export const factions = [
     description: {
       en: 'A construction company that won the old capital metro renovation by promising to do it faster and cheaper.',
       'pt-BR':
-        'Construtora que venceu a reforma do metrô da antiga capital prometendo fazer mais rápido e mais barato.',
+        'Construtora que venceu a reforma do metrô da Velha Capital prometendo fazer mais rápido e mais barato.',
     },
   },
   {
@@ -101,7 +101,7 @@ export const factions = [
         text: {
           en: 'A construction and smart-machinery company led by its young president Koleda, now in charge of the old capital metro project.',
           'pt-BR':
-            'Uma empresa de construção e máquinas inteligentes comandada pela jovem presidente Koleda, agora à frente do projeto do metrô da antiga capital.',
+            'Uma empresa de construção e máquinas inteligentes comandada pela jovem presidente Koleda, agora à frente do projeto do metrô da Velha Capital.',
         },
       },
     ],
@@ -122,7 +122,7 @@ export const factions = [
     unlockedAt: 'z-hollow-zero',
     name: {
       en: 'Hollow Special Operations Section 6',
-      'pt-BR': 'Forças Especiais em Esferas Negras — Seção 6',
+      'pt-BR': 'Forças Especiais em Esferas Negras Seção 6',
     },
     aliases: {
       en: ['Section 6'],

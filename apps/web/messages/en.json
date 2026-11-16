@@ -50,10 +50,10 @@
     "coverage": "Covers the story from the Prologue to the Chapter 2 Interlude (v{version})."
   },
   "recap": {
-    "kicker": "Previously on",
+    "kicker": "Previously on New Eridu",
     "title": "Your story so far",
-    "mode": "Recap mode",
-    "tldr": "TL;DR",
+    "mode": "Reading mode",
+    "tldr": "Short",
     "full": "Full",
     "emptyTitle": "No spoilers yet",
     "emptyBody": "Set your progress and the recap will appear here — nothing past that point, ever.",
@@ -69,7 +69,9 @@
     "partNumber": "Part {n}",
     "endCta": "Played more? Update your progress",
     "newTab": "opens in a new tab",
-    "featuringList": "Characters in this part"
+    "featuringList": "Characters in this part",
+    "lede": "Everything up to the last part you finished. Tap an underlined name or a face for a quick reminder.",
+    "version": "Game version {v}"
   },
   "characters": {
     "kicker": "Who's who",
@@ -128,9 +130,8 @@
     "character": "Character",
     "term": "Glossary",
     "faction": "Faction",
-    "seeAllCharacters": "All characters",
-    "seeGlossary": "Open glossary",
-    "hint": "Tap underlined names for quick intel.",
+    "seeAllCharacters": "See in Characters",
+    "seeGlossary": "See in Glossary",
     "asOf": "As of {part}"
   },
   "features": {

@@ -34,7 +34,7 @@ export const interlude2a = {
         ],
         'pt-BR': [
           'A Segurança Pública fica com os restos do monstro, mas um transportador automático de provas vai levá-los pela Esfera até a **H.A.N.D.** para análise especializada. Enquanto isso, renovando a carteira de motorista na Praça Lumina, os irmãos quase são atropelados por um carro desgovernado; a oficial **Zhu Yuan** puxa Belle para longe. O motorista não lembra de nada antes da batida.',
-          'Zhu Yuan e sua parceira **Qingyi**, da Equipe Especial de Investigação Criminal, eram as oficiais no monumento — para elas, Eous era só “o Bangboo com defeito da Belobog”. As gravações de Fairy mostram o inspetor **Justin Bringer** chegando atrás de uma foto, preocupado que a notícia de um monstro desconhecido atrapalhe sua eleição e visivelmente abalado por saber que as provas vão para a H.A.N.D. Em seguida, ele transfere as duas para organizar o seminário do “Mês de Conscientização sobre Segurança Pública”.',
+          'Zhu Yuan e sua parceira **Qingyi**, da Equipe Especial de Investigação Criminal, eram as oficiais no monumento — para elas, Eous era só “o Bangboo com defeito da Belobog”. As gravações de Fada mostram o inspetor **Justin Bringer** chegando atrás de uma foto, preocupado que a notícia de um monstro desconhecido atrapalhe sua eleição e visivelmente abalado por saber que as provas vão para a H.A.N.D. Em seguida, ele transfere as duas para organizar o seminário do “Mês de Conscientização sobre Segurança Pública”.',
         ],
       },
     },
@@ -54,7 +54,7 @@ export const interlude2a = {
           'Zhu Yuan takes it hard: as a child she was trapped in a Hollow, and Bringer saved her by giving up his own anti-corruption gear — the reason she became an officer. Qingyi’s take: only Bringer knows whether his conscience is clean; their job is to do what’s right.',
         ],
         'pt-BR': [
-          'Ajudando as oficiais a distribuir questionários, os irmãos colecionam recusas educadas de Asha, do velho Spike e do General Chop. O General explica: antes da queda da antiga capital, Bringer era um comandante querido no bairro, que sumiu numa Esfera durante um resgate e voltou milagrosamente — o “**Herói da Esfera**”. Hoje os moradores veem um homem atuando para as câmeras, favorecendo as corporações da TOPS e usando o seminário como campanha para Comandante do Distrito Janus.',
+          'Ajudando as oficiais a distribuir questionários, os irmãos colecionam recusas educadas de Asha, do velho Spike e do General Chop. O General explica: antes da queda da Velha Capital, Bringer era um comandante querido no bairro, que sumiu numa Esfera durante um resgate e voltou milagrosamente — o “**Herói da Esfera**”. Hoje os moradores veem um homem atuando para as câmeras, favorecendo as corporações da TOPS e usando o seminário como campanha para Comandante do Distrito Janus.',
           'Zhu Yuan sente o golpe: quando criança, ela ficou presa numa Esfera, e Bringer a salvou entregando o próprio equipamento anticorrupção — o motivo de ela ter virado policial. A visão de Qingyi: só Bringer sabe se tem a consciência limpa; o trabalho delas é fazer o que é certo.',
         ],
       },
@@ -78,7 +78,7 @@ export const interlude2a = {
           'The officers connect the dots: an **EMP emitter** is frying electronics, including the phone of the driver in the Lumina Square crash. The suspect, **Carlo Maroon**, flees into a Hollow; Phaethon follows secretly through the HDD and helps corner him, while Qingyi senses “something small and agile” nearby. Maroon belongs to a Hollow Raider gang building EMP devices to steal vehicles, and the impressed residents agree to attend the seminar after all.',
         ],
         'pt-BR': [
-          'Um motorista da Pegasos Logistics acusa o Give Change, Bangboo da loja de conveniência, de abrir seu caminhão e soltar uma carga de patos caríssimos. Enquanto todo mundo caça patos — com Fairy indicando discretamente os esconderijos aos irmãos, o que Qingyi acha impressionante até demais —, outros veículos dão pane: uma van que não liga, um carro que desvia sozinho, faróis que não apagam.',
+          'Um motorista da Pegasos Logistics acusa o Give Change, Bangboo da loja de conveniência, de abrir seu caminhão e soltar uma carga de patos caríssimos. Enquanto todo mundo caça patos — com Fada indicando discretamente os esconderijos aos irmãos, o que Qingyi acha impressionante até demais —, outros veículos dão pane: uma van que não liga, um carro que desvia sozinho, faróis que não apagam.',
           'As oficiais ligam os pontos: um **emissor de PEM** está fritando eletrônicos, inclusive o celular do motorista do acidente na Praça Lumina. O suspeito, **Carlo Maroon**, foge para uma Esfera; Phaethon o segue em segredo pelo HDD e ajuda a encurralá-lo, enquanto Qingyi sente “algo pequeno e ágil” por perto. Maroon faz parte de uma gangue de Saqueadores que fabrica emissores de PEM para roubar veículos, e os moradores, impressionados, decidem ir ao seminário afinal.',
         ],
       },

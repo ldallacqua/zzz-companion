@@ -61,12 +61,13 @@ export const characters = [
         text: {
           en: 'The late leader of the Red Fang Gang, “Silver Tears”. Ether corruption in a Hollow turned him into an Ethereal, and what is left of his gang blames the Cunning Hares.',
           'pt-BR':
-            'O falecido líder da Gangue da Presa Rubra, o “Silver Tears”. A corrupção por Éter numa Esfera o transformou em Etéreo, e o que restou da gangue culpa as Lebres Astutas.',
+            'O falecido líder da Gangue da Presa Rubra, o “Argento Tears”. A corrupção por Éter numa Esfera o transformou em Etéreo, e o que restou da gangue culpa as Lebres Astutas.',
         },
       },
     ],
-    aliases: ['Silver', 'Silver Tears', 'Lágrimas de Prata'],
-    name: 'Miguel Silver',
+    // pt-BR client: Miguel Argento (wiki Other Languages)
+    aliases: { en: ['Silver', 'Silver Tears'], 'pt-BR': ['Argento', 'Lágrimas de Prata'] },
+    name: { en: 'Miguel Silver', 'pt-BR': 'Miguel Argento' },
     unlockedAt: 'p-strongbox',
     factions: ['red-fang'],
     color: '#b8b8c0',
@@ -146,7 +147,7 @@ export const characters = [
   },
   {
     id: 'fairy',
-    name: 'Fairy',
+    name: { en: 'Fairy', 'pt-BR': 'Fada' },
     unlockedAt: 'p-fairy',
     factions: ['phaethon'],
     color: '#c6ff2e',
@@ -160,7 +161,7 @@ export const characters = [
   },
   {
     id: 'shepherd',
-    name: 'Shepherd',
+    name: { en: 'Shepherd', 'pt-BR': 'Pastor' },
     unlockedAt: 'p-fairy',
     color: '#d9a066',
     image: img('1/15/NPC_Shepherd_Icon.png/revision/latest?cb=20240724021512'),
@@ -178,7 +179,7 @@ export const characters = [
         text: {
           en: '“Nekomata”. A cat Thiren raised among the orphans the Red Fang Gang took in. Her “heirloom” was a photo with Silver — she came for revenge on the Hares and stayed to protect strangers.',
           'pt-BR':
-            '“Nekomata”. Uma Tirena gata criada entre os órfãos acolhidos pela Gangue da Presa Rubra. A “herança” era uma foto com Silver — ela veio se vingar das Lebres e ficou para proteger desconhecidos.',
+            '“Nekomata”. Uma Tirena gata criada entre os órfãos acolhidos pela Gangue da Presa Rubra. A “herança” era uma foto com Argento — ela veio se vingar das Lebres e ficou para proteger desconhecidos.',
         },
       },
       {
@@ -210,7 +211,7 @@ export const characters = [
         text: {
           en: 'Vision’s director for the old capital metro project, arrested once the plan to demolish it with residents still inside went public.',
           'pt-BR':
-            'O diretor da Visão para o projeto do metrô da antiga capital, preso quando o plano de demoli-lo com moradores ainda lá dentro veio a público.',
+            'O diretor da Visão para o projeto do metrô da Velha Capital, preso quando o plano de demoli-lo com moradores ainda lá dentro veio a público.',
         },
       },
     ],
@@ -223,7 +224,7 @@ export const characters = [
     focus: { x: 0.45, y: 0.38, zoom: 1.05 },
     blurb: {
       en: 'Vision Corporation’s representative for the old capital metro renovation.',
-      'pt-BR': 'Representante da Corporação Visão na reforma do metrô da antiga capital.',
+      'pt-BR': 'Representante da Corporação Visão na reforma do metrô da Velha Capital.',
     },
   },
   {
@@ -400,7 +401,7 @@ export const characters = [
         text: {
           en: 'Belobog’s former president and Koleda’s father, who vanished the night before the old capital fell. A receipt found in his lost prototype cleared him of stealing company funds.',
           'pt-BR':
-            'Ex-presidente da Belobog e pai de Koleda, que sumiu na noite anterior à queda da antiga capital. Um recibo encontrado no protótipo perdido o inocentou do roubo dos fundos da empresa.',
+            'Ex-presidente da Belobog e pai de Koleda, que sumiu na noite anterior à queda da Velha Capital. Um recibo encontrado no protótipo perdido o inocentou do roubo dos fundos da empresa.',
         },
       },
     ],
@@ -414,7 +415,7 @@ export const characters = [
     blurb: {
       en: 'Belobog’s former president and Koleda’s father, who vanished the night before the old capital fell.',
       'pt-BR':
-        'Ex-presidente da Belobog e pai de Koleda, que sumiu na noite anterior à queda da antiga capital.',
+        'Ex-presidente da Belobog e pai de Koleda, que sumiu na noite anterior à queda da Velha Capital.',
     },
   },
   {

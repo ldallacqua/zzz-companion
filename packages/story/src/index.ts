@@ -64,7 +64,6 @@ export type LinkableEntity =
       data: Faction
     }
 
-const both = (list: string[]): Localized<string[]> => ({ en: list, 'pt-BR': list })
 const withCanonical = (
   canonical: Localized<string>,
   extra?: Localized<string[]>,
@@ -82,7 +81,9 @@ export const linkableEntities: LinkableEntity[] = [
     key: entityKey('character', c.id),
     kind: 'character' as const,
     unlockedAt: c.unlockedAt,
-    aliases: both([c.name, ...c.aliases]),
+    aliases: Object.fromEntries(LOCALES.map((l) => [l, [c.name[l], ...c.aliases[l]]])) as Localized<
+      string[]
+    >,
     data: c,
   })),
   ...glossary.map((g) => ({

@@ -21,7 +21,7 @@ test.describe('intel cards (clickable names)', () => {
     await page.locator('[data-entity="character:nicole"]').first().click()
     const card = page.getByRole('dialog')
     await expect(card).toContainText('Nicole Demara')
-    await card.getByRole('link', { name: /All characters/ }).click()
+    await card.getByRole('link', { name: /See in Characters/ }).click()
     await expect(page).toHaveURL(/\/en\/characters\/#character-nicole$/)
   })
 

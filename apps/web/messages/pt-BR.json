@@ -50,17 +50,17 @@
     "coverage": "Cobre a história do Prólogo ao Interlúdio do Capítulo 2 (v{version})."
   },
   "recap": {
-    "kicker": "Anteriormente em",
+    "kicker": "Anteriormente em Nova Eridu",
     "title": "Sua história até aqui",
-    "mode": "Modo do recap",
-    "tldr": "TL;DR",
+    "mode": "Modo de leitura",
+    "tldr": "Resumido",
     "full": "Completo",
     "emptyTitle": "Nenhum spoiler por enquanto",
     "emptyBody": "Defina seu progresso e o recap aparece aqui — nada além desse ponto, nunca.",
     "partial": "Resumo parcial",
     "partialHint": "As fontes desta parte têm menos detalhes, então o resumo é mais curto.",
     "episodes": "Episódios",
-    "featuring": "Com",
+    "featuring": "Em cena",
     "sources": "Fontes",
     "endTitle": "Você está em dia",
     "endBody": "Isso é tudo até o seu progresso. Continue jogando e volte para a próxima parte.",
@@ -69,7 +69,9 @@
     "partNumber": "Parte {n}",
     "endCta": "Jogou mais? Atualize seu progresso",
     "newTab": "abre em uma nova aba",
-    "featuringList": "Personagens nesta parte"
+    "featuringList": "Personagens nesta parte",
+    "lede": "Tudo até a última parte que você terminou. Toque num nome sublinhado ou num rosto para relembrar quem ou o que é.",
+    "version": "Versão do jogo {v}"
   },
   "characters": {
     "kicker": "Quem é quem",
@@ -128,10 +130,9 @@
     "character": "Personagem",
     "term": "Glossário",
     "faction": "Facção",
-    "seeAllCharacters": "Todos os personagens",
-    "seeGlossary": "Abrir glossário",
-    "hint": "Toque nos nomes sublinhados para ver quem é quem.",
-    "asOf": "Até {part}"
+    "seeAllCharacters": "Ver em Personagens",
+    "seeGlossary": "Ver no Glossário",
+    "asOf": "Situação em {part}"
   },
   "features": {
     "kicker": "O que ele faz",

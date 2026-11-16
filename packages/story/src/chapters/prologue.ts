@@ -41,8 +41,8 @@ export const prologue = {
         ],
         'pt-BR': [
           'Uma Esfera Negra (Hollow) companheira surge na Rua Catorze, no Distrito Janus, enquanto a Segurança Pública — representada na TV por um atrapalhado **Justin Bringer** — caça a **Gangue da Presa Rubra**. A gangue tinha roubado um **cofre** de um instituto de pesquisa, e a agência de bicos **Casa das Lebres Astutas** (Nicole, Anby e Billy) acabou de roubá-lo de volta para um cliente misterioso.',
-          'Encurralada pelo líder da gangue, **Miguel Silver** — o “Lágrimas de Prata” —, Nicole dispara uma granada de luz para atrair a força aérea da Segurança Pública. Funciona até demais: o ataque aéreo abre o prédio e Anby, Billy e Silver caem na **Esfera de Creta**, perto do antigo entroncamento do metrô.',
-          'Lá dentro, Anby grava um “diário de sobrevivência” impassível e reencontra Billy — depois de interrogá-lo para garantir que ele não é um Etéreo imitando o colega. Os dois acham Silver com o cofre aos pés, mas a corrupção por Éter o transforma num Etéreo superior, o **Dullahan**. Sem poder de fogo, eles recuam.',
+          'Encurralada pelo líder da gangue, **Miguel Argento** — o “Lágrimas de Prata” —, Nicole dispara uma granada de luz para atrair a força aérea da Segurança Pública. Funciona até demais: o ataque aéreo abre o prédio e Anby, Billy e Argento caem na **Esfera de Creta**, perto do antigo entroncamento do metrô.',
+          'Lá dentro, Anby grava um “diário de sobrevivência” impassível e reencontra Billy — depois de interrogá-lo para garantir que ele não é um Etéreo imitando o colega. Os dois acham Argento com o cofre aos pés, mas a corrupção por Éter o transforma num Etéreo superior, o **Dullahan**. Sem poder de fogo, eles recuam.',
         ],
       },
     },
@@ -67,7 +67,7 @@ export const prologue = {
         ],
         'pt-BR': [
           'Na Rua Seis, os irmãos **Belle** e **Wise** cuidam da locadora **Random Play**. Em segredo, eles são **Phaethon**, um **Proxy** lendário: guias ilegais que leem as Esferas Negras de fora e conduzem pessoas por dentro delas, usando o **HDD** (Sistema de Mergulho Profundo em Esferas) para ligar a mente ao Bangboo **Eous**.',
-          'Nicole chega ferida. Billy e Anby estão presos na Esfera, e ela não pode pedir ajuda à Associação de Investigação de Esferas Negras sem expor as Lebres como **Saqueadoras**. Ela promete, enfim, quitar a conta atrasada. Phaethon resgata os dois, e Nicole entrega um **colar de dente** — na verdade o pen drive danificado de Silver — para os irmãos recuperarem.',
+          'Nicole chega ferida. Billy e Anby estão presos na Esfera, e ela não pode pedir ajuda à Associação de Investigação de Esferas Negras sem expor as Lebres como **Saqueadoras**. Ela promete, enfim, quitar a conta atrasada. Phaethon resgata os dois, e Nicole entrega um **colar de dente** — na verdade o pen drive danificado de Argento — para os irmãos recuperarem.',
           'Enquanto os dados são restaurados, Phaethon cria uma conta alternativa no **Interlaço** (Inter-Knot) — em parte para manter o “desconto” de sempre da Nicole — e faz bicos pela Rua Seis; num deles, Anby ganha um Motor-W novo da loja Box Galaxy. Com os dados recuperados, as Lebres traçam o plano: voltar à Esfera de Creta, derrotar o Dullahan e pegar o cofre.',
         ],
       },
@@ -93,14 +93,14 @@ export const prologue = {
         ],
         'pt-BR': [
           'Dentro da Esfera, Eous começa a travar e fica mudo: alguém invadiu o HDD. Sem saída, Billy sugere entregar a identidade do Proxy aos investigadores ali perto — às vésperas da eleição, a Segurança Pública alivia para quem denuncia Proxies. Nicole recusa e protege o Bangboo.',
-          'Um **hacker** misterioso ameaça apagar os dados dos irmãos se eles não entregarem a senha do cofre, recuperada do pen drive de Silver. Assim eles descobrem o que há lá dentro: algo comparável aos **Dados de Rosetta**, os dados-mestre das Esferas que os governantes da cidade usam para recalibrar os Carotenos (Carrots) — o suficiente para entrar e sair de Esferas à vontade.',
+          'Um **hacker** misterioso ameaça apagar os dados dos irmãos se eles não entregarem a senha do cofre, recuperada do pen drive de Argento. Assim eles descobrem o que há lá dentro: algo comparável aos **Dados de Rosetta**, os dados-mestre das Esferas que os governantes da cidade usam para recalibrar os Carotenos (Carrots) — o suficiente para entrar e sair de Esferas à vontade.',
           'Belle e Wise fingem ceder, entregam a conta **Phaethon** do Interlaço… e na mesma hora denunciam essa conta à linha direta da Segurança Pública. O hacker foge e eles retomam o controle, mas a conta lendária se perde. De volta à Esfera, as Lebres derrotam o Dullahan e pegam o cofre, mas não encontram saída. Phaethon promete levá-las para casa e faz Eous inserir o chip do cofre — e a conexão sobrecarrega.',
         ],
       },
     },
     {
       id: 'p-fairy',
-      title: { en: 'Fairy', 'pt-BR': 'Fairy' },
+      title: { en: 'Fairy', 'pt-BR': 'Fada' },
       episodes: {
         en: ['“Fairy”', 'Prologue: Intermission'],
         'pt-BR': ['“Fada”', 'Prólogo: Interlúdio'],
@@ -109,7 +109,7 @@ export const prologue = {
       tldr: {
         en: 'The HDD reboots with a new tenant: Fairy, an AI with access to most of the city’s devices, bound to the siblings by an “agreement” it refuses to explain.',
         'pt-BR':
-          'O HDD reinicia com uma nova inquilina: Fairy, uma IA com acesso à maioria dos aparelhos da cidade, ligada aos irmãos por um “acordo” que ela se recusa a explicar.',
+          'O HDD reinicia com uma nova inquilina: Fada, uma IA com acesso à maioria dos aparelhos da cidade, ligada aos irmãos por um “acordo” que ela se recusa a explicar.',
       },
       summary: {
         en: [
@@ -119,8 +119,8 @@ export const prologue = {
         ],
         'pt-BR': [
           'O irmão que estava conectado acorda em casa. Enquanto estava desacordado, Eous se moveu sozinho e guiou todos até a saída; Nicole trouxe um médico misterioso que ela conhece para desconectá-lo do HDD — e pagou a conta inteira (descontados os reparos e o médico).',
-          'O HDD reiniciado agora abriga **Fairy**, uma “IA de uso geral tipo III” que chama os irmãos de “Mestre”. Ela cita um contrato de usuário que eles não lembram de ter assinado, diz que está esperando uma “oportunidade” e afirma ter acesso a mais de 80% dos aparelhos inteligentes de Nova Eridu. Ela calcula rotas de fuga das Esferas umas 270 vezes mais rápido que os irmãos — um poder pelo qual a elite da cidade mataria.',
-          'Sem a conta lendária, Phaethon recomeça do zero na conta nova. O velho amigo e corretor **Shepherd** passa um resgate encomendado pela Corporação Visão, Fairy descarta todos os outros plug-ins de suporte, e os irmãos decidem usá-la enquanto investigam, em silêncio, de onde ela veio. Nicole, por sua vez, tenta descobrir quem encomendou o serviço do cofre — ela só falou com um intermediário anônimo.',
+          'O HDD reiniciado agora abriga **Fada**, uma “IA de uso geral tipo III” que chama os irmãos de “Mestre”. Ela cita um contrato de usuário que eles não lembram de ter assinado, diz que está esperando uma “oportunidade” e afirma ter acesso a mais de 80% dos aparelhos inteligentes de Nova Eridu. Ela calcula rotas de fuga das Esferas umas 270 vezes mais rápido que os irmãos — um poder pelo qual a elite da cidade mataria.',
+          'Sem a conta lendária, Phaethon recomeça do zero na conta nova. O velho amigo e corretor **Pastor** passa um resgate encomendado pela Corporação Visão, Fada descarta todos os outros plug-ins de suporte, e os irmãos decidem usá-la enquanto investigam, em silêncio, de onde ela veio. Nicole, por sua vez, tenta descobrir quem encomendou o serviço do cofre — ela só falou com um intermediário anônimo.',
         ],
       },
     },

@@ -130,9 +130,9 @@ export function HomeView() {
                     >
                       <Portrait
                         src={c.image}
-                        name={c.name}
+                        name={c.name[locale]}
                         color={c.color}
-                        alt={c.name}
+                        alt={c.name[locale]}
                         focus={c.focus}
                         framing={id === 'eous' ? 'full' : 'bust'}
                         priority

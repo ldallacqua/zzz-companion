@@ -35,10 +35,10 @@ test.describe('recap', () => {
     await expect(page.getByTestId('segment-p-hacker')).toHaveCount(0)
   })
 
-  test('switches between TL;DR and full modes', async ({ page }) => {
+  test('switches between short and full modes', async ({ page }) => {
     await seedProgress(page, 'p-strongbox')
     await page.goto('/en/recap')
-    await page.getByRole('radio', { name: 'TL;DR' }).click()
+    await page.getByRole('radio', { name: 'Short' }).click()
     await expect(
       page.getByText('The Cunning Hares steal a mysterious strongbox back', { exact: false }),
     ).toBeVisible()
