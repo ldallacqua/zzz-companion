@@ -57,7 +57,7 @@ export function SheetContent({
             )}
           </div>
           <DialogPrimitive.Close
-            className="size-10 grid shrink-0 cursor-pointer place-items-center bg-surface-3 transition-colors chamfer-sm hover:bg-primary hover:text-primary-foreground"
+            className="size-10 grid shrink-0 cursor-pointer place-items-center bg-surface-3 focus-inset transition-colors chamfer-sm hover:bg-primary hover:text-primary-foreground"
             aria-label={closeLabel}
           >
             <X className="size-5" />

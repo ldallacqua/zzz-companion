@@ -9,10 +9,13 @@ export function AvatarStack({ ids, label }: { ids: readonly string[]; label: str
   if (people.length === 0) return null
   return (
     <div className="gap-2 flex flex-wrap items-center">
-      <span className="mr-1 font-mono text-[0.62rem] tracking-[0.2em] text-subtle uppercase">
+      <span
+        className="mr-1 font-mono text-[0.62rem] tracking-[0.2em] text-subtle uppercase"
+        aria-hidden
+      >
         {label}
       </span>
-      <ul className="gap-1.5 flex flex-wrap">
+      <ul className="gap-1.5 flex flex-wrap" aria-label={label}>
         {people.map((c) => (
           <li key={c.id} title={c.name}>
             <span

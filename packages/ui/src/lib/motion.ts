@@ -20,6 +20,15 @@ export const riseIn: Variants = {
   show: { opacity: 1, y: 0, skewY: 0, transition: { duration: 0.6, ease: ease.outExpo } },
 }
 
+/**
+ * For reading content (recap cards, long text): a short rise with no fade and no skew, so text is
+ * never hidden or slanted while someone is reading it.
+ */
+export const riseInSolid: Variants = {
+  hidden: { y: 24 },
+  show: { y: 0, transition: { duration: 0.5, ease: ease.outExpo } },
+}
+
 export const slideInLeft: Variants = {
   hidden: { opacity: 0, x: -48 },
   show: { opacity: 1, x: 0, transition: { duration: 0.55, ease: ease.outExpo } },

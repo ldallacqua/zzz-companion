@@ -17,7 +17,10 @@ export const interlude2a = {
     {
       id: 'i2a-officers',
       title: { en: 'Two Officers', 'pt-BR': 'Duas oficiais' },
-      episodes: ['Crisis on the Street Corner', 'Unexpected Reunion'],
+      episodes: {
+        en: ['Crisis on the Street Corner', 'Unexpected Reunion'],
+        'pt-BR': ['Crise na Esquina', 'Reunião Inesperada'],
+      },
       characters: ['zhu-yuan', 'qingyi', 'bringer', 'koleda', 'belle', 'wise', 'nicole'],
       tldr: {
         en: 'A strange car accident introduces Officers Zhu Yuan and Qingyi, who handled the monster case — and whose boss, Inspector Bringer, seems more worried about the election than the evidence.',
@@ -38,7 +41,7 @@ export const interlude2a = {
     {
       id: 'i2a-hero',
       title: { en: 'The Hollow Hero', 'pt-BR': 'O Herói da Esfera' },
-      episodes: ['Unproductive Visit'],
+      episodes: { en: ['Unproductive Visit'], 'pt-BR': ['Visita Improdutiva'] },
       characters: ['zhu-yuan', 'qingyi', 'bringer'],
       tldr: {
         en: 'Sixth Street snubs Bringer’s seminar: the old “Hollow Hero” now looks like a politician cozying up to TOPS — yet he once saved Zhu Yuan’s life.',
@@ -59,7 +62,10 @@ export const interlude2a = {
     {
       id: 'i2a-emp',
       title: { en: 'The Sixth Street Theft Case', 'pt-BR': 'O caso do furto na Rua Seis' },
-      episodes: ['Sixth Street Theft Case', 'Invisible Assistant'],
+      episodes: {
+        en: ['Sixth Street Theft Case', 'Invisible Assistant'],
+        'pt-BR': ['Roubo na Rua Seis', 'Assistente Invisível'],
+      },
       characters: ['zhu-yuan', 'qingyi', 'fairy', 'belle', 'wise'],
       tldr: {
         en: 'A Bangboo is accused of freeing a truckload of prize ducks; the real culprit is an EMP-wielding Hollow Raider, caught with Phaethon’s secret help.',
@@ -96,12 +102,15 @@ export const interlude2b = {
     {
       id: 'i2b-convoy',
       title: { en: 'The Evidence Convoy', 'pt-BR': 'O comboio de provas' },
-      episodes: [
-        'Emerging Crisis',
-        'Emergency Operation',
-        'Shared Beliefs',
-        'Moment to Counterattack',
-      ],
+      episodes: {
+        en: ['Emerging Crisis', 'Emergency Operation', 'Shared Beliefs', 'Moment to Counterattack'],
+        'pt-BR': [
+          'Crise Emergente',
+          'Operação Urgente',
+          'Crenças Compartilhadas',
+          'Momento para Contra-Atacar',
+        ],
+      },
       characters: ['zhu-yuan', 'qingyi', 'fairy', 'bringer'],
       confidence: 'partial',
       tldr: {
@@ -123,7 +132,7 @@ export const interlude2b = {
     {
       id: 'i2b-farewell',
       title: { en: 'We’ll Meet Again', 'pt-BR': 'Até a próxima' },
-      episodes: ['We’ll Meet Again'],
+      episodes: { en: ['We’ll Meet Again'], 'pt-BR': ['Nos Encontraremos Novamente'] },
       characters: ['zhu-yuan', 'qingyi', 'miyabi', 'sarah', 'perlman'],
       confidence: 'partial',
       tldr: {

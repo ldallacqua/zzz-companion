@@ -66,7 +66,9 @@
     "endBody": "Isso é tudo até o seu progresso. Continue jogando e volte para a próxima parte.",
     "chapterDone": "Capítulo concluído",
     "chapterOngoing": "Em andamento",
-    "partNumber": "Parte {n}"
+    "partNumber": "Parte {n}",
+    "endCta": "Jogou mais? Atualize seu progresso",
+    "newTab": "abre em uma nova aba"
   },
   "characters": {
     "kicker": "Quem é quem",

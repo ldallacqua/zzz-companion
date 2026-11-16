@@ -9,13 +9,15 @@ export const buttonVariants = cva(
     'font-display text-base font-extrabold tracking-wide uppercase italic whitespace-nowrap select-none',
     'transition-[transform,background-color,color,box-shadow] duration-200 ease-(--ease-snap)',
     'active:translate-y-px disabled:pointer-events-none disabled:opacity-40',
+    // Chamfered: the clip-path would cut an outer outline, so focus is drawn inside.
+    'focus-inset',
     '[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   ],
   {
     variants: {
       variant: {
         primary:
-          'chamfer-sm bg-primary text-primary-foreground hover:-translate-y-0.5 hover:shadow-[0_6px_0_-1px_var(--color-accent)]',
+          'chamfer-sm bg-primary text-primary-foreground focus-visible:outline-primary-foreground hover:-translate-y-0.5 hover:shadow-[0_6px_0_-1px_var(--color-accent)]',
         accent:
           'chamfer-sm bg-accent text-accent-foreground hover:-translate-y-0.5 hover:shadow-[0_6px_0_-1px_var(--color-primary)]',
         secondary:
@@ -25,7 +27,7 @@ export const buttonVariants = cva(
         ghost: 'text-muted hover:text-foreground',
       },
       size: {
-        sm: 'h-9 px-3.5 text-sm',
+        sm: 'h-10 px-3.5 text-sm',
         md: 'h-11 px-5',
         lg: 'h-13 px-7 text-lg',
         icon: 'size-11',

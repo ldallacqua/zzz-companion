@@ -46,9 +46,9 @@ export function ProgressPicker() {
           onClick={() => setProgress(null)}
           aria-pressed={currentOrder === -1}
           className={cn(
-            'mb-3 gap-3 px-4 py-3 flex w-full cursor-pointer items-center text-left transition-colors chamfer-sm',
+            'mb-3 gap-3 px-4 py-3 flex w-full cursor-pointer items-center text-left focus-inset transition-colors chamfer-sm',
             currentOrder === -1
-              ? 'bg-primary text-primary-foreground'
+              ? 'bg-primary text-primary-foreground focus-visible:outline-primary-foreground'
               : 'bg-surface-2 hover:bg-surface-3',
           )}
         >
@@ -67,7 +67,7 @@ export function ProgressPicker() {
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => setExpanded(isOpen ? '' : chapter.id)}
-                  className="gap-3 px-4 py-3 flex w-full cursor-pointer items-center text-left"
+                  className="gap-3 px-4 py-3 flex w-full cursor-pointer items-center text-left focus-inset"
                 >
                   <span
                     className="h-8 w-1.5 shrink-0 -skew-x-12"
@@ -112,8 +112,10 @@ export function ProgressPicker() {
                                 aria-pressed={selected}
                                 data-testid={`pick-${segment.id}`}
                                 className={cn(
-                                  'gap-3 px-3 py-2.5 relative flex w-full cursor-pointer items-start text-left transition-colors',
-                                  selected ? 'text-primary-foreground' : 'hover:bg-surface-3',
+                                  'gap-3 px-3 py-2.5 relative flex w-full cursor-pointer items-start text-left focus-inset transition-colors',
+                                  selected
+                                    ? 'text-primary-foreground focus-visible:outline-primary-foreground'
+                                    : 'hover:bg-surface-3',
                                 )}
                               >
                                 {selected && (
@@ -147,7 +149,7 @@ export function ProgressPicker() {
                                       selected ? 'opacity-80' : 'text-muted',
                                     )}
                                   >
-                                    {segment.episodes.join(' · ')}
+                                    {segment.episodes[locale].join(' · ')}
                                   </span>
                                 </span>
                               </button>

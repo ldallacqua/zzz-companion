@@ -46,7 +46,8 @@ export function Segmented<T extends string>({
             key={option.value}
             value={option.value}
             className={cn(
-              'px-3 py-2 text-xs font-semibold sm:flex-none relative flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase transition-colors',
+              'min-h-10 px-3 py-2 text-xs font-semibold sm:flex-none relative flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase focus-inset transition-colors',
+              'data-[state=on]:focus-visible:outline-primary-foreground',
               active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
               // No slide when motion is reduced/off: the active option paints its own highlight,
               // so its contrast never depends on an animation finishing.

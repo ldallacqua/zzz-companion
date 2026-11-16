@@ -23,7 +23,10 @@ export const prologue = {
     {
       id: 'p-strongbox',
       title: { en: 'The Strongbox Job', 'pt-BR': 'O serviço do cofre' },
-      episodes: ['A Surprise', 'Hollow Survival Guide', 'Mutated Corruption'],
+      episodes: {
+        en: ['A Surprise', 'Hollow Survival Guide', 'Mutated Corruption'],
+        'pt-BR': ['Uma Surpresa', 'Guia de Sobrevivência na Esfera Negra', 'Mutação Corrompida'],
+      },
       characters: ['nicole', 'anby', 'billy', 'miguel-silver', 'bringer'],
       tldr: {
         en: 'The Cunning Hares steal a mysterious strongbox back from the Red Fang Gang — and an air strike drops Anby, Billy and the gang’s leader into a Hollow.',
@@ -46,7 +49,10 @@ export const prologue = {
     {
       id: 'p-phaethon',
       title: { en: 'Enter Phaethon', 'pt-BR': 'Entra Phaethon' },
-      episodes: ['Proxy Business', 'Emergency'],
+      episodes: {
+        en: ['Proxy Business', 'Emergency'],
+        'pt-BR': ['Negócio de Proxy', 'Emergência'],
+      },
       characters: ['belle', 'wise', 'eous', 'nicole', 'anby', 'billy'],
       tldr: {
         en: 'Nicole hires the legendary Proxy Phaethon — secretly the siblings Belle and Wise, who run the Random Play video store — to get her team and the strongbox out.',
@@ -69,7 +75,10 @@ export const prologue = {
     {
       id: 'p-hacker',
       title: { en: 'Hijacked', 'pt-BR': 'Sequestro digital' },
-      episodes: ['Hacking Attack', 'Reconnected'],
+      episodes: {
+        en: ['Hacking Attack', 'Reconnected'],
+        'pt-BR': ['Ataque Hacker', 'Conexão Reestabelecida'],
+      },
       characters: ['belle', 'wise', 'eous', 'nicole', 'anby', 'billy'],
       tldr: {
         en: 'A hacker hijacks the HDD mid-mission; to save the Hares, Phaethon sacrifices its legendary Inter-Knot account — and opening the strongbox overloads everything.',
@@ -92,7 +101,10 @@ export const prologue = {
     {
       id: 'p-fairy',
       title: { en: 'Fairy', 'pt-BR': 'Fairy' },
-      episodes: ['“Fairy”', 'Prologue: Intermission'],
+      episodes: {
+        en: ['“Fairy”', 'Prologue: Intermission'],
+        'pt-BR': ['“Fada”', 'Prólogo: Interlúdio'],
+      },
       characters: ['belle', 'wise', 'fairy', 'shepherd', 'nicole'],
       tldr: {
         en: 'The HDD reboots with a new tenant: Fairy, an AI with access to most of the city’s devices, bound to the siblings by an “agreement” it refuses to explain.',

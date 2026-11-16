@@ -85,6 +85,32 @@ describe('story content', () => {
     }
   })
 
+  // Names show on avatars, cards and intel cards from `unlockedAt` on. A character the story only
+  // describes ("a woman in red") must not unlock before the recap actually names them.
+  it('every character is named in the recap text by the time they unlock', () => {
+    for (const locale of LOCALES) {
+      for (const entity of linkableEntities.filter((e) => e.kind === 'character')) {
+        const unlockedAt = timeline.orderOf(entity.unlockedAt)
+        const corpus = timeline.segments
+          .filter((s) => s.order <= unlockedAt)
+          .flatMap((s) => [s.tldr[locale], ...s.summary[locale]])
+          .join('\n')
+          .replace(/\*\*/g, '')
+        const named = entity.aliases[locale].some((alias) => corpus.includes(alias))
+        expect(
+          named,
+          `${entity.key} unlocks at ${entity.unlockedAt} but is not named in the ${locale} text up to there`,
+        ).toBe(true)
+      }
+    }
+  })
+
+  it('every segment lists the same episodes in every locale', () => {
+    for (const segment of timeline.segments) {
+      expect(segment.episodes['pt-BR'].length, segment.id).toBe(segment.episodes.en.length)
+    }
+  })
+
   it('ids are unique across characters, factions and glossary', () => {
     for (const list of [characters, factions, glossary]) {
       const ids = list.map((i) => i.id)

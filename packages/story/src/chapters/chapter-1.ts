@@ -20,8 +20,11 @@ export const chapter1a = {
     {
       id: 'c1a-client',
       title: { en: 'A Client with Two Tails', 'pt-BR': 'Uma cliente de duas caudas' },
-      episodes: ['An Uninvited Guest', 'Client with Two Tails'],
-      characters: ['perlman', 'sarah', 'nekomata', 'nicole', 'anby', 'billy', 'fairy'],
+      episodes: {
+        en: ['An Uninvited Guest', 'Client with Two Tails'],
+        'pt-BR': ['Uma Visita Inesperada', 'Cliente com Duas Caudas'],
+      },
+      characters: ['perlman', 'nekomata', 'nicole', 'anby', 'billy', 'fairy'],
       tldr: {
         en: 'Vision Corporation is shipping explosives through the Dead End Hollow to demolish the old metro — and a cat Thiren named Nekomata says the Cunning Hares are trapped in the blast zone.',
         'pt-BR':
@@ -43,7 +46,10 @@ export const chapter1a = {
     {
       id: 'c1a-hideouts',
       title: { en: 'The Hideouts', 'pt-BR': 'Os esconderijos' },
-      episodes: ['Abandoned Rally Point', 'Lost Item'],
+      episodes: {
+        en: ['Abandoned Rally Point', 'Lost Item'],
+        'pt-BR': ['Ponto de Encontro Abandonado', 'Itens Perdidos'],
+      },
       characters: ['nekomata', 'nicole', 'anby', 'billy'],
       tldr: {
         en: 'The heirloom hunt reveals a Red Fang Gang falling apart and leads to the last hideout: inside the Dead End Hollow, home of the infamous Dead End Butcher.',
@@ -64,7 +70,10 @@ export const chapter1a = {
     {
       id: 'c1a-train',
       title: { en: 'The Last Train', 'pt-BR': 'O último trem' },
-      episodes: ['Explosive Last Train', 'Doubts Arise'],
+      episodes: {
+        en: ['Explosive Last Train', 'Doubts Arise'],
+        'pt-BR': ['Último Trem Explosivo', 'Novas Dúvidas'],
+      },
       characters: ['nekomata', 'corin', 'fairy', 'eous', 'belle', 'wise'],
       tldr: {
         en: 'Phaethon reroutes Vision’s explosives train from inside the Hollow, but the “driverless” train turns out to be full of fake police officers.',
@@ -106,7 +115,10 @@ export const chapter1b = {
     {
       id: 'c1b-captives',
       title: { en: 'The Girl in the Hollow', 'pt-BR': 'A menina na Esfera' },
-      episodes: ['Hidden Stories', 'Unexpected Captives'],
+      episodes: {
+        en: ['Hidden Stories', 'Unexpected Captives'],
+        'pt-BR': ['Histórias Ocultas', 'Prisioneiros Inesperados'],
+      },
       characters: ['nekomata', 'nicole', 'anby', 'billy'],
       tldr: {
         en: 'Chasing a lost child through the Dead End Hollow, the Hares stumble onto Vision’s secret: over a hundred residents were never evacuated from the blast zone.',
@@ -129,7 +141,7 @@ export const chapter1b = {
     {
       id: 'c1b-train',
       title: { en: 'Seizing the Train', 'pt-BR': 'Tomando o trem' },
-      episodes: ['Second Rescue', 'Endlessness'],
+      episodes: { en: ['Second Rescue', 'Endlessness'], 'pt-BR': ['Segundo Resgate', 'Extinção'] },
       characters: ['nekomata', 'nicole', 'anby', 'billy', 'perlman', 'fairy'],
       tldr: {
         en: 'The plan to hijack Vision’s train collapses when Perlman’s men blow up the tracks — and Nekomata confesses she grew up with the Red Fang Gang.',
@@ -152,7 +164,10 @@ export const chapter1b = {
     {
       id: 'c1b-butcher',
       title: { en: 'The Butcher’s End', 'pt-BR': 'O fim do Carniceiro' },
-      episodes: ['Endlessness', 'Vagrant’s Final Resting Place', 'Chapter 1 Intermission'],
+      episodes: {
+        en: ['Endlessness', 'Vagrant’s Final Resting Place', 'Chapter 1 Intermission'],
+        'pt-BR': ['Extinção', 'O Descanso Final do Andarilho', 'Capítulo I: Interlúdio'],
+      },
       characters: ['nicole', 'anby', 'billy', 'nekomata', 'sarah', 'perlman', 'fairy', 'eous'],
       tldr: {
         en: 'Phaethon kills the Dead End Butcher with Vision’s own explosives, the shrunken Hollow frees the residents, and Vision’s scheme is exposed live on TV.',
@@ -193,7 +208,14 @@ export const zeroZone = {
     {
       id: 'z-hollow-zero',
       title: { en: 'Hollow Zero', 'pt-BR': 'Hollow Zero' },
-      episodes: ['Restricted Area Investigation', 'Mysterious Encounter', 'Frontline Pursuit'],
+      episodes: {
+        en: ['Restricted Area Investigation', 'Mysterious Encounter', 'Frontline Pursuit'],
+        'pt-BR': [
+          'Investigação de Área Restrita',
+          'Encontro Misterioso',
+          'Perseguição na Linha de Frente',
+        ],
+      },
       characters: ['shepherd', 'fairy', 'ray', 'miyabi', 'yanagi', 'harumasa', 'soukaku', 'eous'],
       tldr: {
         en: 'A back-door test earns Phaethon a Hollow Zero license — and drops them into Section 6’s hunt for a colossal Ethereal.',
