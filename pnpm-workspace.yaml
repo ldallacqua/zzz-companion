@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver
+
+# Lets package scripts use POSIX-style env vars (FOO=1 cmd) on Windows too.
+shellEmulator: true

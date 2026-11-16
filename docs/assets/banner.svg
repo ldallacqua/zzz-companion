@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-labelledby="t d">
+  <title id="t">ZZZ Companion</title>
+  <desc id="d">Previously on New Eridu — a spoiler-safe Zenless Zone Zero story recap.</desc>
+  <defs>
+    <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#c6ff2e" />
+    </pattern>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#ffffff" opacity="0.05" />
+    </pattern>
+    <pattern id="hazard" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="40" fill="#c6ff2e" />
+    </pattern>
+    <radialGradient id="glow" cx="78%" cy="100%" r="70%">
+      <stop offset="0" stop-color="#c6ff2e" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#c6ff2e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="sweep" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.07" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <clipPath id="frame">
+      <polygon points="28,0 1280,0 1280,392 1252,420 0,420 0,28" />
+    </clipPath>
+    <style>
+      .rec { animation: blink 1.4s steps(2, start) infinite; }
+      .sweep { animation: sweep 5s linear infinite; }
+      .ticker { animation: tick 18s linear infinite; }
+      @keyframes blink { to { visibility: hidden; } }
+      @keyframes sweep { from { transform: translateY(-140px); } to { transform: translateY(440px); } }
+      @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-640px); } }
+      @media (prefers-reduced-motion: reduce) { .rec, .sweep, .ticker { animation: none; } }
+      .display { font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif; font-weight: 900; font-style: italic; }
+      .mono { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-weight: 700; letter-spacing: 6px; }
+    </style>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="420" fill="#08080a" />
+    <rect width="1280" height="420" fill="url(#glow)" />
+    <rect x="860" y="0" width="420" height="420" fill="url(#dots)" opacity="0.18" />
+
+    <!-- Hazard tape ticker -->
+    <g transform="translate(0 0)">
+      <rect width="1280" height="34" fill="#c6ff2e" />
+      <g class="ticker">
+        <text x="20" y="23" class="mono" font-size="13" fill="#0b0d02">SPOILER-SAFE ◆ PREVIOUSLY ON NEW ERIDU ◆ PROXY BUSINESS ONLY ◆ MIND THE HOLLOW ◆ SPOILER-SAFE ◆ PREVIOUSLY ON NEW ERIDU ◆ PROXY BUSINESS ONLY ◆ MIND THE HOLLOW ◆</text>
+      </g>
+    </g>
+
+    <!-- Kicker -->
+    <rect x="72" y="104" width="44" height="3" fill="#c6ff2e" />
+    <text x="132" y="112" class="mono" font-size="16" fill="#c6ff2e">PREVIOUSLY ON</text>
+
+    <!-- Title with RGB split -->
+    <g transform="translate(64 246) skewX(-8)">
+      <text x="-4" y="0" class="display" font-size="132" fill="#2ee6ff" opacity="0.55">ZZZ COMPANION</text>
+      <text x="4" y="2" class="display" font-size="132" fill="#ff5a1f" opacity="0.55">ZZZ COMPANION</text>
+      <text x="0" y="0" class="display" font-size="132" fill="#f3f3ee">ZZZ <tspan fill="#c6ff2e">COMPANION</tspan></text>
+    </g>
+
+    <text x="76" y="306" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#9a9aa3">
+      A spoiler-safe Zenless Zone Zero story recap that stops exactly where you are.
+    </text>
+
+    <!-- Chips -->
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="2">
+      <polygon points="84,338 236,338 236,368 76,368 76,346" fill="#c6ff2e" />
+      <text x="92" y="358" fill="#0b0d02">EN + PT-BR</text>
+      <polygon points="260,338 452,338 452,368 252,368 252,346" fill="#222228" />
+      <text x="268" y="358" fill="#f3f3ee">MOTION ON / OFF</text>
+      <polygon points="476,338 640,338 640,368 468,368 468,346" fill="#222228" />
+      <text x="484" y="358" fill="#f3f3ee">LOCAL-FIRST</text>
+    </g>
+
+    <!-- REC -->
+    <g transform="translate(1110 78)">
+      <rect class="rec" width="12" height="12" fill="#ff3b5c" />
+      <text x="22" y="11" class="mono" font-size="14" fill="#f3f3ee">REC</text>
+    </g>
+    <text x="1112" y="398" class="mono" font-size="13" fill="#c6ff2e">▶ PLAY</text>
+
+    <!-- CRT overlay -->
+    <rect width="1280" height="420" fill="url(#scan)" />
+    <rect class="sweep" width="1280" height="120" fill="url(#sweep)" />
+    <rect x="0" y="400" width="1280" height="20" fill="url(#hazard)" opacity="0.9" />
+  </g>
+  <polygon points="28,1 1279,1 1279,392 1252,419 1,419 1,28" fill="none" stroke="#c6ff2e" stroke-width="2" />
+</svg>

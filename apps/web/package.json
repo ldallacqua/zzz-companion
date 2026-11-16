@@ -1,0 +1,48 @@
+{
+  "name": "@zzz/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "e2e": "playwright test",
+    "build:static": "STATIC_EXPORT=true next build",
+    "screenshots": "SCREENSHOTS=1 E2E_PORT=3000 playwright test e2e/readme-screenshots.spec.ts --project=desktop --project=mobile"
+  },
+  "dependencies": {
+    "@zzz/core": "workspace:*",
+    "@zzz/story": "workspace:*",
+    "@zzz/ui": "workspace:*",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.73.0",
+    "motion": "^14.14.0",
+    "next": "^16.4.6",
+    "next-intl": "^4.15.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
+    "@tailwindcss/postcss": "^4.3.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "jsdom": "^31.0.1",
+    "tailwindcss": "^4.3.5",
+    "tw-animate-css": "^1.4.0",
+    "vitest": "^5.1.0"
+  }
+}

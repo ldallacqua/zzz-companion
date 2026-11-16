@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "ZZZ Companion — Previously on New Eridu",
+    "description": "A spoiler-safe Zenless Zone Zero story recap that stops exactly where you are."
+  },
+  "nav": {
+    "home": "Home",
+    "recap": "Recap",
+    "characters": "Characters",
+    "glossary": "Glossary",
+    "main": "Main navigation",
+    "settings": "Settings",
+    "skip": "Skip to content"
+  },
+  "ticker": {
+    "t1": "Spoiler-safe",
+    "t2": "Previously on New Eridu",
+    "t3": "Proxy business only",
+    "t4": "Mind the Hollow",
+    "t5": "Unofficial fan project"
+  },
+  "progress": {
+    "chip": "Progress",
+    "notSet": "Not set",
+    "set": "Set my progress",
+    "change": "Change progress",
+    "title": "Where are you?",
+    "description": "Pick the last part you finished. Only expand the chapter you're on — episode names further ahead can be spoilers.",
+    "notStarted": "I haven't started yet",
+    "finishedUpTo": "Finished up to here",
+    "covers": "Covers episodes",
+    "current": "Current",
+    "ratio": "{done} of {total} parts",
+    "caughtUp": "Caught up",
+    "saved": "Progress saved"
+  },
+  "home": {
+    "kicker": "Previously on",
+    "title": "New Eridu",
+    "lede": "Forgot what happened? Get a spoiler-safe recap of Zenless Zone Zero that stops exactly where you are in the story.",
+    "ctaStart": "Set my progress",
+    "ctaRecap": "Read my recap",
+    "statusLabel": "You are here",
+    "statusEmpty": "Tell us where you are and the recap will stop right there.",
+    "nextUp": "Up next in your game",
+    "stepsTitle": "How it works",
+    "step1": "Pick the last part you finished.",
+    "step2": "Read the TL;DR or the full recap.",
+    "step3": "Characters and terms unlock as you go.",
+    "coverage": "Covers the story from the Prologue to the Chapter 2 Interlude (v{version})."
+  },
+  "recap": {
+    "kicker": "Previously on",
+    "title": "Your story so far",
+    "mode": "Recap mode",
+    "tldr": "TL;DR",
+    "full": "Full",
+    "emptyTitle": "No spoilers yet",
+    "emptyBody": "Set your progress and the recap will appear here — nothing past that point, ever.",
+    "partial": "Partial summary",
+    "partialHint": "Sources for this part have less detail, so this summary is shorter.",
+    "episodes": "Episodes",
+    "featuring": "Featuring",
+    "sources": "Sources",
+    "endTitle": "You're caught up",
+    "endBody": "That's everything up to your progress. Keep playing and come back for the next part.",
+    "chapterDone": "Chapter complete",
+    "chapterOngoing": "In progress",
+    "partNumber": "Part {n}"
+  },
+  "characters": {
+    "kicker": "Who's who",
+    "title": "Characters",
+    "lede": "Everyone you've met so far, described only with what you already know.",
+    "all": "All",
+    "filter": "Filter by faction",
+    "locked": "{count, plural, one {# more character appears} other {# more characters appear}} later in the story.",
+    "lockedName": "Classified",
+    "firstSeen": "First seen in"
+  },
+  "glossary": {
+    "kicker": "Field notes",
+    "title": "Glossary",
+    "lede": "The terms of New Eridu, unlocked as the story introduces them.",
+    "search": "Search terms",
+    "noResults": "No unlocked term matches “{query}”.",
+    "locked": "{count, plural, one {# more term unlocks} other {# more terms unlock}} as you progress.",
+    "faction": "Faction",
+    "term": "Term"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "motion": "Animations",
+    "motionHint": "“System” follows your device's reduce-motion setting.",
+    "motionSystem": "System",
+    "motionFull": "Full",
+    "motionReduced": "Reduced",
+    "motionOff": "Off",
+    "recapMode": "Default recap mode",
+    "data": "Your data",
+    "dataHint": "Everything is stored only in this browser. No account, no tracking.",
+    "reset": "Reset progress",
+    "resetDone": "Progress reset",
+    "about": "About",
+    "aboutBody": "Unofficial fan project, not affiliated with HoYoverse. Story summaries were written for this app after reading the community wiki's transcripts."
+  },
+  "common": {
+    "close": "Close",
+    "loading": "Loading…",
+    "version": "v{version}"
+  },
+  "footer": {
+    "disclaimer": "Unofficial fan project. Not affiliated with or endorsed by HoYoverse. Zenless Zone Zero and all character art © HoYoverse / COGNOSPHERE.",
+    "sources": "Recaps researched from the Zenless Zone Zero Wiki (CC BY-SA).",
+    "repo": "Open source"
+  },
+  "notFound": {
+    "title": "Signal lost",
+    "body": "This page fell into a Hollow.",
+    "back": "Back home"
+  },
+  "entity": {
+    "character": "Character",
+    "term": "Glossary",
+    "faction": "Faction",
+    "seeAllCharacters": "All characters",
+    "seeGlossary": "Open glossary",
+    "hint": "Tap underlined names for quick intel."
+  },
+  "features": {
+    "kicker": "What it does",
+    "title": "Features",
+    "soon": "Coming soon",
+    "soonBadge": "Soon"
+  }
+}

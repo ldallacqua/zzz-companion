@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "ZZZ Companion — Anteriormente em Nova Eridu",
+    "description": "Recap da história de Zenless Zone Zero sem spoilers, que para exatamente onde você está."
+  },
+  "nav": {
+    "home": "Início",
+    "recap": "Recap",
+    "characters": "Personagens",
+    "glossary": "Glossário",
+    "main": "Navegação principal",
+    "settings": "Ajustes",
+    "skip": "Pular para o conteúdo"
+  },
+  "ticker": {
+    "t1": "Sem spoilers",
+    "t2": "Anteriormente em Nova Eridu",
+    "t3": "Só negócios de Proxy",
+    "t4": "Cuidado com a Esfera",
+    "t5": "Projeto de fã não oficial"
+  },
+  "progress": {
+    "chip": "Progresso",
+    "notSet": "Não definido",
+    "set": "Definir meu progresso",
+    "change": "Mudar progresso",
+    "title": "Onde você está?",
+    "description": "Escolha a última parte que você terminou. Abra só o capítulo em que você está — nomes de episódios mais à frente podem dar spoiler.",
+    "notStarted": "Ainda não comecei",
+    "finishedUpTo": "Terminei até aqui",
+    "covers": "Episódios",
+    "current": "Atual",
+    "ratio": "{done} de {total} partes",
+    "caughtUp": "Em dia",
+    "saved": "Progresso salvo"
+  },
+  "home": {
+    "kicker": "Anteriormente em",
+    "title": "Nova Eridu",
+    "lede": "Esqueceu o que aconteceu? Leia um recap de Zenless Zone Zero sem spoilers, que para exatamente onde você está na história.",
+    "ctaStart": "Definir meu progresso",
+    "ctaRecap": "Ler meu recap",
+    "statusLabel": "Você está aqui",
+    "statusEmpty": "Diga onde você está e o recap para exatamente ali.",
+    "nextUp": "Próximo no seu jogo",
+    "stepsTitle": "Como funciona",
+    "step1": "Escolha a última parte que você terminou.",
+    "step2": "Leia o TL;DR ou o recap completo.",
+    "step3": "Personagens e termos desbloqueiam conforme você avança.",
+    "coverage": "Cobre a história do Prólogo ao Interlúdio do Capítulo 2 (v{version})."
+  },
+  "recap": {
+    "kicker": "Anteriormente em",
+    "title": "Sua história até aqui",
+    "mode": "Modo do recap",
+    "tldr": "TL;DR",
+    "full": "Completo",
+    "emptyTitle": "Nenhum spoiler por enquanto",
+    "emptyBody": "Defina seu progresso e o recap aparece aqui — nada além desse ponto, nunca.",
+    "partial": "Resumo parcial",
+    "partialHint": "As fontes desta parte têm menos detalhes, então o resumo é mais curto.",
+    "episodes": "Episódios",
+    "featuring": "Com",
+    "sources": "Fontes",
+    "endTitle": "Você está em dia",
+    "endBody": "Isso é tudo até o seu progresso. Continue jogando e volte para a próxima parte.",
+    "chapterDone": "Capítulo concluído",
+    "chapterOngoing": "Em andamento",
+    "partNumber": "Parte {n}"
+  },
+  "characters": {
+    "kicker": "Quem é quem",
+    "title": "Personagens",
+    "lede": "Todo mundo que você já conheceu, descrito só com o que você já sabe.",
+    "all": "Todos",
+    "filter": "Filtrar por facção",
+    "locked": "{count, plural, one {Mais # personagem aparece} other {Mais # personagens aparecem}} mais adiante na história.",
+    "lockedName": "Confidencial",
+    "firstSeen": "Aparece em"
+  },
+  "glossary": {
+    "kicker": "Anotações de campo",
+    "title": "Glossário",
+    "lede": "Os termos de Nova Eridu, desbloqueados conforme a história os apresenta.",
+    "search": "Buscar termos",
+    "noResults": "Nenhum termo desbloqueado corresponde a “{query}”.",
+    "locked": "{count, plural, one {Mais # termo desbloqueia} other {Mais # termos desbloqueiam}} conforme você avança.",
+    "faction": "Facção",
+    "term": "Termo"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "motion": "Animações",
+    "motionHint": "“Sistema” segue a opção de reduzir movimento do seu aparelho.",
+    "motionSystem": "Sistema",
+    "motionFull": "Completas",
+    "motionReduced": "Reduzidas",
+    "motionOff": "Desligadas",
+    "recapMode": "Modo padrão do recap",
+    "data": "Seus dados",
+    "dataHint": "Tudo fica salvo só neste navegador. Sem conta, sem rastreamento.",
+    "reset": "Zerar progresso",
+    "resetDone": "Progresso zerado",
+    "about": "Sobre",
+    "aboutBody": "Projeto de fã não oficial, sem vínculo com a HoYoverse. Os resumos foram escritos para este app a partir das transcrições da wiki da comunidade."
+  },
+  "common": {
+    "close": "Fechar",
+    "loading": "Carregando…",
+    "version": "v{version}"
+  },
+  "footer": {
+    "disclaimer": "Projeto de fã não oficial. Sem vínculo ou endosso da HoYoverse. Zenless Zone Zero e todas as artes de personagens © HoYoverse / COGNOSPHERE.",
+    "sources": "Recaps pesquisados na Zenless Zone Zero Wiki (CC BY-SA).",
+    "repo": "Código aberto"
+  },
+  "notFound": {
+    "title": "Sinal perdido",
+    "body": "Esta página caiu numa Esfera Negra.",
+    "back": "Voltar ao início"
+  },
+  "entity": {
+    "character": "Personagem",
+    "term": "Glossário",
+    "faction": "Facção",
+    "seeAllCharacters": "Todos os personagens",
+    "seeGlossary": "Abrir glossário",
+    "hint": "Toque nos nomes sublinhados para ver quem é quem."
+  },
+  "features": {
+    "kicker": "O que ele faz",
+    "title": "Recursos",
+    "soon": "Em breve",
+    "soonBadge": "Em breve"
+  }
+}
