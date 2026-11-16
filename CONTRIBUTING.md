@@ -10,7 +10,10 @@ Thanks for helping! Read [`AGENTS.md`](AGENTS.md) first — the same rules apply
    (`apps/web/src/lib/features.ts`) whenever a change affects them — see AGENTS.md.
 5. Work on a branch and open a PR. Before it, run `pnpm verify`; for UI work also `pnpm e2e` and
    `pnpm test:storybook` (every component needs stories, and every story must pass with zero axe
-   violations); and run `pnpm lighthouse` before a feature is merged. CI runs all of them.
-   Use Conventional Commits.
-6. Glossary and character texts change over time: add `revisions` instead of rewriting them, and
+   violations); and run `pnpm lighthouse` before a feature is merged. CI runs all of them, and
+   `main` only accepts a PR once they pass. Use Conventional Commits.
+6. Every new feature gets **one UI/UX expert review** before it's merged: an agent started with
+   [`.claude/agents/ux-reviewer.md`](.claude/agents/ux-reviewer.md). Fix its Blockers and Highs and
+   note the verdict in the PR (see AGENTS.md → "Quality gates", 4).
+7. Glossary and character texts change over time: add `revisions` instead of rewriting them, and
    show them with `knownTextAt` (see AGENTS.md → "Entries change as the story goes on").

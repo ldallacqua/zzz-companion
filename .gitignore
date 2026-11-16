@@ -14,7 +14,8 @@ blob-report
 next-env.d.ts
 
 # Local tool config
-.claude/
+.claude/*
+!.claude/agents/
 
 # Lighthouse CI + Storybook build output
 .lighthouseci/

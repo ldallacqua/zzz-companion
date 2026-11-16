@@ -38,6 +38,7 @@ packages/core       Pure TypeScript domain: Zod schemas, timeline, spoiler gatin
 packages/story      Story content (chapters, characters, glossary) validated against core schemas.
 packages/ui         Design system: shadcn-style components + ZZZ tokens + motion primitives.
 apps/web/.storybook Storybook config (stories live next to each component as *.stories.tsx).
+.claude/agents      Reviewer agents (ux-reviewer), usable as the prompt of any AI tool's agent.
 docs/adr            Architecture Decision Records — read before changing architecture.
 docs/features       Feature specs.
 ```
@@ -95,8 +96,10 @@ These are part of the definition of done — a change is not finished until they
 
 ## Quality gates before merging to `main` (non-negotiable)
 
-Work happens on a branch and lands through a pull request. Every gate below is a CI job
-(`.github/workflows/ci.yml`); run them locally first.
+Work happens on a branch and lands through a pull request. Gates 1–3 are CI jobs
+(`.github/workflows/ci.yml`) that `main`'s branch protection requires (`verify`, `e2e`,
+`storybook (stories + a11y)`, `lighthouse`), so a PR can't merge until they pass; run them locally
+first. Gate 4 is a review you run before the PR is merged.
 
 1. **Storybook is always current.** Every component in `packages/ui/src/components` and
    `apps/web/src/components` (except the non-visual `providers.tsx`) has a sibling
@@ -110,6 +113,15 @@ Work happens on a branch and lands through a pull request. Every gate below is a
    static site and audits home, recap, characters and glossary (mobile emulation, median of 3).
    Thresholds (`lighthouserc.cjs`): Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95,
    SEO ≥ 95. Never lower a threshold to merge; fix the regression.
+4. **One UI/UX expert reviews every new feature.** Once a feature (or a noticeable change to a
+   screen) is built, start **a single** reviewer agent with the instructions in
+   `.claude/agents/ux-reviewer.md` (Claude Code: the `ux-reviewer` subagent; other tools: a fresh
+   agent with that file's body as its prompt). Tell it which feature and route, what changed and
+   which files, and give it screenshots at 390 / 768 / 1440 in both locales covering the feature's
+   states (or let it take them). Fix every **Blocker** and **High** before merging, fix the
+   **Medium**s or say in the PR why not, and re-run the review if the fixes changed the UI
+   noticeably. The PR description records the verdict (`READY TO SHIP` / `NOT READY`) and what
+   was fixed. Merge only on `READY TO SHIP`.
 
 ## Recap intel cards (clickable names)
 
