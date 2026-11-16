@@ -1,11 +1,19 @@
 ## What & why
 
+## UX review
+
+<!-- New feature or noticeable screen change: one `ux-reviewer` agent run (AGENTS.md → Quality gates, 4).
+     Paste the verdict and list what was fixed. Otherwise write "n/a" and why. -->
+
+Verdict:
+
 ## Checklist
 
 - [ ] `pnpm verify` passes
 - [ ] UI changes checked on mobile / tablet / desktop (and `pnpm e2e` when relevant)
 - [ ] **Storybook updated**: new/changed components have stories, and `pnpm test:storybook` passes (zero axe violations)
 - [ ] **Lighthouse**: `pnpm lighthouse` passes (no regression in Performance, Accessibility, Best Practices, SEO)
+- [ ] **UX review** (new features): one `ux-reviewer` agent reviewed it, Blockers/Highs fixed, verdict `READY TO SHIP`
 - [ ] New knowledge about an existing character/term/faction is a `revisions` entry, shown via `knownTextAt`
 - [ ] New strings exist in `en` and `pt-BR`
 - [ ] Story content was researched from sources (listed in the chapter) and is spoiler-gated

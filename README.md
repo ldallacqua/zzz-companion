@@ -144,14 +144,16 @@ docs/             ADRs, feature specs, README assets
 
 ## ✦ Quality gates
 
-Nothing reaches `main` without passing every gate — each one is a CI job on the pull request:
+Nothing reaches `main` without passing every gate. The four checks are CI jobs that `main`'s
+branch protection requires, and every new feature also gets a UI/UX expert review:
 
-| Gate           | What it guarantees                                                                                                                                            |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                |
-| `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                      |
-| **Storybook**  | [Every component has stories](https://ldallacqua.github.io/zzz-companion/storybook/); each story renders, passes its interactions and has zero axe violations |
-| **Lighthouse** | Home, recap, characters and glossary audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                      |
+| Gate           | What it guarantees                                                                                                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                                                                      |
+| `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                                                                            |
+| **Storybook**  | [Every component has stories](https://ldallacqua.github.io/zzz-companion/storybook/); each story renders, passes its interactions and has zero axe violations                                                       |
+| **Lighthouse** | Home, recap, characters and glossary audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                                            |
+| **UX review**  | One senior product-designer agent ([`ux-reviewer`](.claude/agents/ux-reviewer.md)) reviews each new feature: hierarchy, states, responsive, a11y, copy in both languages. Blockers and Highs are fixed before merge |
 
 ## ✦ Built for humans _and_ AI agents
 
