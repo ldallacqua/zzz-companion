@@ -20,7 +20,7 @@ export function usePartLabel() {
 
 /**
  * What the reader knows about someone, as a case file: the current note on top, then the earlier
- * notes newest first, ending at "First seen". `notes` come from `knownHistoryAt` (oldest first and
+ * notes newest first, ending at "On file since". `notes` come from `knownHistoryAt` (oldest first and
  * never past the reader's progress), so nothing here can point at what is still locked: no counts,
  * no placeholders, no "more to come".
  */

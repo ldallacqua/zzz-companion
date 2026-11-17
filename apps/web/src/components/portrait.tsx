@@ -80,7 +80,7 @@ export function Portrait({
           className={cn(
             'display opacity-90',
             monogram === 'xl'
-              ? 'text-[clamp(6rem,45cqi,12rem)] text-outline'
+              ? 'text-[clamp(6rem,45cqi,12rem)] [-webkit-text-fill-color:transparent] [-webkit-text-stroke:2px_currentColor]'
               : monogram === 'lg'
                 ? 'text-7xl'
                 : 'text-sm not-italic',

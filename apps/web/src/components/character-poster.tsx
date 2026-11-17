@@ -6,10 +6,11 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Badge, cn, ease, pullBack, wipeIn } from '@zzz/ui'
 import type { Character, Locale } from '@zzz/core'
 import { Portrait, resized } from './portrait'
+import { useMotionLevel } from './providers'
 
 /** Poster height per breakpoint: a phone "cover", then a sticky column from md. */
 const FRAME =
-  'h-[min(56svh,30rem)] md:h-auto md:aspect-[4/7] lg:aspect-auto lg:h-[min(calc(100dvh-10rem),48rem)]'
+  'h-[min(56svh,30rem)] md:h-auto md:aspect-[4/7] lg:aspect-auto lg:h-[min(calc(100dvh-11.5rem),48rem)]'
 
 /**
  * The full-body art of a character file, staged like a video-store rental sleeve: a chamfered frame
@@ -35,6 +36,8 @@ export function CharacterPoster({
   const name = character.name[locale]
   const color = character.color
   const [ready, setReady] = useState(false)
+  // Clip-path wipes and the scale pull-back are motion; reduced/off start in their final state.
+  const animate = useMotionLevel() === 'full'
 
   // A slow CDN must not leave the figure waiting: start the pull-back after 600ms regardless.
   useEffect(() => {
@@ -53,12 +56,15 @@ export function CharacterPoster({
       <div className="p-px chamfer-lg" style={{ backgroundColor: color }}>
         <div className={cn('relative overflow-hidden bg-surface chamfer-lg', FRAME)}>
           <motion.div
-            className="inset-0 absolute [clip-path:polygon(0_38%,100%_12%,100%_70%,0_96%)]"
+            className="inset-0 absolute"
             variants={wipeIn}
-            initial="hidden"
+            initial={animate ? 'hidden' : false}
             animate="show"
           >
-            <div className="size-full" style={{ backgroundColor: `${color}4d` }} />
+            <div
+              className="size-full [clip-path:polygon(0_38%,100%_12%,100%_70%,0_96%)]"
+              style={{ backgroundColor: `${color}4d` }}
+            />
           </motion.div>
           <div
             className="inset-0 absolute"
@@ -93,8 +99,8 @@ export function CharacterPoster({
               transformOrigin: `${character.focus.x * 100}% ${Math.min(character.focus.y, 0.4) * 100}%`,
             }}
             variants={pullBack}
-            initial="hidden"
-            animate={ready ? 'show' : 'hidden'}
+            initial={animate ? 'hidden' : false}
+            animate={!animate || ready ? 'show' : 'hidden'}
           >
             {character.art === 'scene' && character.image ? (
               <SceneArt

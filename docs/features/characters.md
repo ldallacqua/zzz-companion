@@ -26,7 +26,7 @@ Design consultation (before building) by a UI/UX + art-direction agent; decision
   outlined initials in the same box. The poster is decorative (`aria-hidden`); the h1 names them.
 - **Layout**: stacked cover on phones (identity label overlapping the poster), two columns with a
   sticky poster from `md`, plus a vertical spine on `lg`.
-- **Dossier**: "Now" on top, earlier notes newest first, ending at "First seen". No counts, ghost
+- **Dossier**: "Now" on top, earlier notes newest first, ending at "On file since". No counts, ghost
   rows or "more to come". Hidden when there is only one note.
 - **Motion**: transform/clip only (pull-back on the figure, wipe on the slab, stamp on badges);
   everything static with motion reduced or off.

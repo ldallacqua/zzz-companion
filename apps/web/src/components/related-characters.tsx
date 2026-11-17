@@ -22,7 +22,7 @@ export function RelatedCharacters({
       <h2 id={titleId} className="text-3xl display">
         {t('seenWith')}
       </h2>
-      <ul className="mt-4 gap-1.5 md:grid-cols-2 lg:grid-cols-3 grid">
+      <ul className="mt-4 gap-1.5 md:grid-cols-2 grid">
         {related.map(({ character: c, sharedParts }) => (
           <li key={c.id}>
             <Link
@@ -45,7 +45,7 @@ export function RelatedCharacters({
                 />
               </span>
               <span className="min-w-0">
-                <span className="text-xl leading-tight block truncate display">
+                <span className="text-xl leading-tight line-clamp-2 block display">
                   {c.name[locale]}
                 </span>
                 <span className="block font-mono text-[0.62rem] tracking-[0.14em] text-subtle uppercase">

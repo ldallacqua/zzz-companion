@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { ArrowLeft } from 'lucide-react'
@@ -38,6 +38,13 @@ export function CharacterFileView({ id }: { id: string }) {
   // Remember if this visit started locked, to stamp the file "Unlocked" when progress opens it.
   const [wasLocked, setWasLocked] = useState(false)
   if (story.hydrated && !character && !wasLocked) setWasLocked(true)
+
+  // Relocking (progress moved back) shows the locked state from the top, not at the footer.
+  const openId = useRef<string | undefined>(undefined)
+  useEffect(() => {
+    if (openId.current && !character) window.scrollTo({ top: 0 })
+    openId.current = character?.id
+  }, [character])
 
   return (
     <div className="pt-6 pb-16">
@@ -176,6 +183,8 @@ function LockedFile({ pending, noProgress }: { pending: boolean; noProgress: boo
   const tr = useTranslations('recap')
   const tp = useTranslations('progress')
   const setPickerOpen = useUi((s) => s.setPickerOpen)
+  // Same title for every locked id (and back to generic after a relock).
+  useDocumentTitle(`${t('kicker')} · ZZZ Companion`)
   return (
     <>
       {pending && (

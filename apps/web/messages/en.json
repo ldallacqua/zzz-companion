@@ -131,7 +131,6 @@
     "character": "Character",
     "term": "Glossary",
     "faction": "Faction",
-    "seeAllCharacters": "See in Characters",
     "seeGlossary": "See in Glossary",
     "asOf": "As of {part}"
   },
@@ -145,7 +144,7 @@
     "kicker": "Character file",
     "metaDescription": "A spoiler-safe character file: only what you already know about them.",
     "back": "All characters",
-    "firstSeen": "First seen · {part}",
+    "firstSeen": "On file since · {part}",
     "asOfYou": "As of your progress:",
     "change": "Change",
     "changeSr": " progress",
@@ -168,7 +167,6 @@
     "openFile": "Open file",
     "buildTitle": "Build",
     "buildBody": "Recommended W-Engines, Drive Discs, stats and skill priority for {name} are on the way.",
-    "factions": "Factions",
-    "poster": "Poster"
+    "factions": "Factions"
   }
 }

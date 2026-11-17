@@ -131,7 +131,6 @@
     "character": "Personagem",
     "term": "Glossário",
     "faction": "Facção",
-    "seeAllCharacters": "Ver em Personagens",
     "seeGlossary": "Ver no Glossário",
     "asOf": "Situação em {part}"
   },
@@ -145,7 +144,7 @@
     "kicker": "Ficha de personagem",
     "metaDescription": "Uma ficha de personagem sem spoilers: só o que você já sabe.",
     "back": "Todos os personagens",
-    "firstSeen": "Primeira aparição · {part}",
+    "firstSeen": "Na ficha desde · {part}",
     "asOfYou": "Até onde você jogou:",
     "change": "Mudar",
     "changeSr": " progresso",
@@ -153,7 +152,7 @@
     "now": "Agora",
     "updated": "Atualização: {part}",
     "earlier": "Anotações anteriores",
-    "asOf": "Até {part}",
+    "asOf": "Situação em {part}",
     "appearsIn": "Aparece em",
     "seenWith": "Costuma aparecer com",
     "sharedParts": "{count, plural, one {# parte em comum} other {# partes em comum}}",
@@ -168,7 +167,6 @@
     "openFile": "Abrir ficha",
     "buildTitle": "Build",
     "buildBody": "Motores-W, Discos, atributos e prioridade de habilidades recomendados para {name} estão a caminho.",
-    "factions": "Facções",
-    "poster": "Pôster"
+    "factions": "Facções"
   }
 }

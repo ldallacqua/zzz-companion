@@ -91,17 +91,19 @@ export function CharacterCard({
               REC
             </span>
           </div>
-          <div className="p-3 relative">
-            <span
-              className="top-0 left-3 h-0.5 w-10 absolute -translate-y-1/2"
-              style={{ backgroundColor: character.color }}
-              aria-hidden
-            />
+          {/* Not positioned: the name link's ::after must resolve against the whole card. */}
+          <div className="p-3">
+            <div className="relative" aria-hidden>
+              <span
+                className="-top-3 h-0.5 w-10 left-0 absolute -translate-y-1/2"
+                style={{ backgroundColor: character.color }}
+              />
+            </div>
             <h2 className="text-2xl display leading-none">
               {/* The link's ::after covers the card, so the whole card is clickable. */}
               <Link
                 href={`/characters/${character.id}`}
-                className="after:inset-0 outline-none after:absolute after:content-['']"
+                className="after:inset-0 outline-none after:absolute after:z-20 after:content-['']"
               >
                 {character.name[locale]}
               </Link>

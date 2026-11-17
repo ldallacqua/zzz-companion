@@ -26,11 +26,11 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** What you know now on top, then earlier notes newest first, ending at "First seen". */
+/** What you know now on top, then earlier notes newest first, ending at "On file since". */
 export const WithHistory: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('heading', { name: 'Earlier notes' })).toBeInTheDocument()
-    await expect(canvas.getByText(/First seen/)).toBeInTheDocument()
+    await expect(canvas.getByText(/On file since/)).toBeInTheDocument()
   },
 }
 

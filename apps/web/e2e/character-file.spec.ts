@@ -8,13 +8,31 @@ const textOf = (id: string) => {
 }
 
 test.describe('character file', () => {
-  test('opens from the characters index', async ({ page }) => {
+  test('opens from the characters index by tapping the art', async ({ page }) => {
     await seedProgress(page, 'i2b-farewell')
     await page.goto('/en/characters/')
-    await page.getByRole('link', { name: 'Nicole Demara', exact: true }).click()
+    // Most people tap the picture: the whole card, not only the name, opens the file.
+    const art = page.locator('#character-nicole img').first()
+    await art.scrollIntoViewIfNeeded()
+    const box = (await art.boundingBox())!
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 3)
     await expect(page).toHaveURL(/\/en\/characters\/nicole\/?$/)
     await expect(page.getByRole('heading', { level: 1, name: /Nicole Demara/ })).toBeVisible()
     await expect(page).toHaveTitle(/^Nicole Demara · Character file/)
+  })
+
+  test('relocking (progress moved back) clears the name from the tab title', async ({ page }) => {
+    await seedProgress(page, 'i2b-farewell')
+    await page.goto('/en/characters/koleda/')
+    await expect(page).toHaveTitle(/^Koleda Belobog · Character file/)
+    await page.getByRole('button', { name: /Change/ }).click()
+    const dialog = page.getByRole('dialog')
+    await dialog.getByRole('button', { name: /Lost & Found \(B\)/ }).click()
+    await dialog.getByTestId('pick-c1b-butcher').click()
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('heading', { level: 1, name: 'File locked' })).toBeVisible()
+    await expect(page).toHaveTitle(/^Character file/)
+    await expect(page.getByRole('heading', { level: 1 })).toBeInViewport()
   })
 
   test('a character not met yet is a generic locked file', async ({ page }) => {
@@ -41,7 +59,16 @@ test.describe('character file', () => {
     await page.goto('/en/characters/koleda/')
     await page.getByRole('link', { name: /Part 1: Belobog Calls/ }).click()
     await expect(page).toHaveURL(/\/en\/recap\/#part-c2a-belobog$/)
-    await expect(page.getByTestId('segment-c2a-belobog')).toBeInViewport()
+    // The part's title must be readable: below the sticky header, not scrolled past it.
+    const title = page.getByTestId('segment-c2a-belobog').locator('h3')
+    const headerBottom = await page
+      .locator('body > header, header.sticky')
+      .first()
+      .evaluate((el) => el.getBoundingClientRect().bottom)
+    await expect
+      .poll(() => title.evaluate((el) => el.getBoundingClientRect().top))
+      .toBeGreaterThanOrEqual(headerBottom)
+    await expect(title).toBeInViewport()
   })
 
   test('the static HTML never contains anything about a character', async ({ request }) => {
