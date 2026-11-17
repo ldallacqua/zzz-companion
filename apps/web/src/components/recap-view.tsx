@@ -36,7 +36,22 @@ export function RecapView() {
 
   return (
     <>
-      <PageHeading kicker={t('kicker')} title={t('title')}>
+      <PageHeading
+        kicker={t('kicker')}
+        title={t('title')}
+        lede={
+          <>
+            {t('lede')} {/* Same hydration-safe gate as the reading controls below. */}
+            <span
+              className={cn(
+                !story.hydrated ? 'hidden in-data-[progress=set]:inline' : !hasRecap && 'hidden',
+              )}
+            >
+              {t('ledeTap')}
+            </span>
+          </>
+        }
+      >
         <div className="mt-8 gap-4 sm:flex-row sm:items-end sm:justify-between flex flex-col">
           <div className="max-w-sm w-full">
             <ProgressTicks
@@ -196,7 +211,10 @@ function ChapterBlock({ chapter, mode }: { chapter: RecapChapter; mode: RecapMod
                 >
                   {chapter.label[locale]}
                 </span>
-                <Badge variant="outline">v{chapter.version}</Badge>
+                <Badge variant="outline">
+                  <span aria-hidden>v{chapter.version}</span>
+                  <span className="sr-only">{t('version', { v: chapter.version })}</span>
+                </Badge>
                 <span className="gap-1.5 ml-auto flex items-center font-mono text-[0.68rem] tracking-[0.14em] text-muted uppercase">
                   {chapter.complete ? (
                     <CheckCheck className="size-3.5" aria-hidden />
@@ -341,6 +359,7 @@ function SegmentCard({
             ids={segment.characters}
             label={t('featuring')}
             listLabel={t('featuringList')}
+            at={segment.id}
           />
         </div>
       </div>

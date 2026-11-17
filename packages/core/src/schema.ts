@@ -20,6 +20,23 @@ export const LocalizedTextSchema = localized(nonEmpty)
 export type LocalizedText = z.infer<typeof LocalizedTextSchema>
 export const LocalizedParagraphsSchema = localized(z.array(nonEmpty).min(1))
 
+/** Fills every locale with the same value. */
+const sameInEveryLocale = <T>(value: T) =>
+  Object.fromEntries(LOCALES.map((l) => [l, value])) as Localized<T>
+
+/**
+ * Either one value for every locale, or one per locale when the game localizes it
+ * (the pt-BR client calls Fairy "Fada"). Always parsed to the per-locale form.
+ */
+const sameOrLocalized = <T extends z.ZodType>(schema: T) =>
+  z
+    .union([schema, localized(schema)])
+    .transform((v) =>
+      typeof v === 'object' && v !== null && !Array.isArray(v) && 'en' in v
+        ? (v as Localized<z.infer<T>>)
+        : sameInEveryLocale(v as z.infer<T>),
+    )
+
 /** kebab-case ids keep URLs, storage keys and test names predictable. */
 export const IdSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'ids must be kebab-case')
 
@@ -112,7 +129,8 @@ export type FactionInput = z.input<typeof FactionSchema>
 
 export const CharacterSchema = GatedSchema.extend({
   id: IdSchema,
-  name: nonEmpty,
+  /** Display name: one string, or per locale when the game's client localizes it. */
+  name: sameOrLocalized(nonEmpty),
   /** Faction ids. Kept as data (not an enum) because the game keeps adding factions. */
   factions: z.array(IdSchema).default([]),
   /** What the reader knows about them at `unlockedAt` - never later facts. */
@@ -136,8 +154,8 @@ export const CharacterSchema = GatedSchema.extend({
     .default({ x: 0.5, y: 0.13, zoom: 2.1 }),
   /** Accent color used by the card frame. */
   color: nonEmpty,
-  /** Short names / nicknames used in recap text (same in every locale). */
-  aliases: z.array(nonEmpty).default([]),
+  /** Short names / nicknames used in recap text: one list, or per locale. */
+  aliases: sameOrLocalized(z.array(nonEmpty)).prefault([]),
 })
 export type Character = z.infer<typeof CharacterSchema>
 export type CharacterInput = z.input<typeof CharacterSchema>

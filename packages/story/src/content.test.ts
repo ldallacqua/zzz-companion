@@ -133,6 +133,29 @@ describe('story content', () => {
     ]
   })
 
+  // When the pt-BR client renames someone (Fairy → Fada, Miguel Silver → Miguel Argento), the
+  // English-only names must not leak into pt-BR text.
+  it('pt-BR text uses the pt-BR names of characters', () => {
+    const corpus = [
+      ...timeline.segments.flatMap((s) => [s.tldr['pt-BR'], ...s.summary['pt-BR']]),
+      ...versions.map((v) => v.text['pt-BR']),
+    ]
+      .join('\n')
+      .replace(/\*\*/g, '')
+    for (const c of characters) {
+      // Word by word, so half-translated names (“Argento Tears”) are caught too.
+      const words = (names: string[]) => names.flatMap((n) => n.split(/\s+/)).filter(Boolean)
+      const ptWords = new Set(words([c.name['pt-BR'], ...c.aliases['pt-BR']]))
+      for (const en of words([c.name.en, ...c.aliases.en]).filter((w) => !ptWords.has(w))) {
+        const word = new RegExp(
+          `(?<![\\p{L}])${en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}])`,
+          'u',
+        )
+        expect(corpus, `"${en}" (${c.id}) appears in pt-BR text`).not.toMatch(word)
+      }
+    }
+  })
+
   it('revisions come after the entry is unlocked, in story order', () => {
     for (const entity of linkableEntities) {
       let previous = timeline.orderOf(entity.unlockedAt)

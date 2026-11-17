@@ -38,9 +38,9 @@ export const features: Feature[] = [
     icon: 'tv',
     title: { en: 'Story recap', 'pt-BR': 'Recap da história' },
     description: {
-      en: 'Prologue → Chapter 2 Interlude, part by part, in TL;DR or full mode — researched from the game’s transcripts.',
+      en: 'Prologue → Chapter 2 Interlude, part by part, short or in full — researched from the game’s transcripts.',
       'pt-BR':
-        'Do Prólogo ao Interlúdio do Cap. 2, parte por parte, em TL;DR ou completo — pesquisado nas transcrições do jogo.',
+        'Do Prólogo ao Interlúdio do Cap. 2, parte por parte, resumido ou completo — pesquisado nas transcrições do jogo.',
     },
   },
   {
@@ -60,9 +60,9 @@ export const features: Feature[] = [
     icon: 'pointer',
     title: { en: 'Tap-to-explain names', 'pt-BR': 'Nomes clicáveis' },
     description: {
-      en: 'Characters, factions and terms in the recap are tappable: an intel card explains who or what they are — as of that point in the story.',
+      en: 'Characters, factions and terms in the recap — and the faces of who was there — are tappable: an intel card explains who or what they are, as of that point in the story.',
       'pt-BR':
-        'Personagens, facções e termos do recap são clicáveis: um cartão explica quem ou o que eles são — naquele ponto da história.',
+        'Personagens, facções e termos do recap — e os rostos de quem estava em cena — são clicáveis: um cartão explica quem ou o que eles são, naquele ponto da história.',
     },
   },
   {

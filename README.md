@@ -67,17 +67,17 @@ you the story up to exactly that point**, in English or Brazilian Portuguese.
 
 ## ✦ Features
 
-|     | Feature                       | What you get                                                                                                                           |
-| :-: | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, in **TL;DR** or **full** mode — researched from the game's transcripts, with sources.    |
-| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                              |
-| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap open an intel card — explained _as of that part of the story_, never with later facts. |
-| 🗂️  | **Character files**           | Everyone you've met, filterable by faction, described only with what you already know.                                                 |
-| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                             |
-| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                               |
-| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                               |
-| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                   |
-| 🔒  | **Private by default**        | No account, no tracking. Your progress lives only in your browser.                                                                     |
+|     | Feature                       | What you get                                                                                                                                                             |
+| :-: | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, **short** or in **full** — researched from the game's transcripts, with sources.                                           |
+| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                                                                |
+| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts. |
+| 🗂️  | **Character files**           | Everyone you've met, filterable by faction, described only with what you already know.                                                                                   |
+| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                               |
+| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                 |
+| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                 |
+| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                     |
+| 🔒  | **Private by default**        | No account, no tracking. Your progress lives only in your browser.                                                                                                       |
 
 ### On the roadmap
 

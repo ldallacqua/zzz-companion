@@ -35,10 +35,10 @@ test.describe('recap', () => {
     await expect(page.getByTestId('segment-p-hacker')).toHaveCount(0)
   })
 
-  test('switches between TL;DR and full modes', async ({ page }) => {
+  test('switches between short and full modes', async ({ page }) => {
     await seedProgress(page, 'p-strongbox')
     await page.goto('/en/recap')
-    await page.getByRole('radio', { name: 'TL;DR' }).click()
+    await page.getByRole('radio', { name: 'Short' }).click()
     await expect(
       page.getByText('The Cunning Hares steal a mysterious strongbox back', { exact: false }),
     ).toBeVisible()
@@ -61,7 +61,7 @@ test.describe('i18n & settings', () => {
 })
 
 test.describe('layout', () => {
-  for (const path of ['/en', '/en/recap', '/en/characters', '/en/glossary']) {
+  for (const path of ['/en', '/en/recap', '/en/characters', '/en/glossary', '/pt-BR/recap']) {
     test(`no horizontal overflow on ${path}`, async ({ page }) => {
       await seedProgress(page, 'i2b-farewell')
       await page.goto(path)
@@ -70,6 +70,37 @@ test.describe('layout', () => {
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       )
       expect(overflow).toBeLessThanOrEqual(0)
+    })
+  }
+
+  // The narrowest supported width, where long tappable names (and anything glued to them) bite.
+  // Text inside chamfered panels is clipped rather than scrolling, so check each paragraph too.
+  for (const [path, recapMode] of [
+    ['/en/recap', 'full'],
+    ['/pt-BR/recap', 'full'],
+    ['/en/recap', 'tldr'],
+    ['/pt-BR/recap', 'tldr'],
+  ] as const) {
+    test(`recap text fits a 360px screen on ${path} (${recapMode})`, async ({ page }, testInfo) => {
+      test.skip(testInfo.project.name !== 'mobile', 'one phone viewport is enough')
+      await page.setViewportSize({ width: 360, height: 780 })
+      await seedProgress(page, 'i2b-farewell', { recapMode })
+      await page.goto(path)
+      await page.waitForLoadState('networkidle')
+      const problems = await page.evaluate(() => {
+        const out: string[] = []
+        const doc = document.documentElement
+        if (doc.scrollWidth > doc.clientWidth) out.push(`page scrollWidth ${doc.scrollWidth}`)
+        for (const p of document.querySelectorAll('[data-testid^="segment-"] p')) {
+          const right = p.getBoundingClientRect().right
+          for (const child of p.querySelectorAll('span, button')) {
+            const over = child.getBoundingClientRect().right - right
+            if (over > 1) out.push(`${child.textContent?.slice(0, 40)} +${Math.round(over)}px`)
+          }
+        }
+        return out
+      })
+      expect(problems).toEqual([])
     })
   }
 

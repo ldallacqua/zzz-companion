@@ -163,9 +163,9 @@ export const glossary = [
   },
   {
     id: 'old-capital',
-    aliases: { en: ['old capital'], 'pt-BR': ['antiga capital'] },
+    aliases: { en: ['old capital'], 'pt-BR': ['Velha Capital'] },
     unlockedAt: 'c1a-client',
-    term: { en: 'The old capital', 'pt-BR': 'A antiga capital' },
+    term: { en: 'The old capital', 'pt-BR': 'A Velha Capital' },
     definition: {
       en: 'The city that fell to the Hollows before New Eridu rose. Its ruins and old metro lines still sit inside Hollows.',
       'pt-BR':
@@ -209,7 +209,7 @@ export const glossary = [
     definition: {
       en: 'The oldest and most dangerous Hollow, source of the city’s major Hollows and of much of the old capital’s destruction.',
       'pt-BR':
-        'A Esfera mais antiga e perigosa, origem das grandes Esferas da cidade e de boa parte da destruição da antiga capital.',
+        'A Esfera mais antiga e perigosa, origem das grandes Esferas da cidade e de boa parte da destruição da Velha Capital.',
     },
   },
   {
@@ -230,7 +230,7 @@ export const glossary = [
         text: {
           en: 'Belobog’s first smart construction machine, lost when the old capital fell. Found in the monument, it held the receipt that cleared Khors.',
           'pt-BR':
-            'A primeira máquina de construção inteligente da Belobog, perdida na queda da antiga capital. Encontrada no monumento, guardava o recibo que inocentou Khors.',
+            'A primeira máquina de construção inteligente da Belobog, perdida na queda da Velha Capital. Encontrada no monumento, guardava o recibo que inocentou Khors.',
         },
       },
     ],
@@ -239,7 +239,7 @@ export const glossary = [
     definition: {
       en: 'Belobog’s first smart construction machine, lost when the old capital fell — and still sending signals.',
       'pt-BR':
-        'A primeira máquina de construção inteligente da Belobog, perdida na queda da antiga capital — e ainda emitindo sinais.',
+        'A primeira máquina de construção inteligente da Belobog, perdida na queda da Velha Capital — e ainda emitindo sinais.',
     },
   },
   {
@@ -270,7 +270,7 @@ export const glossary = [
     definition: {
       en: 'The superior Ethereal — sword for an arm — that Miguel Silver became after severe Ether corruption inside the Hollow.',
       'pt-BR':
-        'O Etéreo superior — com uma espada no lugar do braço — em que Miguel Silver se transformou após a corrupção por Éter dentro da Esfera.',
+        'O Etéreo superior — com uma espada no lugar do braço — em que Miguel Argento se transformou após a corrupção por Éter dentro da Esfera.',
     },
   },
   {
@@ -327,7 +327,7 @@ export const glossary = [
   {
     id: 'nineveh',
     unlockedAt: 'z-hollow-zero',
-    term: { en: 'Nineveh', 'pt-BR': 'Nineveh' },
+    term: { en: 'Nineveh', 'pt-BR': 'Nínive' },
     definition: {
       en: 'A colossal Ethereal in Hollow Zero. Even Section 6’s chief couldn’t seriously hurt it with one clean slash.',
       'pt-BR':
@@ -341,7 +341,7 @@ export const glossary = [
     definition: {
       en: 'The memorial plaza Belobog was building in a development area near the old capital when Khors disappeared.',
       'pt-BR':
-        'A praça memorial que a Belobog construía numa área de expansão perto da antiga capital quando Khors sumiu.',
+        'A praça memorial que a Belobog construía numa área de expansão perto da Velha Capital quando Khors sumiu.',
     },
   },
 ] satisfies GlossaryTermInput[]

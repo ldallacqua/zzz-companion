@@ -64,7 +64,7 @@ test.describe('keyboard focus is visible', () => {
     await expect(full).toHaveAttribute('aria-checked', 'true')
     await expectVisibleFocus(page, full, async () => {
       // Arrow keys move focus within the group without changing the selection.
-      await page.getByRole('radio', { name: 'TL;DR' }).focus()
+      await page.getByRole('radio', { name: 'Short' }).focus()
       await page.keyboard.press('ArrowRight')
     })
   })

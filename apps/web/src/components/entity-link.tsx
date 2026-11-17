@@ -10,7 +10,8 @@ import { useContextProgress } from '@/lib/use-entities'
 import { Portrait } from './portrait'
 
 /**
- * Inline, tappable name inside recap text that opens an "intel card" about it.
+ * Tappable name that opens an "intel card" about it: inline in recap text (`appearance="text"`),
+ * or wrapped around a character's avatar (`appearance="avatar"`).
  * `at` is the recap part the name appears in: the card explains it as known at that point.
  */
 export function EntityLink({
@@ -18,32 +19,36 @@ export function EntityLink({
   children,
   strong,
   at,
+  appearance = 'text',
 }: {
   entityKey: EntityKey
-  children: string
+  children: React.ReactNode
   strong?: boolean
   at?: string
+  appearance?: 'text' | 'avatar'
 }) {
   const locale = useLocale() as Locale
   const entity = linkableByKey.get(entityKey)
   if (!entity) return <>{children}</>
   const color = entity.kind === 'character' ? entity.data.color : 'var(--color-primary)'
-  const name =
-    entity.kind === 'character'
-      ? entity.data.name
-      : entity.kind === 'term'
-        ? entity.data.term[locale]
-        : entity.data.name[locale]
+  const name = entity.kind === 'term' ? entity.data.term[locale] : entity.data.name[locale]
   return (
     <Popover>
       <PopoverTrigger
         data-entity={entityKey}
         className={cn(
-          'cursor-pointer rounded-[2px] underline decoration-dotted decoration-2 underline-offset-[5px] transition-colors',
-          'hover:bg-primary/15 hover:text-primary focus-visible:bg-primary/15 data-[state=open]:bg-primary data-[state=open]:text-primary-foreground',
-          strong ? 'font-semibold text-foreground' : 'text-foreground/90',
+          appearance === 'avatar'
+            ? 'hover:-translate-y-0.5 relative block cursor-pointer focus-inset transition-transform chamfer-sm data-[state=open]:outline-2 data-[state=open]:-outline-offset-4 data-[state=open]:outline-primary data-[state=open]:outline-solid'
+            : [
+                // One calm, neutral underline for every name; the entity's colour shows on hover,
+                // on focus and in the card's frame.
+                'cursor-pointer rounded-[2px] underline decoration-subtle decoration-dotted decoration-2 underline-offset-[5px] transition-colors',
+                'hover:bg-primary/15 hover:text-primary hover:decoration-(--entity) focus-visible:bg-primary/15 focus-visible:decoration-(--entity)',
+                'data-[state=open]:bg-primary data-[state=open]:text-primary-foreground',
+                strong ? 'font-semibold text-foreground' : 'text-foreground/90',
+              ],
         )}
-        style={{ textDecorationColor: color }}
+        style={{ ['--entity' as string]: color }}
       >
         {children}
       </PopoverTrigger>
@@ -71,7 +76,7 @@ function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
         >
           <Portrait
             src={c.image}
-            name={c.name}
+            name={c.name[locale]}
             color={c.color}
             focus={c.focus}
             framing="face"
@@ -81,7 +86,7 @@ function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
         </span>
         <div className="min-w-0">
           <Kicker icon={<UserRound className="size-3" aria-hidden />}>{t('character')}</Kicker>
-          <p className="mt-1 text-2xl display leading-none">{c.name}</p>
+          <p className="mt-1 text-2xl display leading-none">{c.name[locale]}</p>
           {c.factions.length > 0 && (
             <p className="mt-1 font-mono text-[0.6rem] tracking-[0.14em] text-subtle uppercase">
               {c.factions.map((id) => factionsById.get(id)?.name[locale]).join(' / ')}
@@ -107,9 +112,9 @@ function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
   )[locale]
   const anchor = `/glossary#${entity.kind}-${entity.data.id}`
   return (
-    <div className="p-4">
+    <div className="p-4 pr-14">
       <div
-        className="inset-y-0 right-0 w-16 absolute halftone text-primary opacity-15"
+        className="inset-y-0 right-0 w-10 absolute halftone text-primary opacity-15"
         aria-hidden
       />
       <Kicker

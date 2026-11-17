@@ -11,10 +11,10 @@ const meta = {
   tags: ['autodocs'],
   args: {
     src: nicole.image,
-    name: nicole.name,
+    name: nicole.name.en,
     color: nicole.color,
     focus: nicole.focus,
-    alt: nicole.name,
+    alt: nicole.name.en,
     sizes: '256px',
     framing: 'bust',
   },
@@ -52,7 +52,7 @@ export const Full: Story = { args: { framing: 'full' } }
 export const OpaqueArt: Story = {
   args: (() => {
     const c = charactersById.get('bringer')!
-    return { src: c.image, name: c.name, color: c.color, focus: c.focus, alt: c.name }
+    return { src: c.image, name: c.name.en, color: c.color, focus: c.focus, alt: c.name.en }
   })(),
 }
 

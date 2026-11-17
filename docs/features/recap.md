@@ -8,7 +8,7 @@ happened so far — without seeing anything that comes later.
 ## User stories
 
 - As a player, I pick the last part I finished (or "not started").
-- I read the recap in **TL;DR** (one line per part) or **Full** mode, in English or pt-BR.
+- I read the recap **Short** (one line per part) or in **Full**, in English or pt-BR.
 - I see who was involved in each part, and a characters page / glossary limited to what I know.
 - I recognise each part by the episode names my game client shows, in my language.
 - I tap a name in the recap and get an intel card that explains it **as of that part** of the
