@@ -7,6 +7,15 @@ import { seedProgress } from './helpers'
 const tile = (page: Page, id: string) => page.locator(`label[for="own-${id}"]`)
 const box = (page: Page, id: string) => page.getByTestId(`agent-${id}`)
 
+/**
+ * Opens the page and waits for hydration (the grid drops `aria-busy`). Typing into the search box
+ * before React hydrates fires no onChange, which slower engines (WebKit in CI) hit.
+ */
+async function open(page: Page, path: string) {
+  await page.goto(path)
+  await expect(page.locator('[aria-busy]')).toHaveCount(0)
+}
+
 test.describe('My Agents (guest)', () => {
   test.beforeEach(async ({ page }) => {
     await seedProgress(page, null)
@@ -44,7 +53,7 @@ test.describe('My Agents (guest)', () => {
   })
 
   test('search narrows the list; Mark all and Undo', async ({ page }) => {
-    await page.goto('/en/agents')
+    await open(page, '/en/agents')
     await page.getByRole('searchbox', { name: 'Search Agents' }).fill('soldier')
     await expect(page.getByText('2 Agents', { exact: true })).toBeVisible()
     await page.getByRole('button', { name: /^Mark all \(2\)/ }).click()
@@ -55,7 +64,7 @@ test.describe('My Agents (guest)', () => {
   })
 
   test('Enter in search toggles a single match', async ({ page }) => {
-    await page.goto('/en/agents')
+    await open(page, '/en/agents')
     const search = page.getByRole('searchbox', { name: 'Search Agents' })
     await search.fill('lycaon')
     await search.press('Enter')
@@ -80,7 +89,7 @@ test.describe('My Agents (guest)', () => {
   })
 
   test('works in Portuguese with the pt-BR client terms', async ({ page }) => {
-    await page.goto('/pt-BR/agents')
+    await open(page, '/pt-BR/agents')
     await expect(page.getByRole('heading', { name: 'Meus Agentes' })).toBeVisible()
     await page.getByRole('searchbox', { name: 'Buscar Agentes' }).fill('gatilho')
     await expect(page.getByRole('checkbox', { name: 'Gatilho' })).toHaveCount(1)
