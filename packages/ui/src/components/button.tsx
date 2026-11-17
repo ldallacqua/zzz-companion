@@ -25,6 +25,9 @@ export const buttonVariants = cva(
         outline:
           'chamfer-sm bg-transparent text-foreground shadow-[inset_0_0_0_1.5px_var(--color-border-strong)] hover:text-primary hover:shadow-[inset_0_0_0_1.5px_var(--color-primary)]',
         ghost: 'text-muted hover:text-foreground',
+        /** Irreversible actions (delete account). Dark text on the danger fill (~5.9:1). */
+        danger:
+          'chamfer-sm bg-danger text-background focus-visible:outline-background hover:-translate-y-0.5 hover:shadow-[0_6px_0_-1px_var(--color-foreground)]',
       },
       size: {
         sm: 'h-10 px-3.5 text-sm',

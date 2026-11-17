@@ -12,6 +12,7 @@ import { MobileNav, SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { ProgressPicker } from '@/components/progress-picker'
 import { SettingsSheet } from '@/components/settings-sheet'
+import { LazyAccountSync } from '@/lib/account-sync-lazy'
 import '../globals.css'
 
 const barlow = Barlow_Condensed({
@@ -87,6 +88,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
             <MobileNav />
             <ProgressPicker />
             <SettingsSheet />
+            <LazyAccountSync />
           </Providers>
         </NextIntlClientProvider>
       </body>

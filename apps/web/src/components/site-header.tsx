@@ -1,13 +1,15 @@
 'use client'
 
+import { Fragment } from 'react'
 import { motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { BookOpenText, Home, Settings2, Users, Library } from 'lucide-react'
+import { BookOpenText, Home, Settings2, SquareUserRound, Users, Library } from 'lucide-react'
 import { cn, spring } from '@zzz/ui'
 import type { Locale } from '@zzz/core'
 import { Link, usePathname } from '@/i18n/navigation'
 import { useStory } from '@/lib/use-story'
 import { useUi } from '@/lib/ui-store'
+import { AccountButton } from './account-button'
 import { GameMark } from './game-mark'
 
 const NAV = [
@@ -15,6 +17,8 @@ const NAV = [
   { href: '/recap', key: 'recap', icon: BookOpenText },
   { href: '/characters', key: 'characters', icon: Users },
   { href: '/glossary', key: 'glossary', icon: Library },
+  // Tools (not story): set apart by a divider in the desktop nav.
+  { href: '/agents', key: 'agents', icon: SquareUserRound },
 ] as const
 
 function isActive(pathname: string, href: string) {
@@ -47,28 +51,35 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label={t('nav.main')} className="ml-2 gap-1 lg:ml-6 md:flex hidden items-center">
+        <nav
+          aria-label={t('nav.main')}
+          className="ml-2 gap-0.5 lg:ml-6 lg:gap-1 md:flex hidden items-center"
+        >
           {NAV.map(({ href, key }) => {
             const active = isActive(pathname, href)
             return (
-              <Link
-                key={href}
-                href={href}
-                aria-current={current(pathname, href)}
-                className={cn(
-                  'px-3 py-2 text-xs font-semibold relative font-mono tracking-[0.16em] uppercase transition-colors',
-                  active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
+              <Fragment key={href}>
+                {href === '/agents' && (
+                  <span aria-hidden className="mx-0.5 h-4 lg:mx-1 w-px bg-border-strong" />
                 )}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="inset-0 absolute bg-primary chamfer-sm"
-                    transition={spring.snappy}
-                  />
-                )}
-                <span className="relative">{t(`nav.${key}`)}</span>
-              </Link>
+                <Link
+                  href={href}
+                  aria-current={current(pathname, href)}
+                  className={cn(
+                    'px-1.5 py-2 text-xs font-semibold lg:px-3 lg:tracking-[0.16em] relative font-mono tracking-[0.1em] whitespace-nowrap uppercase transition-colors',
+                    active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="inset-0 absolute bg-primary chamfer-sm"
+                      transition={spring.snappy}
+                    />
+                  )}
+                  <span className="relative">{t(`nav.${key}`)}</span>
+                </Link>
+              </Fragment>
             )
           })}
         </nav>
@@ -105,6 +116,7 @@ export function SiteHeader() {
               </span>
             </span>
           </button>
+          <AccountButton />
           <button
             type="button"
             onClick={() => setSettingsOpen(true)}
@@ -128,7 +140,7 @@ export function MobileNav() {
       aria-label={t('main')}
       className="inset-x-0 bottom-0 backdrop-blur-md md:hidden fixed z-40 border-t border-border bg-background/92 pb-[env(safe-area-inset-bottom)]"
     >
-      <ul className="max-w-md mx-auto grid grid-cols-4">
+      <ul className="max-w-md mx-auto grid grid-cols-5">
         {NAV.map(({ href, key, icon: Icon }) => {
           const active = isActive(pathname, href)
           return (
@@ -137,14 +149,14 @@ export function MobileNav() {
                 href={href}
                 aria-current={current(pathname, href)}
                 className={cn(
-                  'h-16 gap-1 font-semibold relative flex flex-col items-center justify-center font-mono text-[0.62rem] tracking-[0.12em] uppercase transition-colors',
+                  'h-16 gap-1 font-semibold relative flex flex-col items-center justify-center font-mono text-[0.62rem] tracking-[0.05em] whitespace-nowrap uppercase transition-colors min-[420px]:tracking-[0.12em]',
                   active ? 'text-primary' : 'text-muted',
                 )}
               >
                 {active && (
                   <motion.span
                     layoutId="mobile-nav-active"
-                    className="inset-x-4 top-0 h-0.5 absolute bg-primary"
+                    className="inset-x-3 top-0 h-0.5 absolute bg-primary"
                     transition={spring.snappy}
                   />
                 )}

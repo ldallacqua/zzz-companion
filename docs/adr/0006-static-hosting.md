@@ -1,6 +1,6 @@
 # 0006 — Static hosting on GitHub Pages
 
-**Status:** accepted · 2026-11-16
+**Status:** accepted · 2026-11-16 · the site stays static; accounts are a separate API ([ADR 0011](0011-accounts-and-roster-sync.md))
 
 ## Context
 

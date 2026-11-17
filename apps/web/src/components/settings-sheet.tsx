@@ -1,10 +1,11 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { RotateCcw } from 'lucide-react'
+import { RotateCcw, UserRound } from 'lucide-react'
 import { Button, Segmented, Sheet, SheetContent } from '@zzz/ui'
 import type { Locale } from '@zzz/core'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
+import { useAccount } from '@/lib/account-store'
 import { useCompanion, type MotionPreference, type RecapMode } from '@/lib/store'
 import { useUi } from '@/lib/ui-store'
 
@@ -42,6 +43,8 @@ export function SettingsSheet() {
   const recapMode = useCompanion((s) => s.recapMode)
   const setRecapMode = useCompanion((s) => s.setRecapMode)
   const resetProgress = useCompanion((s) => s.resetProgress)
+  const accountsEnabled = useAccount((s) => s.enabled)
+  const accountUser = useAccount((s) => (s.token ? s.user : null))
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -85,6 +88,24 @@ export function SettingsSheet() {
             ]}
           />
         </Section>
+        {accountsEnabled && (
+          <Section title={t('account')}>
+            <p className="mb-3 text-sm text-muted">
+              {accountUser
+                ? t.rich('accountSignedIn', {
+                    name: accountUser.name,
+                    strong: (chunks) => <strong className="text-foreground">{chunks}</strong>,
+                  })
+                : t('accountGuest')}
+            </p>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/account" onClick={() => setOpen(false)}>
+                <UserRound aria-hidden />
+                {accountUser ? t('accountManage') : t('accountGuestCta')}
+              </Link>
+            </Button>
+          </Section>
+        )}
         <Section title={t('data')} hint={t('dataHint')}>
           <Button variant="outline" size="sm" onClick={() => resetProgress()}>
             <RotateCcw aria-hidden />

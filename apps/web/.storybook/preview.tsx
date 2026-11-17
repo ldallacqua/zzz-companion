@@ -7,6 +7,9 @@ import type { Locale } from '@zzz/core'
 import { Providers } from '@/components/providers'
 import { useCompanion, type CompanionState } from '@/lib/store'
 import { useUi } from '@/lib/ui-store'
+import { useAccount } from '@/lib/account-store'
+import { useRoster, type SyncStatus } from '@/lib/roster-store'
+import type { AccountUser } from '@/lib/api'
 import en from '../messages/en.json'
 import ptBR from '../messages/pt-BR.json'
 import '../src/app/globals.css'
@@ -30,6 +33,10 @@ declare module '@storybook/nextjs-vite' {
     companion?: Partial<Pick<CompanionState, 'lastSegmentId' | 'recapMode' | 'hydrated'>>
     /** Layout UI state (open sheets). */
     ui?: { pickerOpen?: boolean; settingsOpen?: boolean }
+    /** Account state (default: accounts available on this build, signed out). */
+    account?: { enabled?: boolean; user?: AccountUser | null }
+    /** Roster on this device (default: empty guest roster). */
+    roster?: { owned?: Record<string, number>; sync?: SyncStatus }
   }
 }
 
@@ -88,6 +95,21 @@ const preview: Preview = {
       ...parameters.companion,
     })
     useUi.setState({ pickerOpen: false, settingsOpen: false, ...parameters.ui })
+    // Stories never call the API: <AccountSync> isn't mounted here, so these stay as set.
+    const user = parameters.account?.user ?? null
+    useAccount.setState({
+      enabled: parameters.account?.enabled ?? true,
+      user,
+      token: user ? 'storybook-token' : null,
+      hydrated: true,
+    })
+    useRoster.setState({
+      owned: parameters.roster?.owned ?? {},
+      owner: user ? user.id : null,
+      dirty: false,
+      sync: parameters.roster?.sync ?? (user ? 'saved' : 'local'),
+      hydrated: true,
+    })
   },
   decorators: [
     (Story, { globals }) => {

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@zzz/core": "workspace:*",
+    "@zzz/game": "workspace:*",
     "@zzz/story": "workspace:*",
     "@zzz/ui": "workspace:*",
     "clsx": "^2.1.1",

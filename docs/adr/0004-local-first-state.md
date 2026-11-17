@@ -1,6 +1,6 @@
 # 0004 — Local-first state
 
-**Status:** accepted · 2026-11-16
+**Status:** accepted · 2026-11-16 · extended by [ADR 0011](0011-accounts-and-roster-sync.md) (optional accounts sync the roster; everything still works without one)
 
 ## Decision
 

@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
   // Workspace packages ship TypeScript source ("just-in-time" internal packages).
-  transpilePackages: ['@zzz/core', '@zzz/story', '@zzz/ui'],
+  transpilePackages: ['@zzz/core', '@zzz/game', '@zzz/story', '@zzz/ui'],
   images: {
     // Character art is © HoYoverse, hotlinked from the community wiki CDN (never committed).
     // That CDN rejects server-side image proxies, so the browser loads images directly.
