@@ -20,8 +20,10 @@ anything reaches `main` (which deploys straight to GitHub Pages).
   (`@storybook/addon-a11y` with `a11y.test = 'error'`). Tests run with motion off so axe never
   measures a half-faded element. A unit test fails when a component has no stories.
 - **Lighthouse CI** (`@lhci/cli`) audits the static export (the same artifact Pages serves) on
-  every PR: Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95 (median of 3
-  runs, mobile emulation). Reports are CI artifacts; nothing is uploaded to public storage.
+  every PR: Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95 (3 runs per
+  page, mobile emulation). Performance is the **median of the three scores**; the other
+  categories barely vary and use LHCI's default (best run). Reports are CI artifacts; nothing is
+  uploaded to public storage.
 - The static Storybook is deployed with the site at `/storybook/`.
 
 ## Consequences
@@ -32,3 +34,8 @@ anything reaches `main` (which deploys straight to GitHub Pages).
   largest element until JavaScript ran (slow LCP). Above-the-fold content now animates position,
   never from `opacity: 0`, and page transitions only run on client navigation.
 - More CI minutes (two extra jobs), offset by catching regressions before deploy.
+- 2026-11-17: Performance switched from LHCI's `median-run` to `median`. `median-run` keeps the
+  run nearest the median first paint and time-to-interactive, not the median score, so a single
+  outlier run decided the result: a PR failed at 86 on runs of 98, 100 and 86, where the outlier's
+  simulated LCP was 4.2 s for a hero that painted in 0.16 s. Earlier PRs had the same outliers and
+  passed only because another run was kept. The threshold stays at 90.
