@@ -82,15 +82,18 @@ you the story up to exactly that point**, in English or Brazilian Portuguese.
 | 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.      |
 | 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress. |
 | 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                    |
+| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds and pull advice.                                          |
+| ☁️  | **Accounts & sync**           | Optional email + password account that keeps your Agents on every device. Guest picks merge in when you sign in; delete it any time.                                          |
 | 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                      |
 | 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                      |
 | 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                          |
-| 🔒  | **Private by default**        | No account, no tracking. Your progress lives only in your browser.                                                                                                            |
+| 🔒  | **Private by default**        | No tracking. Progress and settings live in your browser; an account is optional and only syncs your Agents.                                                                   |
 
 ### On the roadmap
 
 - [ ] ⚔️ **Character builds** — recommended W-Engines and Drive Discs, plus what your gear is missing
-- [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your roster and plans
+- [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans
+- [ ] ✉️ Email for accounts: verification and password reset
 - [ ] 📚 More chapters (Chapter 3 onward), Agent Stories as optional tracks
 - [ ] 📲 Installable PWA with offline recap
 
@@ -105,6 +108,7 @@ pnpm dev                 # → http://localhost:3000
 | Command               | What it does                                                                         |
 | --------------------- | ------------------------------------------------------------------------------------ |
 | `pnpm dev`            | Start the app with hot reload                                                        |
+| `pnpm dev:full`       | App + accounts API together (local SQLite file, no external services needed)         |
 | `pnpm verify`         | Format check + typecheck + lint + unit & content tests (**definition of done**)      |
 | `pnpm e2e`            | Playwright on mobile / tablet / desktop + axe accessibility                          |
 | `pnpm build`          | Production build                                                                     |
@@ -115,22 +119,50 @@ pnpm dev                 # → http://localhost:3000
 
 Requires Node ≥ 22.
 
+### Accounts API (optional)
+
+The site works without it. To run sign-in and roster sync locally, use `pnpm dev:full` (API on
+http://localhost:8787 with a SQLite file in `apps/api/.data/`). The live site's API runs on
+Vercel (`zzz-companion-api`, São Paulo) with its database on Turso next to it. To deploy your own:
+
+1. Create a database on [Turso](https://turso.tech) and a token
+   (`turso db create zzz-companion`, `turso db tokens create zzz-companion`).
+2. Apply migrations: `DATABASE_URL=libsql://… DATABASE_AUTH_TOKEN=… pnpm --filter @zzz/api db:migrate`
+   (again before every deploy that changes the schema).
+3. Create a [Vercel](https://vercel.com) project with root directory `apps/api`
+   (`vercel project create`, `vercel link`, `vercel project update --root-directory apps/api`).
+   `apps/api/vercel.json` sets the install and build commands: `build:vercel` bundles the API into
+   one Node.js function (region `gru1`; change it in `apps/api/scripts/build-vercel.mjs` to sit
+   next to your database). Add the production variables `DATABASE_URL`, `DATABASE_AUTH_TOKEN`,
+   `BETTER_AUTH_SECRET` (32+ random chars), `BETTER_AUTH_URL` (its public URL) and `WEB_ORIGINS`
+   (`https://<user>.github.io`), then run `vercel deploy --prod` from the repo root. Other hosts
+   that run a Hono fetch handler can serve `apps/api/src/index.ts` instead.
+4. Set the repository variable `API_URL` to the API's URL; the next Pages deploy turns accounts on.
+
 ## ✦ Architecture
 
 ```mermaid
 flowchart LR
   subgraph apps
-    web["apps/web<br/>Next.js App Router · next-intl · Motion · Zustand"]
+    web["apps/web<br/>Next.js App Router · next-intl · Motion · Zustand<br/>(static export → GitHub Pages)"]
+    api["apps/api<br/>Hono · Better Auth · Drizzle<br/>(optional accounts)"]
   end
   subgraph packages
     ui["@zzz/ui<br/>shadcn-style design system<br/>ZZZ tokens + motion presets"]
     story["@zzz/story<br/>chapters · characters · glossary<br/>(typed, validated content)"]
-    core["@zzz/core<br/>Zod schemas · timeline<br/>spoiler gating · entity linking"]
+    game["@zzz/game<br/>Agents · attributes · specialties<br/>(researched game data)"]
+    core["@zzz/core<br/>Zod schemas · timeline · spoiler gating<br/>entity linking · roster rules"]
   end
+  db[("Turso / libSQL")]
   web --> ui
   web --> story
+  web --> game
   web --> core
+  web -. "HTTPS + bearer token" .-> api
+  api --> core
+  api --> db
   story --> core
+  game --> core
 ```
 
 - **Spoiler gating lives in one place** (`@zzz/core`): the UI never compares story order itself.
@@ -138,14 +170,19 @@ flowchart LR
   story reveals more, so an intel card in Chapter 1 never uses Chapter 2 facts.
 - **Content is code**: every recap part, character and term is typed data with an `unlockedAt`
   gate, validated by Zod and by integrity tests (no character can appear before they're unlocked).
-- **Local-first**: progress and preferences persist in `localStorage`; the site is fully static and
-  deploys to GitHub Pages.
+- **Local-first**: progress, preferences and the Agent roster persist in `localStorage`; the site
+  is fully static and deploys to GitHub Pages.
+- **Optional accounts** ([ADR 0011](docs/adr/0011-accounts-and-roster-sync.md)): a separate Hono
+  API with Better Auth (email + password) and Turso syncs the roster across devices. Without it
+  (or offline) everything still works on the device; signing in merges what you picked as a guest.
 - Decisions are documented as [ADRs](docs/adr); feature specs live in [`docs/features`](docs/features).
 
 ```
 apps/web          Next.js app — routes, screens, i18n messages, Storybook (.storybook)
+apps/api          Accounts API — Hono, Better Auth, Drizzle migrations (drizzle/)
 packages/core     Pure TypeScript domain (no React, no I/O)
 packages/story    Story content, characters, factions, glossary
+packages/game     Game data: every playable Agent, attributes, specialties, factions
 packages/ui       Design system components + tokens
 docs/             ADRs, feature specs, README assets
 ```
@@ -160,7 +197,7 @@ branch protection requires, and every new feature also gets a UI/UX expert revie
 | `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                                                                      |
 | `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                                                                            |
 | **Storybook**  | [Every component has stories](https://ldallacqua.github.io/zzz-companion/storybook/); each story renders, passes its interactions and has zero axe violations                                                       |
-| **Lighthouse** | Home, recap, characters and glossary audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                                            |
+| **Lighthouse** | Home, recap, characters, glossary and My Agents audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                                 |
 | **UX review**  | One senior product-designer agent ([`ux-reviewer`](.claude/agents/ux-reviewer.md)) reviews each new feature: hierarchy, states, responsive, a11y, copy in both languages. Blockers and Highs are fixed before merge |
 
 ## ✦ Built for humans _and_ AI agents

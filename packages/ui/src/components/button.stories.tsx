@@ -3,7 +3,7 @@ import { ArrowRight, Settings2 } from 'lucide-react'
 import { expect, fn } from 'storybook/test'
 import { Button } from './button'
 
-const VARIANTS = ['primary', 'accent', 'secondary', 'outline', 'ghost'] as const
+const VARIANTS = ['primary', 'accent', 'secondary', 'outline', 'ghost', 'danger'] as const
 const SIZES = ['sm', 'md', 'lg'] as const
 
 const meta = {

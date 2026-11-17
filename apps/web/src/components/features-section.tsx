@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 import {
   BookOpen,
+  CloudCheck,
   Dices,
   Languages,
   Lock,
@@ -10,6 +11,7 @@ import {
   ShieldCheck,
   Smartphone,
   Sparkles,
+  SquareUserRound,
   Swords,
   Tv,
   Users,
@@ -31,6 +33,8 @@ const ICONS: Record<FeatureIcon, LucideIcon> = {
   lock: Lock,
   swords: Swords,
   dice: Dices,
+  roster: SquareUserRound,
+  cloud: CloudCheck,
 }
 
 /** Landing page feature grid. Rendered from the feature registry — never hand-edit copy here. */

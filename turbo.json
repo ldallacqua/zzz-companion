@@ -4,11 +4,28 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["NEXT_PUBLIC_API_URL", "STATIC_EXPORT", "BASE_PATH"]
     },
-    "dev": { "cache": false, "persistent": true },
-    "typecheck": { "dependsOn": ["^typecheck"] },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "NEXT_PUBLIC_API_URL",
+        "DATABASE_URL",
+        "DATABASE_AUTH_TOKEN",
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "WEB_ORIGINS",
+        "PORT"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
     "lint": {},
-    "test": { "outputs": [] }
+    "test": {
+      "outputs": []
+    }
   }
 }

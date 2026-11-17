@@ -6,8 +6,9 @@ This is the single source of truth; tool-specific files only point here.
 ## What this is
 
 **ZZZ Companion** — an unofficial, spoiler-safe companion web app for _Zenless Zone Zero_.
-MVP feature: a story recap that stops exactly at the player's progress. Next: character builds and
-pull (gacha) recommendations. See `docs/features/` for specs and `docs/adr/` for decisions.
+MVP feature: a story recap that stops exactly at the player's progress. Players can also record the
+Agents they own ("My Agents", with optional account sync). Next: character builds and pull (gacha)
+recommendations built on that roster. See `docs/features/` for specs and `docs/adr/` for decisions.
 
 ## Commands (run from the repo root)
 
@@ -15,6 +16,8 @@ pull (gacha) recommendations. See `docs/features/` for specs and `docs/adr/` for
 | ---------------------- | ---------------------------------------------------------------------------- |
 | `pnpm install`         | Install everything (pnpm workspaces)                                         |
 | `pnpm dev`             | Start the web app at http://localhost:3000                                   |
+| `pnpm dev:api`         | Start the accounts API at http://localhost:8787 (local SQLite, no setup)     |
+| `pnpm dev:full`        | Web app + API together, already wired (`NEXT_PUBLIC_API_URL`)                |
 | `pnpm verify`          | **Definition of done**: format check + typecheck + lint + unit/content tests |
 | `pnpm test`            | Unit + content-integrity tests (Vitest)                                      |
 | `pnpm e2e`             | Playwright E2E across mobile / tablet / desktop (+ axe a11y)                 |
@@ -34,8 +37,10 @@ Pushing to `main` deploys the static site to GitHub Pages (`.github/workflows/de
 
 ```
 apps/web            Next.js (App Router) — routes, screens, i18n. No domain logic here.
+apps/api            Accounts API: Hono + Better Auth + Drizzle on Turso/libSQL (ADR 0011).
 packages/core       Pure TypeScript domain: Zod schemas, timeline, spoiler gating. No React, no I/O.
 packages/story      Story content (chapters, characters, glossary) validated against core schemas.
+packages/game       Game data (Agents, attributes, specialties, factions): not story, not gated.
 packages/ui         Design system: shadcn-style components + ZZZ tokens + motion primitives.
 apps/web/.storybook Storybook config (stories live next to each component as *.stories.tsx).
 .claude/agents      Reviewer agents (ux-reviewer), usable as the prompt of any AI tool's agent.
@@ -43,8 +48,9 @@ docs/adr            Architecture Decision Records — read before changing archi
 docs/features       Feature specs.
 ```
 
-Dependency direction is one-way: `web → ui, story, core` · `story → core` · `core → (zod only)`.
-Never import React or Next into `core` or `story`.
+Dependency direction is one-way: `web → ui, story, game, core` · `api → core` ·
+`story → core` · `game → core` · `core → (zod only)`. Never import React or Next into `core`,
+`story` or `game`, and never import the API from the web app (they only talk over HTTP).
 
 ## Hard rules
 
@@ -74,7 +80,9 @@ Never import React or Next into `core` or `story`.
    Playwright projects' breakpoints.
 9. **Static-host friendly.** The site ships as a static export (GitHub Pages): no middleware,
    route handlers, server actions or runtime server data. Links go through `@/i18n/navigation`
-   so the base path is applied.
+   so the base path is applied. Accounts are a separate API (`apps/api`, ADR 0011) that the
+   browser calls with a bearer token; every screen must also work when it isn't configured or
+   reachable (`useAccount().enabled`), and the roster always works on the device without one.
 10. **Per-entity pages render a generic shell** (character files, ADR 0010). Static params cover
     every id, so the HTML exists for locked entities too: pass **only the id** to the client view,
     keep metadata generic and `noindex`, and render names, texts and art only after hydration,
@@ -115,7 +123,7 @@ first. Gate 4 is a review you run before the PR is merged.
    render, pass its `play` function and have **zero axe violations** (`a11y.test = 'error'`,
    including colour contrast). Fix the component, never disable a rule to make it pass.
 3. **Lighthouse runs before every merge of a feature into `main`.** `pnpm lighthouse` builds the
-   static site and audits home, recap, characters and glossary (mobile emulation, 3 runs per
+   static site and audits home, recap, characters, glossary and My Agents (mobile emulation, 3 runs per
    page; Performance is the median of the three scores). Thresholds (`lighthouserc.cjs`):
    Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95. Never lower a threshold
    (or loosen how runs are aggregated) to merge; fix the regression.
@@ -155,6 +163,27 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
 4. **No text may name anything the reader hasn't met by the time it's shown** — base texts at
    `unlockedAt`, revisions at `at`. `content.test.ts` enforces this with the same matcher the
    recap uses, plus the ordering rules above.
+
+## Game data and the roster (ADR 0011)
+
+1. **Agents are researched like story content**, from each agent's wiki page: name (pt-BR from
+   its "Other Languages" table), rank, attribute, specialty, faction, release. A patch's new
+   agents are new lines in `packages/game/src/agents.ts`; then run `pnpm --filter @zzz/game test`.
+2. **Agent ids = story character ids** whenever the agent is in `@zzz/story` (a test checks it).
+3. **Traits are data**: attributes (`base` for variants: Frost → Ice), specialties and factions
+   use the pt-BR client's terms ("Éter", "Atacante", "Anômalo"…). Factions shared with
+   `@zzz/story` keep its names.
+4. **No story text on game screens.** An agent whose name or art reveals story the recap doesn't
+   cover yet gets `spoiler: true` (hidden until the reader reveals it or owns the agent).
+5. **Roster rules live in `@zzz/core`** (`RosterSchema`, `mergeRosters`), shared with the API.
+   Change the database only in `apps/api/src/db/schema.ts`, then
+   `pnpm --filter @zzz/api db:generate` and commit the generated migration.
+6. **Accounts never block the app.** Signed out, offline or with no API configured, the roster
+   keeps working on the device, and the sync state is shown — never a dead end.
+7. **Deploying the API** (Vercel project `zzz-companion-api`, see README): apply migrations to
+   Turso first, then `vercel deploy --prod` from the repo root. Production code reaches the
+   database only through the HTTP client (`apps/api/src/db/remote.ts`): no native modules in the
+   bundle (`pnpm --filter @zzz/api build:vercel` builds it locally).
 
 ## Conventions
 

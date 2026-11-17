@@ -9,6 +9,8 @@
   },
   "scripts": {
     "dev": "turbo run dev --filter=@zzz/web",
+    "dev:api": "pnpm --filter @zzz/api dev",
+    "dev:full": "NEXT_PUBLIC_API_URL=http://localhost:8787 turbo run dev --filter=@zzz/web --filter=@zzz/api",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",

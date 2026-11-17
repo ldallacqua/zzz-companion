@@ -22,6 +22,8 @@ export type FeatureIcon =
   | 'lock'
   | 'swords'
   | 'dice'
+  | 'roster'
+  | 'cloud'
 
 export interface Feature {
   id: string
@@ -88,6 +90,17 @@ export const features: Feature[] = [
     },
   },
   {
+    id: 'roster',
+    status: 'shipped',
+    icon: 'roster',
+    title: { en: 'My Agents roster', 'pt-BR': 'Meus Agentes' },
+    description: {
+      en: 'Tick the Agents you own and their Mindscape: fast enough for 60 of them, and the base for builds and pull advice.',
+      'pt-BR':
+        'Marque os Agentes que você tem e o Mindscape de cada um. Rápido até para 60, e a base para builds e conselhos de pulls.',
+    },
+  },
+  {
     id: 'i18n',
     status: 'shipped',
     icon: 'languages',
@@ -125,8 +138,20 @@ export const features: Feature[] = [
     icon: 'lock',
     title: { en: 'Private by default', 'pt-BR': 'Privado por padrão' },
     description: {
-      en: 'No account and no tracking: your progress lives only in your browser.',
-      'pt-BR': 'Sem conta e sem rastreamento: seu progresso fica só no seu navegador.',
+      en: 'No tracking. Progress and settings stay in your browser; an account is optional and only syncs your Agents.',
+      'pt-BR':
+        'Sem rastreamento. Progresso e ajustes ficam no seu navegador; a conta é opcional e só sincroniza seus Agentes.',
+    },
+  },
+  {
+    id: 'accounts',
+    status: 'shipped',
+    icon: 'cloud',
+    title: { en: 'Accounts & sync', 'pt-BR': 'Conta e sincronização' },
+    description: {
+      en: 'An optional account keeps your Agents on every device. No email spam, no tracking; delete it any time.',
+      'pt-BR':
+        'Uma conta opcional leva seus Agentes para qualquer aparelho. Sem e-mails, sem rastreamento; apague quando quiser.',
     },
   },
   {
@@ -145,9 +170,9 @@ export const features: Feature[] = [
     icon: 'dice',
     title: { en: 'Pull advisor', 'pt-BR': 'Conselheiro de pulls' },
     description: {
-      en: 'Should you pull on the current banner? Odds from your pity and currency, weighed against your roster and plans.',
+      en: 'Should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans.',
       'pt-BR':
-        'Vale a pena puxar no banner atual? Chances pelo seu pity e moeda, pesadas contra seu elenco e seus planos.',
+        'Vale a pena puxar no banner atual? Chances pelo seu pity e moeda, pesadas contra seus Agentes e seus planos.',
     },
   },
 ]

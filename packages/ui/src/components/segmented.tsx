@@ -35,7 +35,7 @@ export function Segmented<T extends string>({
     <ToggleGroup.Root
       type="single"
       value={value}
-      onValueChange={(v) => v && onValueChange(v as T)}
+      onValueChange={(v) => onValueChange((v || value) as T)}
       aria-label={label}
       className={cn('p-1 sm:w-auto inline-flex w-full bg-surface-2 chamfer-sm', className)}
     >

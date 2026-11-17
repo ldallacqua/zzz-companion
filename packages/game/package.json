@@ -1,0 +1,20 @@
+{
+  "name": "@zzz/game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@zzz/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@zzz/story": "workspace:*"
+  }
+}

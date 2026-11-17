@@ -28,7 +28,7 @@ const sameInEveryLocale = <T>(value: T) =>
  * Either one value for every locale, or one per locale when the game localizes it
  * (the pt-BR client calls Fairy "Fada"). Always parsed to the per-locale form.
  */
-const sameOrLocalized = <T extends z.ZodType>(schema: T) =>
+export const sameOrLocalized = <T extends z.ZodType>(schema: T) =>
   z
     .union([schema, localized(schema)])
     .transform((v) =>

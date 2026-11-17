@@ -1,0 +1,17 @@
+# `vercel deploy` from the repo root uploads the workspace for the API project (root directory
+# apps/api). Keep build output, local data and secrets out of the upload.
+node_modules
+.next
+.turbo
+.vercel
+out
+coverage
+playwright-report
+test-results
+blob-report
+storybook-static
+.lighthouseci
+.data
+.env*
+!.env.example
+docs/assets

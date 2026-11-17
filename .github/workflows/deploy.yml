@@ -31,6 +31,9 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_SITE_ORIGIN: https://${{ github.repository_owner }}.github.io
+          # Public URL of the accounts API (apps/api), set as a repository variable once it is
+          # deployed. Empty = accounts are off and rosters stay on each device (ADR 0011).
+          NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
       - name: Build Storybook into /storybook
         run: pnpm --filter @zzz/web exec storybook build -o out/storybook
         env:
