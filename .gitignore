@@ -21,5 +21,6 @@ next-env.d.ts
 .lighthouseci/
 storybook-static/
 
-# Vercel (project link at the root, build output in apps/api)
+# Vercel (project link at the root, API build output, Storybook build)
 .vercel
+deploy/storybook/dist

@@ -7,7 +7,7 @@
 
 The UI is the product, and it is edited by humans and AI agents alike. We need fast, visible
 proof that every component still renders, stays accessible and that pages stay fast — before
-anything reaches `main` (which deploys straight to GitHub Pages).
+anything reaches `main` (which deploys straight to production, [ADR 0012](0012-vercel-hosting.md)).
 
 ## Decision
 
@@ -19,12 +19,13 @@ anything reaches `main` (which deploys straight to GitHub Pages).
   each story must render, pass its `play` function and have zero axe violations
   (`@storybook/addon-a11y` with `a11y.test = 'error'`). Tests run with motion off so axe never
   measures a half-faded element. A unit test fails when a component has no stories.
-- **Lighthouse CI** (`@lhci/cli`) audits the static export (the same artifact Pages serves) on
+- **Lighthouse CI** (`@lhci/cli`) audits the static export (the same artifact Vercel serves) on
   every PR: Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95 (3 runs per
   page, mobile emulation). Performance is the **median of the three scores**; the other
   categories barely vary and use LHCI's default (best run). Reports are CI artifacts; nothing is
   uploaded to public storage.
-- The static Storybook is deployed with the site at `/storybook/`.
+- The static Storybook is deployed from `main` as its own Vercel project
+  (https://zzz-companion-storybook.vercel.app, ADR 0012).
 
 ## Consequences
 

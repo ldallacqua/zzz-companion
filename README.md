@@ -1,13 +1,13 @@
 <div align="center">
 
-<a href="https://ldallacqua.github.io/zzz-companion/">
+<a href="https://zzz-companion-ldallacqua.vercel.app/">
   <img src="docs/assets/banner.svg" alt="ZZZ Companion: the Zenless Zone Zero ZZ mark and the word Companion" width="100%" />
 </a>
 
 <h3>Forgot what happened in Zenless Zone Zero? Catch up in a minute — without a single spoiler.</h3>
 
 <p>
-  <a href="https://ldallacqua.github.io/zzz-companion/"><strong>▶ Open the live app</strong></a>
+  <a href="https://zzz-companion-ldallacqua.vercel.app/"><strong>▶ Open the live app</strong></a>
   &nbsp;·&nbsp;
   <a href="#-features">Features</a>
   &nbsp;·&nbsp;
@@ -15,14 +15,14 @@
   &nbsp;·&nbsp;
   <a href="#-architecture">Architecture</a>
   &nbsp;·&nbsp;
-  <a href="https://ldallacqua.github.io/zzz-companion/storybook/">Storybook</a>
+  <a href="https://zzz-companion-storybook.vercel.app/">Storybook</a>
   &nbsp;·&nbsp;
   <a href="AGENTS.md">AI agents</a>
 </p>
 
 <p>
   <a href="https://github.com/ldallacqua/zzz-companion/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/ldallacqua/zzz-companion/actions/workflows/ci.yml/badge.svg" /></a>
-  <a href="https://github.com/ldallacqua/zzz-companion/actions/workflows/deploy.yml"><img alt="Deploy" src="https://github.com/ldallacqua/zzz-companion/actions/workflows/deploy.yml/badge.svg" /></a>
+  <a href="https://zzz-companion-ldallacqua.vercel.app/"><img alt="Hosted on Vercel" src="https://img.shields.io/badge/hosted_on-Vercel-000?logo=vercel&logoColor=white" /></a>
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-c6ff2e?labelColor=08080a" />
   <img alt="Languages" src="https://img.shields.io/badge/i18n-EN%20%2B%20PT--BR-c6ff2e?labelColor=08080a" />
   <img alt="AI ready" src="https://img.shields.io/badge/AI--ready-AGENTS.md-c6ff2e?labelColor=08080a" />
@@ -31,7 +31,7 @@
 <p><sub>Unofficial, non-profit fan project. <em>Zenless Zone Zero</em>, the “ZZ” logo and all related names and artwork are trademarks and copyrights of miHoYo / HoYoverse. See <a href="#-license--assets">License &amp; assets</a>.</sub></p>
 
 <p>
-  <a href="https://ldallacqua.github.io/zzz-companion/storybook/"><img alt="Storybook" src="https://img.shields.io/badge/Storybook-every_component-ff4785?logo=storybook&logoColor=white&labelColor=08080a" /></a>
+  <a href="https://zzz-companion-storybook.vercel.app/"><img alt="Storybook" src="https://img.shields.io/badge/Storybook-every_component-ff4785?logo=storybook&logoColor=white&labelColor=08080a" /></a>
   <img alt="Accessibility" src="https://img.shields.io/badge/a11y-axe_tested_(WCAG_AA)-c6ff2e?labelColor=08080a" />
   <img alt="Lighthouse" src="https://img.shields.io/badge/Lighthouse-gated_in_CI-f44b21?logo=lighthouse&logoColor=white&labelColor=08080a" />
 </p>
@@ -60,6 +60,12 @@
     <td align="center"><sub>Built mobile-first</sub></td>
   </tr>
   <tr>
+    <td colspan="2"><img src="docs/assets/screenshot-agents.png" alt="My Agents: the seven owned Agents, each with its Mindscape level" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for upcoming build and pull advice</sub></td>
+  </tr>
+  <tr>
     <td colspan="2"><img src="docs/assets/screenshot-character.png" alt="Nekomata's character file: full-body art, what you know now and earlier notes" /></td>
   </tr>
   <tr>
@@ -72,6 +78,9 @@
 ZZZ's story moves fast and patches are weeks apart. Wikis and videos either assume you finished
 everything or bury you in spoilers. **ZZZ Companion asks one question — _where are you?_ — and shows
 you the story up to exactly that point**, in English or Brazilian Portuguese.
+
+It also keeps your **Agent roster**: who you own and at what Mindscape, on your device or synced to
+an optional account. That roster is what the coming build and pull advice will start from.
 
 ## ✦ Features
 
@@ -108,6 +117,7 @@ pnpm dev                 # → http://localhost:3000
 | Command               | What it does                                                                         |
 | --------------------- | ------------------------------------------------------------------------------------ |
 | `pnpm dev`            | Start the app with hot reload                                                        |
+| `pnpm dev:api`        | Only the accounts API (http://localhost:8787, local SQLite file)                     |
 | `pnpm dev:full`       | App + accounts API together (local SQLite file, no external services needed)         |
 | `pnpm verify`         | Format check + typecheck + lint + unit & content tests (**definition of done**)      |
 | `pnpm e2e`            | Playwright on mobile / tablet / desktop + axe accessibility                          |
@@ -118,6 +128,21 @@ pnpm dev                 # → http://localhost:3000
 | `pnpm lighthouse`     | Static build + Lighthouse CI (Perf ≥ 90 · A11y 100 · Best Practices ≥ 95 · SEO ≥ 95) |
 
 Requires Node ≥ 22.
+
+### Deploy
+
+Everything runs on [Vercel](https://vercel.com), one project per deployable on this repository
+([ADR 0012](docs/adr/0012-vercel-hosting.md)). Each project reads the `vercel.json` in its root directory.
+
+| Project                    | Root directory     | Live at                                                                             | Deploys                                   |
+| -------------------------- | ------------------ | ----------------------------------------------------------------------------------- | ----------------------------------------- |
+| `zzz-companion-ldallacqua` | `apps/web`         | [zzz-companion-ldallacqua.vercel.app](https://zzz-companion-ldallacqua.vercel.app/) | On every push to `main`; a preview per PR |
+| `zzz-companion-storybook`  | `deploy/storybook` | [zzz-companion-storybook.vercel.app](https://zzz-companion-storybook.vercel.app/)   | On every push to `main`                   |
+| `zzz-companion-api`        | `apps/api`         | [zzz-companion-api.vercel.app](https://zzz-companion-api.vercel.app/api/health)     | By hand, after migrations (see below)     |
+
+The site is still a static export (`pnpm build:static`), the same artifact Lighthouse CI audits.
+Its project sets `NEXT_PUBLIC_API_URL` (production only: previews run with accounts off) and
+`NEXT_PUBLIC_SITE_ORIGIN` (canonical links).
 
 ### Accounts API (optional)
 
@@ -135,17 +160,19 @@ Vercel (`zzz-companion-api`, São Paulo) with its database on Turso next to it. 
    one Node.js function (region `gru1`; change it in `apps/api/scripts/build-vercel.mjs` to sit
    next to your database). Add the production variables `DATABASE_URL`, `DATABASE_AUTH_TOKEN`,
    `BETTER_AUTH_SECRET` (32+ random chars), `BETTER_AUTH_URL` (its public URL) and `WEB_ORIGINS`
-   (`https://<user>.github.io`), then run `vercel deploy --prod` from the repo root. Other hosts
+   (the site's origin, e.g. `https://<project>.vercel.app`), then run `vercel deploy --prod` from
+   the repo root. Other hosts
    that run a Hono fetch handler can serve `apps/api/src/index.ts` instead.
-4. Set the repository variable `API_URL` to the API's URL; the next Pages deploy turns accounts on.
+4. Set `NEXT_PUBLIC_API_URL` (production) on the site's Vercel project to the API's URL; the next
+   deploy of the site turns accounts on.
 
 ## ✦ Architecture
 
 ```mermaid
 flowchart LR
   subgraph apps
-    web["apps/web<br/>Next.js App Router · next-intl · Motion · Zustand<br/>(static export → GitHub Pages)"]
-    api["apps/api<br/>Hono · Better Auth · Drizzle<br/>(optional accounts)"]
+    web["apps/web<br/>Next.js App Router · next-intl · Motion · Zustand<br/>(static export → Vercel)"]
+    api["apps/api<br/>Hono · Better Auth · Drizzle<br/>(optional accounts → Vercel)"]
   end
   subgraph packages
     ui["@zzz/ui<br/>shadcn-style design system<br/>ZZZ tokens + motion presets"]
@@ -171,7 +198,7 @@ flowchart LR
 - **Content is code**: every recap part, character and term is typed data with an `unlockedAt`
   gate, validated by Zod and by integrity tests (no character can appear before they're unlocked).
 - **Local-first**: progress, preferences and the Agent roster persist in `localStorage`; the site
-  is fully static and deploys to GitHub Pages.
+  is a fully static export served by Vercel.
 - **Optional accounts** ([ADR 0011](docs/adr/0011-accounts-and-roster-sync.md)): a separate Hono
   API with Better Auth (email + password) and Turso syncs the roster across devices. Without it
   (or offline) everything still works on the device; signing in merges what you picked as a guest.
@@ -184,6 +211,7 @@ packages/core     Pure TypeScript domain (no React, no I/O)
 packages/story    Story content, characters, factions, glossary
 packages/game     Game data: every playable Agent, attributes, specialties, factions
 packages/ui       Design system components + tokens
+deploy/storybook  Vercel project for Storybook (builds from the repo root)
 docs/             ADRs, feature specs, README assets
 ```
 
@@ -196,7 +224,7 @@ branch protection requires, and every new feature also gets a UI/UX expert revie
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                                                                      |
 | `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                                                                            |
-| **Storybook**  | [Every component has stories](https://ldallacqua.github.io/zzz-companion/storybook/); each story renders, passes its interactions and has zero axe violations                                                       |
+| **Storybook**  | [Every component has stories](https://zzz-companion-storybook.vercel.app/); each story renders, passes its interactions and has zero axe violations                                                                 |
 | **Lighthouse** | Home, recap, characters, glossary and My Agents audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                                 |
 | **UX review**  | One senior product-designer agent ([`ux-reviewer`](.claude/agents/ux-reviewer.md)) reviews each new feature: hierarchy, states, responsive, a11y, copy in both languages. Blockers and Highs are fixed before merge |
 

@@ -73,7 +73,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Audits the static export like GitHub Pages serves it; thresholds live in lighthouserc.cjs.
+      # Audits the static export Vercel serves; thresholds live in lighthouserc.cjs.
       - run: pnpm lighthouse
       - uses: actions/upload-artifact@v7
         if: always()

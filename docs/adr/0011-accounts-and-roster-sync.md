@@ -9,7 +9,7 @@ Builds and pull advice (the roadmap's next features) need to know which Agents t
 and at what Mindscape level. Players use the app on a phone and on a desktop, so that roster
 should follow them. ADR 0004 kept everything in the browser and said accounts would come "behind
 the same store interface"; ADR 0006 said a server would have to be a separate API, because the
-site is a static export on GitHub Pages.
+site is a static export (on GitHub Pages then; on Vercel since [ADR 0012](0012-vercel-hosting.md)).
 
 ## Decision
 
@@ -32,7 +32,8 @@ site is a static export on GitHub Pages.
     No email verification or password reset in v1: there is no mail service yet, and the UI says
     so. Delete-account (with password) removes the roster too. Rate limits are stored in the
     database so they hold across serverless instances. Telemetry off.
-  - **Bearer tokens, not cookies.** The site (`*.github.io`) and the API are on different sites;
+  - **Bearer tokens, not cookies.** The site and the API are on different sites (two
+    `*.vercel.app` names are different sites: `vercel.app` is on the Public Suffix List);
     third-party cookies are blocked by Safari and Firefox. The `bearer` plugin returns the token
     in `set-auth-token`; the web app keeps it in `localStorage` (`zzz-account`) and sends
     `Authorization: Bearer`. Trade-off: a token in `localStorage` is readable by any script on the

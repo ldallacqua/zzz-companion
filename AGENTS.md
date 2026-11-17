@@ -22,16 +22,18 @@ recommendations built on that roster. See `docs/features/` for specs and `docs/a
 | `pnpm test`            | Unit + content-integrity tests (Vitest)                                      |
 | `pnpm e2e`             | Playwright E2E across mobile / tablet / desktop (+ axe a11y)                 |
 | `pnpm build`           | Production build                                                             |
-| `pnpm build:static`    | Static export for GitHub Pages (`apps/web/out`)                              |
+| `pnpm build:static`    | Static export, what Vercel serves (`apps/web/out`)                           |
 | `pnpm screenshots`     | Regenerate README screenshots in `docs/assets` (needs `pnpm dev` running)    |
 | `pnpm storybook`       | Storybook for every component at http://localhost:6006                       |
 | `pnpm test:storybook`  | Run every story in Chromium: render + `play` + zero axe violations           |
-| `pnpm build-storybook` | Static Storybook (deployed to `/storybook/` on GitHub Pages)                 |
+| `pnpm build-storybook` | Static Storybook (deployed from `main` to its own Vercel project)            |
 | `pnpm lighthouse`      | Static build + Lighthouse CI with the thresholds in `lighthouserc.cjs`       |
 
 Always run `pnpm verify` before you say a task is done. Run `pnpm e2e` and
 `pnpm test:storybook` when you touch UI, and `pnpm lighthouse` before merging a feature.
-Pushing to `main` deploys the static site to GitHub Pages (`.github/workflows/deploy.yml`).
+Pushing to `main` deploys the site and Storybook to Vercel (Git integration, ADR 0012); every
+pull request gets a preview of the site. The API deploys by hand (see "Game data and the roster").
+After a merge, check that the commit's Vercel statuses are deployments, not "Canceled".
 
 ## Repository map
 
@@ -43,6 +45,7 @@ packages/story      Story content (chapters, characters, glossary) validated aga
 packages/game       Game data (Agents, attributes, specialties, factions): not story, not gated.
 packages/ui         Design system: shadcn-style components + ZZZ tokens + motion primitives.
 apps/web/.storybook Storybook config (stories live next to each component as *.stories.tsx).
+deploy/storybook    Vercel project for Storybook (its vercel.json builds from the repo root).
 .claude/agents      Reviewer agents (ux-reviewer), usable as the prompt of any AI tool's agent.
 docs/adr            Architecture Decision Records — read before changing architecture.
 docs/features       Feature specs.
@@ -78,7 +81,7 @@ Dependency direction is one-way: `web → ui, story, game, core` · `api → cor
    paints with the HTML (Lighthouse LCP). Page transitions only run on client navigation.
 8. **Mobile first.** No horizontal overflow at 360px; tap targets ≥ 40px; test at the
    Playwright projects' breakpoints.
-9. **Static-host friendly.** The site ships as a static export (GitHub Pages): no middleware,
+9. **Static-host friendly.** The site ships as a static export (served by Vercel): no middleware,
    route handlers, server actions or runtime server data. Links go through `@/i18n/navigation`
    so the base path is applied. Accounts are a separate API (`apps/api`, ADR 0011) that the
    browser calls with a bearer token; every screen must also work when it isn't configured or
@@ -118,7 +121,7 @@ first. Gate 4 is a review you run before the PR is merged.
    `apps/web/src/components` (except the non-visual `providers.tsx`) has a sibling
    `*.stories.tsx` covering its main states (and interactions as `play` functions). A new or
    changed component updates its stories in the same change. `component-stories.test.ts` fails
-   when a component has no stories. Published at `/storybook/` on every deploy.
+   when a component has no stories. Published at https://zzz-companion-storybook.vercel.app from `main`.
 2. **Every story passes its tests.** `pnpm test:storybook` runs each story in Chromium: it must
    render, pass its `play` function and have **zero axe violations** (`a11y.test = 'error'`,
    including colour contrast). Fix the component, never disable a rule to make it pass.

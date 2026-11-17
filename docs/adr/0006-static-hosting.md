@@ -1,6 +1,6 @@
 # 0006 — Static hosting on GitHub Pages
 
-**Status:** accepted · 2026-11-16 · the site stays static; accounts are a separate API ([ADR 0011](0011-accounts-and-roster-sync.md))
+**Status:** accepted · 2026-11-16 · hosting superseded by [ADR 0012](0012-vercel-hosting.md) (the site stays a static export, now on Vercel); accounts are a separate API ([ADR 0011](0011-accounts-and-roster-sync.md))
 
 ## Context
 

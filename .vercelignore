@@ -1,5 +1,6 @@
-# `vercel deploy` from the repo root uploads the workspace for the API project (root directory
-# apps/api). Keep build output, local data and secrets out of the upload.
+# `vercel deploy` from the repo root uploads the workspace for each Vercel project (site in
+# apps/web, API in apps/api, Storybook in deploy/storybook). Keep build output, local data and
+# secrets out of the upload.
 node_modules
 .next
 .turbo
@@ -10,6 +11,7 @@ playwright-report
 test-results
 blob-report
 storybook-static
+deploy/storybook/dist
 .lighthouseci
 .data
 .env*
