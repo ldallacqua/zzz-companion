@@ -7,7 +7,10 @@
  *   pnpm lighthouse:audit    # audit an existing apps/web/out
  */
 const QUALITY = {
-  'categories:performance': ['error', { minScore: 0.9, aggregationMethod: 'median-run' }],
+  // The median of the 3 scores. Not 'median-run': that keeps the run nearest the median first
+  // paint and time-to-interactive whatever its score, so one outlier run (a simulated LCP of 4 s
+  // on a page that painted in 0.2 s) could fail a PR at random.
+  'categories:performance': ['error', { minScore: 0.9, aggregationMethod: 'median' }],
   'categories:accessibility': ['error', { minScore: 1 }],
   'categories:best-practices': ['error', { minScore: 0.95 }],
 }

@@ -115,9 +115,10 @@ first. Gate 4 is a review you run before the PR is merged.
    render, pass its `play` function and have **zero axe violations** (`a11y.test = 'error'`,
    including colour contrast). Fix the component, never disable a rule to make it pass.
 3. **Lighthouse runs before every merge of a feature into `main`.** `pnpm lighthouse` builds the
-   static site and audits home, recap, characters and glossary (mobile emulation, median of 3).
-   Thresholds (`lighthouserc.cjs`): Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95,
-   SEO ≥ 95. Never lower a threshold to merge; fix the regression.
+   static site and audits home, recap, characters and glossary (mobile emulation, 3 runs per
+   page; Performance is the median of the three scores). Thresholds (`lighthouserc.cjs`):
+   Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95. Never lower a threshold
+   (or loosen how runs are aggregated) to merge; fix the regression.
 4. **One UI/UX expert reviews every new feature.** Once a feature (or a noticeable change to a
    screen) is built, start **a single** reviewer agent with the instructions in
    `.claude/agents/ux-reviewer.md` (Claude Code: the `ux-reviewer` subagent; other tools: a fresh
