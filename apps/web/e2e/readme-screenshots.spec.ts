@@ -23,6 +23,11 @@ test('README screenshots', async ({ page }, testInfo) => {
     await expect(page.getByRole('dialog')).toBeVisible()
     await page.waitForLoadState('networkidle')
     await page.screenshot({ path: out('screenshot-recap.png') })
+
+    await page.goto('/en/characters/nekomata/')
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(800)
+    await page.screenshot({ path: out('screenshot-character.png') })
   } else {
     await page.goto('/pt-BR/recap/')
     await page

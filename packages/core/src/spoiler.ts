@@ -78,3 +78,89 @@ export function getNextSegment(
 ): TimelineSegment | undefined {
   return timeline.segments[progressOrder(timeline, progress) + 1]
 }
+
+/** One version of an entry's text, and the story part where the reader learned it. */
+export interface KnownNote {
+  at: string
+  text: LocalizedText
+  /** The text the entry starts with at `unlockedAt` (not a revision). */
+  isBase: boolean
+}
+
+/**
+ * Every version of an entry the reader has unlocked, oldest first: the base text at `unlockedAt`,
+ * then each finished revision. Empty while the entry itself is locked. Nothing later than the
+ * reader's progress is ever returned, so a "file" built from it never hints at what's next.
+ */
+export function knownHistoryAt(
+  timeline: Timeline,
+  progress: Progress,
+  entry: { unlockedAt: string; revisions?: readonly Revision[] },
+  base: LocalizedText,
+): KnownNote[] {
+  if (!isUnlocked(timeline, progress, entry.unlockedAt)) return []
+  const max = progressOrder(timeline, progress)
+  const revisions = (entry.revisions ?? [])
+    .map((revision) => {
+      const order = timeline.orderOf(revision.at)
+      if (order === -1) throw new Error(`Unknown segment "${revision.at}"`)
+      return { revision, order }
+    })
+    .filter(({ order }) => order <= max)
+    .sort((a, b) => a.order - b.order)
+  return [
+    { at: entry.unlockedAt, text: base, isBase: true },
+    ...revisions.map(({ revision }) => ({ at: revision.at, text: revision.text, isBase: false })),
+  ]
+}
+
+/** The finished recap parts a character appears in, grouped by chapter, in story order. */
+export function appearancesOf(
+  timeline: Timeline,
+  progress: Progress,
+  characterId: string,
+): RecapChapter[] {
+  return getRecap(timeline, progress)
+    .map((chapter) => ({
+      ...chapter,
+      segments: chapter.segments.filter((s) => s.characters.includes(characterId)),
+    }))
+    .filter((chapter) => chapter.segments.length > 0)
+}
+
+export interface RelatedCharacter<C> {
+  character: C
+  /** Finished parts both characters appear in. */
+  sharedParts: number
+  sameFaction: boolean
+}
+
+/**
+ * Unlocked characters the reader has most often seen with `characterId` (shared finished parts),
+ * then those from the same faction. Empty while `characterId` is locked.
+ */
+export function relatedCharacters<
+  C extends { id: string; unlockedAt: string; factions: readonly string[] },
+>(
+  timeline: Timeline,
+  progress: Progress,
+  characterId: string,
+  all: readonly C[],
+  limit = 6,
+): RelatedCharacter<C>[] {
+  const self = all.find((c) => c.id === characterId)
+  if (!self || !isUnlocked(timeline, progress, self.unlockedAt)) return []
+  const finished = getRecap(timeline, progress).flatMap((c) => c.segments)
+  return all
+    .filter((c) => c.id !== characterId && isUnlocked(timeline, progress, c.unlockedAt))
+    .map((character) => ({
+      character,
+      sharedParts: finished.filter(
+        (s) => s.characters.includes(characterId) && s.characters.includes(character.id),
+      ).length,
+      sameFaction: character.factions.some((f) => self.factions.includes(f)),
+    }))
+    .filter((r) => r.sharedParts > 0 || r.sameFaction)
+    .sort((a, b) => b.sharedParts - a.sharedParts || Number(b.sameFaction) - Number(a.sameFaction))
+    .slice(0, limit)
+}

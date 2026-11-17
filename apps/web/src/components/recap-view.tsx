@@ -20,6 +20,7 @@ import {
 import type { Locale, RecapChapter, TimelineSegment } from '@zzz/core'
 import { useCompanion, type RecapMode } from '@/lib/store'
 import { useStory } from '@/lib/use-story'
+import { useHashFocus } from '@/lib/use-hash-focus'
 import { useUi } from '@/lib/ui-store'
 import { RichBlock } from './rich-text'
 import { AvatarStack } from './avatar-stack'
@@ -33,6 +34,7 @@ export function RecapView() {
   const setMode = useCompanion((s) => s.setRecapMode)
   const setPickerOpen = useUi((s) => s.setPickerOpen)
   const hasRecap = story.hydrated && story.recap.length > 0
+  useHashFocus(story.hydrated)
 
   return (
     <>
@@ -285,7 +287,12 @@ function SegmentCard({
   const locale = useLocale() as Locale
   const partial = segment.confidence === 'partial'
   return (
-    <Panel innerClassName="p-5 sm:p-7" data-testid={`segment-${segment.id}`}>
+    <Panel
+      id={`part-${segment.id}`}
+      innerClassName="p-5 sm:p-7"
+      className="scroll-mt-28 transition-[background-color] data-[flash=true]:bg-primary"
+      data-testid={`segment-${segment.id}`}
+    >
       <div className="gap-4 flex items-start">
         <span
           className="text-5xl sm:text-6xl display leading-none text-outline"

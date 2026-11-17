@@ -152,9 +152,20 @@ export const CharacterSchema = GatedSchema.extend({
       opaque: z.boolean().optional(),
     })
     .default({ x: 0.5, y: 0.13, zoom: 2.1 }),
+  /**
+   * What kind of picture `image` is, so the character file can stage it:
+   * `cutout` = transparent full body (Agents), `bust` = transparent head-and-shoulders or mascot,
+   * `scene` = opaque still with its own background.
+   */
+  art: z.enum(['cutout', 'bust', 'scene']).default('cutout'),
+  /** A combat Agent the player can use (gets builds later). Proxies and NPCs are not. */
+  playable: z.boolean().default(false),
   /** Accent color used by the card frame. */
   color: nonEmpty,
-  /** Short names / nicknames used in recap text: one list, or per locale. */
+  /**
+   * Short names / nicknames used in recap text: one list, or per locale. Not spoiler-gated (a
+   * nickname may be revealed later), so they are for matching text only — never display them.
+   */
   aliases: sameOrLocalized(z.array(nonEmpty)).prefault([]),
 })
 export type Character = z.infer<typeof CharacterSchema>

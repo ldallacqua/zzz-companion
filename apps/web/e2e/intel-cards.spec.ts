@@ -13,16 +13,15 @@ test.describe('intel cards (clickable names)', () => {
     await expect(card).toContainText('Government body')
   })
 
-  test('tapping a character opens their card and links to the characters page', async ({
-    page,
-  }) => {
+  test('tapping a character opens their card and links to their file', async ({ page }) => {
     await seedProgress(page, 'p-phaethon')
     await page.goto('/en/recap/')
     await page.locator('[data-entity="character:nicole"]').first().click()
     const card = page.getByRole('dialog')
     await expect(card).toContainText('Nicole Demara')
-    await card.getByRole('link', { name: /See in Characters/ }).click()
-    await expect(page).toHaveURL(/\/en\/characters\/#character-nicole$/)
+    await card.getByRole('link', { name: /Open file/ }).click()
+    await expect(page).toHaveURL(/\/en\/characters\/nicole\/?$/)
+    await expect(page.getByRole('heading', { level: 1, name: /Nicole Demara/ })).toBeVisible()
   })
 
   test('never links entities the player has not unlocked', async ({ page }) => {

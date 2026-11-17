@@ -52,3 +52,24 @@ export const crtOn: Variants = {
     transition: { duration: 0.75, times: [0, 0.35, 1], ease: ease.snap },
   },
 }
+
+/**
+ * Camera pull-back: the figure starts zoomed in (like the waist-up card crop) and settles on the
+ * full body. Set `transformOrigin` to the face point. Transform only, so it never hides content.
+ */
+export const pullBack: Variants = {
+  hidden: { scale: 1.25, y: '3%' },
+  show: { scale: 1, y: 0, transition: { duration: 0.8, ease: ease.outExpo } },
+}
+
+/** A rubber stamp hitting the page: badges such as "Now" or "Unlocked". */
+export const stampIn: Variants = {
+  hidden: { scale: 1.35, rotate: -8 },
+  show: { scale: 1, rotate: 0, transition: spring.snappy },
+}
+
+/** Left-to-right wipe for decorative layers (clip only; never for text the reader needs). */
+export const wipeIn: Variants = {
+  hidden: { clipPath: 'inset(0 100% 0 0)' },
+  show: { clipPath: 'inset(0 0% 0 0)', transition: { duration: 0.45, ease: ease.snap } },
+}

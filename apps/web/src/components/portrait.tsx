@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import { cn } from '@zzz/ui'
 import type { Character } from '@zzz/core'
 
@@ -25,7 +25,11 @@ interface PortraitProps {
   priority?: boolean
   className?: string
   /** Visual size of the fallback monogram. */
-  monogram?: 'sm' | 'lg'
+  monogram?: 'sm' | 'lg' | 'xl'
+  /** Extra content inside the fallback (e.g. a "No photo on file" stamp). */
+  fallback?: ReactNode
+  /** Called once the art has loaded (or failed), e.g. to start a reveal animation. */
+  onSettled?: () => void
 }
 
 const DEFAULT_FOCUS: Focus = { x: 0.5, y: 0.13, zoom: 2.1 }
@@ -55,8 +59,14 @@ export function Portrait({
   priority,
   className,
   monogram = 'lg',
+  fallback,
+  onSettled,
 }: PortraitProps) {
   const [failed, setFailed] = useState(false)
+  const fail = () => {
+    setFailed(true)
+    onSettled?.()
+  }
 
   if (!src || failed) {
     return (
@@ -69,7 +79,11 @@ export function Portrait({
         <span
           className={cn(
             'display opacity-90',
-            monogram === 'lg' ? 'text-7xl' : 'text-sm not-italic',
+            monogram === 'xl'
+              ? 'text-[clamp(6rem,45cqi,12rem)] text-outline'
+              : monogram === 'lg'
+                ? 'text-7xl'
+                : 'text-sm not-italic',
           )}
         >
           {name
@@ -78,6 +92,7 @@ export function Portrait({
             .slice(0, 2)
             .join('')}
         </span>
+        {fallback}
       </span>
     )
   }
@@ -113,9 +128,11 @@ export function Portrait({
       draggable={false}
       ref={(el) => {
         // Errors that happen before hydration never reach onError.
-        if (el?.complete && el.naturalWidth === 0) setFailed(true)
+        if (el?.complete && el.naturalWidth === 0) fail()
+        else if (el?.complete) onSettled?.()
       }}
-      onError={() => setFailed(true)}
+      onLoad={() => onSettled?.()}
+      onError={fail}
       style={style}
       className={cn(
         'absolute max-w-none select-none',

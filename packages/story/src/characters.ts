@@ -11,6 +11,7 @@ const img = (path: string) => `https://static.wikia.nocookie.net/zenless-zone-ze
 export const characters = [
   {
     id: 'nicole',
+    playable: true,
     aliases: ['Nicole'],
     name: 'Nicole Demara',
     unlockedAt: 'p-strongbox',
@@ -26,6 +27,7 @@ export const characters = [
   },
   {
     id: 'anby',
+    playable: true,
     aliases: ['Anby'],
     name: 'Anby Demara',
     unlockedAt: 'p-strongbox',
@@ -41,6 +43,7 @@ export const characters = [
   },
   {
     id: 'billy',
+    playable: true,
     aliases: ['Billy'],
     name: 'Billy Kid',
     unlockedAt: 'p-strongbox',
@@ -55,6 +58,7 @@ export const characters = [
   },
   {
     id: 'miguel-silver',
+    art: 'scene',
     revisions: [
       {
         at: 'c1a-client',
@@ -81,6 +85,7 @@ export const characters = [
   },
   {
     id: 'bringer',
+    art: 'scene',
     revisions: [
       {
         at: 'i2a-hero',
@@ -134,6 +139,7 @@ export const characters = [
   },
   {
     id: 'eous',
+    art: 'bust',
     name: 'Eous',
     unlockedAt: 'p-phaethon',
     factions: ['phaethon'],
@@ -147,6 +153,7 @@ export const characters = [
   },
   {
     id: 'fairy',
+    art: 'scene',
     name: { en: 'Fairy', 'pt-BR': 'Fada' },
     unlockedAt: 'p-fairy',
     factions: ['phaethon'],
@@ -161,6 +168,7 @@ export const characters = [
   },
   {
     id: 'shepherd',
+    art: 'bust',
     name: { en: 'Shepherd', 'pt-BR': 'Pastor' },
     unlockedAt: 'p-fairy',
     color: '#d9a066',
@@ -173,6 +181,7 @@ export const characters = [
   },
   {
     id: 'nekomata',
+    playable: true,
     revisions: [
       {
         at: 'c1b-train',
@@ -205,6 +214,7 @@ export const characters = [
   },
   {
     id: 'perlman',
+    art: 'bust',
     revisions: [
       {
         at: 'c1b-butcher',
@@ -229,6 +239,7 @@ export const characters = [
   },
   {
     id: 'sarah',
+    art: 'bust',
     name: 'Sarah',
     // She appears in c1a only as "a woman in red": her name is first given in c1b-butcher, so
     // that's where she unlocks (her name shows on avatars and cards).
@@ -245,6 +256,7 @@ export const characters = [
   },
   {
     id: 'corin',
+    playable: true,
     aliases: ['Corin'],
     name: 'Corin Wickes',
     unlockedAt: 'c1a-train',
@@ -259,6 +271,7 @@ export const characters = [
   },
   {
     id: 'ray',
+    art: 'scene',
     name: 'Ray',
     unlockedAt: 'z-hollow-zero',
     factions: ['white-star'],
@@ -273,6 +286,7 @@ export const characters = [
   },
   {
     id: 'miyabi',
+    playable: true,
     aliases: ['Miyabi'],
     name: 'Hoshimi Miyabi',
     unlockedAt: 'z-hollow-zero',
@@ -288,6 +302,7 @@ export const characters = [
   },
   {
     id: 'yanagi',
+    playable: true,
     aliases: ['Yanagi'],
     name: 'Tsukishiro Yanagi',
     unlockedAt: 'z-hollow-zero',
@@ -302,6 +317,7 @@ export const characters = [
   },
   {
     id: 'harumasa',
+    playable: true,
     aliases: ['Harumasa'],
     name: 'Asaba Harumasa',
     unlockedAt: 'z-hollow-zero',
@@ -316,6 +332,7 @@ export const characters = [
   },
   {
     id: 'soukaku',
+    playable: true,
     name: 'Soukaku',
     unlockedAt: 'z-hollow-zero',
     factions: ['section-6'],
@@ -329,6 +346,7 @@ export const characters = [
   },
   {
     id: 'anton',
+    playable: true,
     aliases: ['Anton'],
     name: 'Anton Ivanov',
     unlockedAt: 'c2a-belobog',
@@ -343,6 +361,7 @@ export const characters = [
   },
   {
     id: 'ben',
+    playable: true,
     aliases: ['Ben'],
     name: 'Ben Bigger',
     unlockedAt: 'c2a-belobog',
@@ -357,6 +376,7 @@ export const characters = [
   },
   {
     id: 'grace',
+    playable: true,
     aliases: ['Grace'],
     name: 'Grace Howard',
     unlockedAt: 'c2a-belobog',
@@ -371,6 +391,7 @@ export const characters = [
   },
   {
     id: 'koleda',
+    playable: true,
     revisions: [
       {
         at: 'c2b-monster',
@@ -395,6 +416,7 @@ export const characters = [
   },
   {
     id: 'khors',
+    art: 'scene',
     revisions: [
       {
         at: 'c2b-monster',
@@ -420,6 +442,7 @@ export const characters = [
   },
   {
     id: 'zhu-yuan',
+    playable: true,
     name: 'Zhu Yuan',
     unlockedAt: 'i2a-officers',
     factions: ['public-security', 'cisrt'],
@@ -433,6 +456,7 @@ export const characters = [
   },
   {
     id: 'qingyi',
+    playable: true,
     name: 'Qingyi',
     unlockedAt: 'i2a-officers',
     factions: ['public-security', 'cisrt'],
