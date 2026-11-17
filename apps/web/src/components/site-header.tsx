@@ -21,6 +21,12 @@ function isActive(pathname: string, href: string) {
   return href === '/' ? pathname === '/' : pathname.startsWith(href)
 }
 
+/** `page` on the page itself; `true` on its section when a sub-page (a character file) is open. */
+function current(pathname: string, href: string) {
+  if (!isActive(pathname, href)) return undefined
+  return pathname.replace(/\/$/, '') === href.replace(/\/$/, '') ? 'page' : 'true'
+}
+
 export function SiteHeader() {
   const t = useTranslations()
   const locale = useLocale() as Locale
@@ -48,7 +54,7 @@ export function SiteHeader() {
               <Link
                 key={href}
                 href={href}
-                aria-current={active ? 'page' : undefined}
+                aria-current={current(pathname, href)}
                 className={cn(
                   'px-3 py-2 text-xs font-semibold relative font-mono tracking-[0.16em] uppercase transition-colors',
                   active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
@@ -129,7 +135,7 @@ export function MobileNav() {
             <li key={href}>
               <Link
                 href={href}
-                aria-current={active ? 'page' : undefined}
+                aria-current={current(pathname, href)}
                 className={cn(
                   'h-16 gap-1 font-semibold relative flex flex-col items-center justify-center font-mono text-[0.62rem] tracking-[0.12em] uppercase transition-colors',
                   active ? 'text-primary' : 'text-muted',

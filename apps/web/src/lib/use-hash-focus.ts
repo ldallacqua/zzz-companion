@@ -14,7 +14,10 @@ export function useHashFocus(ready: boolean) {
     const frame = requestAnimationFrame(() => {
       const el = document.getElementById(id)
       if (!el) return
-      el.scrollIntoView({ block: 'center' })
+      // Tall targets (a recap part on a phone) go to their top, below the sticky header
+      // (scroll-margin); short ones are centred.
+      const tall = el.getBoundingClientRect().height > window.innerHeight * 0.7
+      el.scrollIntoView({ block: tall ? 'start' : 'center' })
       el.dataset.flash = 'true'
       window.setTimeout(() => delete el.dataset.flash, 1800)
     })

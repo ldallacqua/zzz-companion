@@ -75,6 +75,11 @@ Never import React or Next into `core` or `story`.
 9. **Static-host friendly.** The site ships as a static export (GitHub Pages): no middleware,
    route handlers, server actions or runtime server data. Links go through `@/i18n/navigation`
    so the base path is applied.
+10. **Per-entity pages render a generic shell** (character files, ADR 0010). Static params cover
+    every id, so the HTML exists for locked entities too: pass **only the id** to the client view,
+    keep metadata generic and `noindex`, and render names, texts and art only after hydration,
+    when `@zzz/core` says the reader has met them. `e2e/character-file.spec.ts` checks the raw
+    HTML of every page in both locales. Never display `aliases`: they are not spoiler-gated.
 
 ## Docs that must stay in sync (non-negotiable)
 

@@ -113,7 +113,14 @@ test.describe('layout', () => {
 })
 
 test.describe('accessibility', () => {
-  for (const path of ['/en', '/en/recap', '/en/characters', '/en/glossary']) {
+  for (const path of [
+    '/en',
+    '/en/recap',
+    '/en/characters',
+    '/en/glossary',
+    '/en/characters/nekomata',
+    '/pt-BR/characters/fairy',
+  ]) {
     test(`has no serious axe violations on ${path}`, async ({ page }) => {
       await seedProgress(page, 'i2b-farewell')
       await page.goto(path)

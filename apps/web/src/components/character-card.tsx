@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl'
 import { cn } from '@zzz/ui'
 import { knownTextAt, type Character, type Locale } from '@zzz/core'
 import { factionsById, timeline } from '@zzz/story'
+import { Link } from '@/i18n/navigation'
 import { useStory } from '@/lib/use-story'
 import { useMotionLevel } from './providers'
 import { Portrait } from './portrait'
@@ -78,6 +79,10 @@ export function CharacterCard({
             />
             <div className="inset-0 pointer-events-none absolute scanlines" aria-hidden />
             <div
+              className="inset-0 pointer-events-none absolute z-10 opacity-0 shadow-[inset_0_0_0_3px_var(--color-primary)] transition-opacity group-has-[a:focus-visible]:opacity-100"
+              aria-hidden
+            />
+            <div
               aria-hidden
               className="inset-x-0 via-white/10 pointer-events-none absolute h-1/3 -translate-y-full bg-gradient-to-b from-transparent to-transparent opacity-0 group-hover:animate-[scan_1.2s_ease-out] group-hover:opacity-100"
             />
@@ -86,13 +91,23 @@ export function CharacterCard({
               REC
             </span>
           </div>
-          <div className="p-3 relative">
-            <span
-              className="top-0 left-3 h-0.5 w-10 absolute -translate-y-1/2"
-              style={{ backgroundColor: character.color }}
-              aria-hidden
-            />
-            <h2 className="text-2xl display leading-none">{character.name[locale]}</h2>
+          {/* Not positioned: the name link's ::after must resolve against the whole card. */}
+          <div className="p-3">
+            <div className="relative" aria-hidden>
+              <span
+                className="-top-3 h-0.5 w-10 left-0 absolute -translate-y-1/2"
+                style={{ backgroundColor: character.color }}
+              />
+            </div>
+            <h2 className="text-2xl display leading-none">
+              {/* The link's ::after covers the card, so the whole card is clickable. */}
+              <Link
+                href={`/characters/${character.id}`}
+                className="after:inset-0 outline-none after:absolute after:z-20 after:content-['']"
+              >
+                {character.name[locale]}
+              </Link>
+            </h2>
             {character.factions.length > 0 && (
               <p className="mt-1 truncate font-mono text-[0.62rem] tracking-[0.14em] text-subtle uppercase">
                 {character.factions.map((id) => factionsById.get(id)?.name[locale]).join(' / ')}

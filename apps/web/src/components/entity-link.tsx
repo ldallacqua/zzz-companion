@@ -61,6 +61,7 @@ export function EntityLink({
 
 function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
   const t = useTranslations('entity')
+  const tf = useTranslations('characterFile')
   const locale = useLocale() as Locale
   const progress = useContextProgress(at)
   const entity = linkableByKey.get(entityKey)!
@@ -96,7 +97,7 @@ function EntityCard({ entityKey, at }: { entityKey: EntityKey; at?: string }) {
             {knownTextAt(timeline, progress, c.blurb, c.revisions)[locale]}
           </p>
           {asOf}
-          <MoreLink href={`/characters#character-${c.id}`} label={t('seeAllCharacters')} />
+          <MoreLink href={`/characters/${c.id}`} label={tf('openFile')} />
         </div>
       </div>
     )

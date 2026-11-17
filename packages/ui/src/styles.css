@@ -150,10 +150,39 @@
   }
 }
 
+/* Larger cut for big frames (character file poster). */
+@utility chamfer-lg {
+  --cut: 24px;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
 /* Print-style halftone dots, tinted with currentColor. */
 @utility halftone {
   background-image: radial-gradient(currentColor 1px, transparent 1.6px);
   background-size: 7px 7px;
+}
+@utility halftone-lg {
+  background-image: radial-gradient(currentColor 1.4px, transparent 2px);
+  background-size: 10px 10px;
+}
+
+/*
+ * Sticker edge + offset print shadow for transparent cutout art. Set `--sticker-shadow` inline
+ * (e.g. the character colour darkened). Put it on the <img> and animate a wrapper instead, so the
+ * filtered image isn't re-rasterised every frame. Never on opaque art: it would outline the box.
+ */
+@utility sticker {
+  --sticker-edge: var(--color-foreground);
+  filter: drop-shadow(2px 0 0 var(--sticker-edge)) drop-shadow(-2px 0 0 var(--sticker-edge))
+    drop-shadow(0 2px 0 var(--sticker-edge)) drop-shadow(0 -2px 0 var(--sticker-edge))
+    drop-shadow(10px 8px 0 var(--sticker-shadow, rgb(0 0 0 / 0.55)));
 }
 
 /* CRT scanlines overlay. */
@@ -167,12 +196,12 @@
   );
 }
 
-/* Hazard tape stripes. */
+/* Hazard tape stripes. Tint with `--hazard-color`, scale with `--hazard-size`. */
 @utility hazard {
   background-image: repeating-linear-gradient(
     -45deg,
-    var(--color-primary) 0 14px,
-    var(--color-background) 14px 28px
+    var(--hazard-color, var(--color-primary)) 0 var(--hazard-size, 14px),
+    var(--color-background) var(--hazard-size, 14px) calc(var(--hazard-size, 14px) * 2)
   );
 }
 

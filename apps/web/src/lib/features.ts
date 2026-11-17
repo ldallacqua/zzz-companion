@@ -71,8 +71,9 @@ export const features: Feature[] = [
     icon: 'users',
     title: { en: 'Character files', 'pt-BR': 'Fichas de personagens' },
     description: {
-      en: 'Everyone you’ve met, filterable by faction, described only with what you already know.',
-      'pt-BR': 'Todo mundo que você já conheceu, com filtro por facção e só o que você já sabe.',
+      en: 'Everyone you’ve met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in.',
+      'pt-BR':
+        'Todo mundo que você já conheceu, cada um com uma ficha que cresce conforme você joga: arte de corpo inteiro, o que você sabe agora e como isso mudou, e as partes em que aparece.',
     },
   },
   {

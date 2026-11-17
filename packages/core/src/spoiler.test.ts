@@ -6,8 +6,11 @@ import {
   getProgressRatio,
   getRecap,
   isUnlocked,
+  appearancesOf,
+  knownHistoryAt,
   knownTextAt,
   partitionUnlocked,
+  relatedCharacters,
 } from './spoiler'
 import { parseInlineMarkup } from './inline-markup'
 
@@ -144,5 +147,93 @@ describe('knownTextAt', () => {
     expect(() =>
       knownTextAt(timeline, { lastSegmentId: 'e' }, base, [{ at: 'zz', text: base }]),
     ).toThrow()
+  })
+})
+
+describe('character files', () => {
+  const base = t('base')
+  const entry = {
+    unlockedAt: 'b',
+    revisions: [
+      { at: 'e', text: t('learned in e') },
+      { at: 'c', text: t('learned in c') },
+    ],
+  }
+
+  it('knownHistoryAt: nothing while the entry is locked', () => {
+    expect(knownHistoryAt(timeline, { lastSegmentId: 'a' }, entry, base)).toEqual([])
+    expect(knownHistoryAt(timeline, { lastSegmentId: null }, entry, base)).toEqual([])
+  })
+
+  it('knownHistoryAt: base text, then finished revisions in story order, never later ones', () => {
+    const at = (id: string) =>
+      knownHistoryAt(timeline, { lastSegmentId: id }, entry, base).map((n) => [n.at, n.isBase])
+    expect(at('b')).toEqual([['b', true]])
+    expect(at('d')).toEqual([
+      ['b', true],
+      ['c', false],
+    ])
+    expect(at('e')).toEqual([
+      ['b', true],
+      ['c', false],
+      ['e', false],
+    ])
+  })
+
+  const timelineWithCast = buildTimeline([
+    {
+      ...chapter('ch-1', ['a', 'b']),
+      segments: [
+        { ...segment('a'), characters: ['x', 'y'] },
+        { ...segment('b'), characters: ['x', 'z'] },
+      ],
+    },
+    {
+      ...chapter('ch-2', ['c']),
+      segments: [{ ...segment('c'), characters: ['x', 'y'] }],
+    },
+  ])
+  const cast = [
+    { id: 'x', unlockedAt: 'a', factions: ['f1'] },
+    { id: 'y', unlockedAt: 'a', factions: [] },
+    { id: 'z', unlockedAt: 'b', factions: [] },
+    { id: 'w', unlockedAt: 'a', factions: ['f1'] },
+    { id: 'later', unlockedAt: 'c', factions: ['f1'] },
+  ]
+
+  it('appearancesOf: only finished parts that feature the character, grouped by chapter', () => {
+    const at = (id: string) =>
+      appearancesOf(timelineWithCast, { lastSegmentId: id }, 'x').map((c) => [
+        c.id,
+        c.segments.map((s) => s.id),
+      ])
+    expect(at('a')).toEqual([['ch-1', ['a']]])
+    expect(at('c')).toEqual([
+      ['ch-1', ['a', 'b']],
+      ['ch-2', ['c']],
+    ])
+    expect(appearancesOf(timelineWithCast, { lastSegmentId: 'c' }, 'z').map((c) => c.id)).toEqual([
+      'ch-1',
+    ])
+  })
+
+  it('relatedCharacters: shared finished parts first, then same faction; never locked ones', () => {
+    const related = (id: string) =>
+      relatedCharacters(timelineWithCast, { lastSegmentId: id }, 'x', cast).map((r) => [
+        r.character.id,
+        r.sharedParts,
+        r.sameFaction,
+      ])
+    expect(related('a')).toEqual([
+      ['y', 1, false],
+      ['w', 0, true],
+    ])
+    expect(related('c')).toEqual([
+      ['y', 2, false],
+      ['z', 1, false],
+      ['w', 0, true],
+      ['later', 0, true],
+    ])
+    expect(relatedCharacters(timelineWithCast, { lastSegmentId: null }, 'x', cast)).toEqual([])
   })
 })

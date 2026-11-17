@@ -10,6 +10,22 @@ import {
   timeline,
 } from './index'
 
+/** WCAG relative luminance and contrast ratio of two #rrggbb colours. */
+const luminance = (hex: string) => {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
+  })
+  return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!
+}
+const contrast = (a: string, b: string) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (hi! + 0.05) / (lo! + 0.05)
+}
+/** `--color-surface` and `--color-primary-foreground` in packages/ui/src/styles.css. */
+const SURFACE = '#111114'
+const INK = '#0b0d02'
+
 /**
  * Content integrity tests. These are the guard rails that keep the recap spoiler-safe
  * no matter who (or which AI) edits the content.
@@ -108,6 +124,16 @@ describe('story content', () => {
   it('every segment lists the same episodes in every locale', () => {
     for (const segment of timeline.segments) {
       expect(segment.episodes['pt-BR'].length, segment.id).toBe(segment.episodes.en.length)
+    }
+  })
+
+  // Character colours are used as text on the surface (names, outlines) and as backgrounds for
+  // dark text (character file spine, chips). Both must stay readable.
+  it('character colours keep text readable (WCAG AA)', () => {
+    for (const c of characters) {
+      expect(c.color, c.id).toMatch(/^#[0-9a-f]{6}$/i)
+      expect(contrast(c.color, SURFACE), `${c.id} on surface`).toBeGreaterThanOrEqual(4.5)
+      expect(contrast(INK, c.color), `dark text on ${c.id}`).toBeGreaterThanOrEqual(4.5)
     }
   })
 

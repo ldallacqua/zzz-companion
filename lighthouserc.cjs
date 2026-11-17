@@ -6,6 +6,15 @@
  *   pnpm lighthouse          # build the static site, then audit it
  *   pnpm lighthouse:audit    # audit an existing apps/web/out
  */
+const QUALITY = {
+  'categories:performance': ['error', { minScore: 0.9, aggregationMethod: 'median-run' }],
+  'categories:accessibility': ['error', { minScore: 1 }],
+  'categories:best-practices': ['error', { minScore: 0.95 }],
+}
+
+/** Character files (/characters/<id>/) are noindex on purpose (ADR 0010). */
+const CHARACTER_FILE = '/characters/[^/]+/$'
+
 module.exports = {
   ci: {
     collect: {
@@ -17,6 +26,8 @@ module.exports = {
         'http://localhost/en/characters/',
         'http://localhost/en/glossary/',
         'http://localhost/pt-BR/recap/',
+        // A character file as a first-time visitor sees it (the generic locked shell).
+        'http://localhost/en/characters/nicole/',
       ],
       numberOfRuns: 3,
       settings: {
@@ -25,12 +36,17 @@ module.exports = {
       },
     },
     assert: {
-      assertions: {
-        'categories:performance': ['error', { minScore: 0.9, aggregationMethod: 'median-run' }],
-        'categories:accessibility': ['error', { minScore: 1 }],
-        'categories:best-practices': ['error', { minScore: 0.95 }],
-        'categories:seo': ['error', { minScore: 0.95 }],
-      },
+      assertMatrix: [
+        {
+          matchingUrlPattern: `^(?!.*${CHARACTER_FILE}).*$`,
+          assertions: { ...QUALITY, 'categories:seo': ['error', { minScore: 0.95 }] },
+        },
+        {
+          // Lighthouse's SEO score penalises noindex; every other gate still applies.
+          matchingUrlPattern: CHARACTER_FILE,
+          assertions: QUALITY,
+        },
+      ],
     },
     upload: {
       // Reports stay on the machine / CI artifacts — nothing is sent to a public server.
