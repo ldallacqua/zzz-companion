@@ -209,14 +209,10 @@ function LockedFile({ pending, noProgress }: { pending: boolean; noProgress: boo
             <p className="mt-3 text-lg max-w-[50ch] text-muted">
               {noProgress ? t('lockedNoProgress') : t('lockedBody')}
             </p>
-            <div className="mt-6 gap-3 flex flex-wrap">
-              <Button onClick={() => setPickerOpen(true)}>
-                {noProgress ? tp('set') : tr('endCta')}
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/characters">{t('back')}</Link>
-              </Button>
-            </div>
+            {/* One action: the back link above already leads to all characters. */}
+            <Button className="mt-6" onClick={() => setPickerOpen(true)}>
+              {noProgress ? tp('set') : tr('endCta')}
+            </Button>
           </div>
         </div>
       </div>

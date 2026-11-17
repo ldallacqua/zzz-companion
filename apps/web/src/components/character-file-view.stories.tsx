@@ -55,6 +55,8 @@ export const LockedNotYet: Story = {
   play: async ({ canvas, canvasElement }) => {
     await expect(canvas.getByRole('heading', { level: 1, name: 'File locked' })).toBeVisible()
     await expect(canvasElement.textContent).not.toMatch(/Koleda|Belobog/)
+    // One way back (the back link), one action (set progress): no duplicate "All characters".
+    await expect(canvas.getAllByRole('link', { name: /All characters/ })).toHaveLength(1)
   },
 }
 
