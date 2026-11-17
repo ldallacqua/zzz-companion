@@ -62,9 +62,9 @@ Never import React or Next into `core` or `story`.
    Portuguese uses the game's official pt-BR terms (Esfera Negra, Etéreo, Interlaço, Caroteno…).
    UI strings live in `apps/web/messages/*.json`; content strings live next to the content.
 6. **Never commit HoYoverse asset files.** Character art is referenced by URL only (see README).
-   One approved exception: the game's "ZZ" logo mark (`apps/web/public/brand/zzz-mark.png`), used
-   non-commercially with HoYoverse's legal statement in the footer — keep that statement whenever
-   the mark is shown. Screenshots of the app's UI in `docs/assets` are fine.
+   One approved exception: the game's "ZZ" logo mark (`apps/web/public/brand/zzz-mark.png`, also
+   embedded in `docs/assets/banner.svg`), used non-commercially with HoYoverse's legal statement in
+   the footer and the trademark notice in the README — keep both whenever the mark is shown. Screenshots of the app's UI in `docs/assets` are fine.
 7. **Motion must respect the user.** Every animation works with `data-motion="off" | "reduced"`.
    Looping/ambient CSS animations get the `motion-ambient` class. Use the presets in
    `packages/ui/src/lib/motion.ts` instead of ad-hoc timings. Above-the-fold content (titles,

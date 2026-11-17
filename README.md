@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://ldallacqua.github.io/zzz-companion/">
-  <img src="docs/assets/banner.svg" alt="ZZZ Companion — Previously on New Eridu" width="100%" />
+  <img src="docs/assets/banner.svg" alt="ZZZ Companion: the Zenless Zone Zero ZZ mark and the word Companion" width="100%" />
 </a>
 
 <h3>Forgot what happened in Zenless Zone Zero? Catch up in a minute — without a single spoiler.</h3>
@@ -27,6 +27,8 @@
   <img alt="Languages" src="https://img.shields.io/badge/i18n-EN%20%2B%20PT--BR-c6ff2e?labelColor=08080a" />
   <img alt="AI ready" src="https://img.shields.io/badge/AI--ready-AGENTS.md-c6ff2e?labelColor=08080a" />
 </p>
+
+<p><sub>Unofficial, non-profit fan project. <em>Zenless Zone Zero</em>, the “ZZ” logo and all related names and artwork are trademarks and copyrights of miHoYo / HoYoverse. See <a href="#-license--assets">License &amp; assets</a>.</sub></p>
 
 <p>
   <a href="https://ldallacqua.github.io/zzz-companion/storybook/"><img alt="Storybook" src="https://img.shields.io/badge/Storybook-every_component-ff4785?logo=storybook&logoColor=white&labelColor=08080a" /></a>
@@ -174,13 +176,19 @@ words, gated with `unlockedAt` and translated to both languages**.
 - **Recap text** (`packages/story`) — written for this project after researching the
   [Zenless Zone Zero Wiki](https://zenless-zone-zero.fandom.com/) transcripts; CC BY-SA 4.0 with
   attribution to the wiki.
-- **Game assets** — _Zenless Zone Zero_, its logo and all character art are © HoYoverse /
-  COGNOSPHERE, used non-commercially in this fan project with HoYoverse's legal statement on every
-  page. Character art is never committed: it's referenced from the community wiki's CDN and loaded
-  by your browser (with a styled fallback if unavailable). The only game file in the repo is the
-  small "ZZ" mark in the nav. README screenshots show the app UI.
+- **Trademarks & game assets** — _Zenless Zone Zero_, the "ZZ" logo, character names, artwork and
+  all related trademarks are the trademarks and copyrights of **miHoYo / HoYoverse** (COGNOSPHERE
+  PTE. LTD.). This is an unofficial, non-profit fan project, not affiliated with or endorsed by
+  them; their marks are used only to identify the game, with HoYoverse's legal statement on every
+  page of the app.
+- **What's in the repo** — character art is never committed: it's referenced from the community
+  wiki's CDN and loaded by your browser (with a styled fallback if unavailable). The only game file
+  in the repo is the "ZZ" mark (`apps/web/public/brand/zzz-mark.png`), shown in the app's nav and
+  embedded in the README banner. README screenshots show the app's own UI.
+- **Takedown** — if you represent the rights holder and want anything removed, open an issue and it
+  will be taken down.
 
 <div align="center">
 <br />
-<sub>Unofficial fan project — not affiliated with or endorsed by HoYoverse. Made with ♥ for Proxies everywhere.</sub>
+<sub>Unofficial fan project — not affiliated with or endorsed by miHoYo / HoYoverse. Zenless Zone Zero and its logo are their trademarks. Made with ♥ for Proxies everywhere.</sub>
 </div>
