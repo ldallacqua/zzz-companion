@@ -11,11 +11,13 @@ test.describe('character file', () => {
   test('opens from the characters index by tapping the art', async ({ page }) => {
     await seedProgress(page, 'i2b-farewell')
     await page.goto('/en/characters/')
-    // Most people tap the picture: the whole card, not only the name, opens the file.
-    const art = page.locator('#character-nicole img').first()
-    await art.scrollIntoViewIfNeeded()
-    const box = (await art.boundingBox())!
-    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 3)
+    // Most people tap the picture: the whole card, not only the name, opens the file. The art is
+    // the card's top 4:5 box; measure the card, not the <img>, which has no size when the art
+    // can't load (CI can't reach the art CDN; the card then shows initials in the same box).
+    const card = page.locator('#character-nicole article')
+    await card.scrollIntoViewIfNeeded()
+    const { width } = (await card.boundingBox())!
+    await card.click({ position: { x: width / 2, y: width / 2 } })
     await expect(page).toHaveURL(/\/en\/characters\/nicole\/?$/)
     await expect(page.getByRole('heading', { level: 1, name: /Nicole Demara/ })).toBeVisible()
     await expect(page).toHaveTitle(/^Nicole Demara · Character file/)
