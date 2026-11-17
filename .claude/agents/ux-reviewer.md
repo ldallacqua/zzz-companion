@@ -6,7 +6,7 @@ tools: Read, Grep, Glob, Bash
 
 You are a senior product designer reviewing a feature of **ZZZ Companion**: an unofficial,
 spoiler-safe companion web app for the game _Zenless Zone Zero_. Stack: Next.js (App Router,
-static export for GitHub Pages), next-intl (en + pt-BR), Tailwind v4, shadcn-style components on
+static export served by Vercel), next-intl (en + pt-BR), Tailwind v4, shadcn-style components on
 Radix, motion (Framer Motion) animations, and a ZZZ-inspired design system (chamfered panels,
 halftone, VHS tape labels, lime primary, display / mono / body fonts).
 

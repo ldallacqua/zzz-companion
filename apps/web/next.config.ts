@@ -4,8 +4,8 @@ import createNextIntlPlugin from 'next-intl/plugin'
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 /**
- * `STATIC_EXPORT=true` builds a fully static site (GitHub Pages).
- * `BASE_PATH` is the sub-path the site is served from, e.g. `/zzz-companion`.
+ * `STATIC_EXPORT=true` builds a fully static site (what Vercel serves, ADR 0012).
+ * `BASE_PATH` is an optional sub-path to serve the site from (empty on Vercel).
  * The app has no server-only features, so dev, `next start` and static export behave the same.
  */
 const isStatic = process.env.STATIC_EXPORT === 'true'

@@ -3,7 +3,7 @@ import { routing } from '@/i18n/routing'
 
 /**
  * Public origin of the deployed site. hreflang and canonical links must be absolute, so the
- * deploy workflow sets NEXT_PUBLIC_SITE_ORIGIN (e.g. https://<user>.github.io).
+ * site's Vercel project sets NEXT_PUBLIC_SITE_ORIGIN (https://zzz-companion-ldallacqua.vercel.app).
  */
 export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN ?? 'http://localhost:3000'
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? ''

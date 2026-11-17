@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
@@ -34,6 +34,8 @@ import {
 import { SyncChip, useSyncDisplay } from './sync-chip'
 
 const EAGER_TILES = 6
+/** Tiles in the HTML and the first render: a phone screen, or a desktop row or two. */
+const FIRST_TILES = 12
 
 /**
  * My Agents (docs/features/agents-and-accounts.md): tick the Agents you own and their Mindscape.
@@ -81,10 +83,28 @@ export function AgentsView() {
   const [showHint, setShowHint] = useState<boolean | null>(null)
   if (hydrated && showHint === null) setShowHint(Object.keys(storedOwned).length === 0 && !token)
 
+  // Tiles fade in and slide into place when the reader changes the list, never while the grid
+  // fills in on load (and `layout` measures every tile on every render). Starts with the first
+  // pointer or key press, so that input's own change already animates.
+  const [listMoves, setListMoves] = useState(false)
+  useEffect(() => {
+    if (listMoves) return
+    const start = () => setListMoves(true)
+    window.addEventListener('pointerdown', start, { capture: true, once: true })
+    window.addEventListener('keydown', start, { capture: true, once: true })
+    return () => {
+      window.removeEventListener('pointerdown', start, { capture: true })
+      window.removeEventListener('keydown', start, { capture: true })
+    }
+  }, [listMoves])
+
   const visible = useMemo(
     () => filterAgents(agents, owned, filters, locale, { revealed, pinned }),
     [owned, filters, locale, revealed, pinned],
   )
+  // The rest of the grid mounts in a background render React can interrupt: the whole grid at
+  // once was one long task on mid-range phones (Lighthouse TBT ~0.5 s).
+  const tileLimit = useDeferredValue(Number.POSITIVE_INFINITY, FIRST_TILES)
   const counts = ownedCount(agents, owned)
   const markableIds = isNarrowed(filters)
     ? visible.filter((a) => !(a.id in owned) && !isHidden(a, owned, revealed)).map((a) => a.id)
@@ -344,11 +364,11 @@ export function AgentsView() {
             className="gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 grid grid-cols-3"
           >
             <AnimatePresence initial={false} mode="popLayout">
-              {visible.map((agent, i) => (
+              {visible.slice(0, tileLimit).map((agent, i) => (
                 <motion.li
                   key={agent.id}
-                  layout="position"
-                  initial={{ opacity: 0, scale: 0.96 }}
+                  layout={listMoves ? 'position' : false}
+                  initial={listMoves ? { opacity: 0, scale: 0.96 } : false}
                   animate={{
                     opacity: 1,
                     scale: 1,
