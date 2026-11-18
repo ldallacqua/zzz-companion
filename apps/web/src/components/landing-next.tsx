@@ -41,7 +41,7 @@ export function LandingNext() {
           {t('nextTimeOn')}
         </h2>
         <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted">{t('nextBody')}</p>
-        <div data-arm="" className="mt-8 gap-4 sm:grid-cols-2 grid">
+        <div data-arm="" className="mt-8 gap-4 sm:grid-cols-3 grid">
           {planned.map((f, i) => (
             <article
               key={f.id}
