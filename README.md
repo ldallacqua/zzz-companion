@@ -69,7 +69,7 @@
     <td colspan="2"><img src="docs/assets/screenshot-agents.png" alt="My Agents: the seven owned Agents, each with its Mindscape level" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for upcoming build and pull advice</sub></td>
+    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for upcoming rotations, builds and pull advice</sub></td>
   </tr>
   <tr>
     <td colspan="2"><img src="docs/assets/screenshot-character.png" alt="Nekomata's character file: full-body art, what you know now and earlier notes" /></td>
@@ -86,7 +86,7 @@ everything or bury you in spoilers. **ZZZ Companion asks one question — _where
 you the story up to exactly that point**, in English or Brazilian Portuguese.
 
 It also keeps your **Agent roster**: who you own and at what Mindscape, on your device or synced to
-an optional account. That roster is what the coming build and pull advice will start from.
+an optional account. That roster is what the coming team rotations, builds and pull advice will start from.
 
 ## ✦ Features
 
@@ -97,7 +97,7 @@ an optional account. That roster is what the coming build and pull advice will s
 | 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.      |
 | 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress. |
 | 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                    |
-| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds and pull advice.                                          |
+| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for rotations, builds and pull advice.                               |
 | ☁️  | **Accounts & sync**           | Optional email + password account that keeps your Agents on every device. Guest picks merge in when you sign in; delete it any time.                                          |
 | 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                      |
 | 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                      |
@@ -106,6 +106,7 @@ an optional account. That roster is what the coming build and pull advice will s
 
 ### On the roadmap
 
+- [ ] 🔁 **Team rotations** — how to play the teams you can build: who opens, which skills to chain and when to swap Agents
 - [ ] ⚔️ **Character builds** — recommended W-Engines and Drive Discs, plus what your gear is missing
 - [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans
 - [ ] ✉️ Email for accounts: verification and password reset

@@ -7,7 +7,7 @@ This is the single source of truth; tool-specific files only point here.
 
 **ZZZ Companion** — an unofficial, spoiler-safe companion web app for _Zenless Zone Zero_.
 MVP feature: a story recap that stops exactly at the player's progress. Players can also record the
-Agents they own ("My Agents", with optional account sync). Next: character builds and pull (gacha)
+Agents they own ("My Agents", with optional account sync). Next: team rotations, character builds and pull (gacha)
 recommendations built on that roster. See `docs/features/` for specs and `docs/adr/` for decisions.
 
 ## Commands (run from the repo root)

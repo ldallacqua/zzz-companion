@@ -47,6 +47,9 @@ export function Segmented<T extends string>({
             value={option.value}
             className={cn(
               'min-h-10 px-3 py-2 text-xs font-semibold sm:flex-none relative isolate flex-1 cursor-pointer font-mono tracking-[0.14em] uppercase focus-inset transition-colors',
+              // Reduced/off: switch colours at once. Even a near-zero transition can be read mid-way
+              // (WebKit), leaving the old text colour on the new highlight: a contrast failure.
+              'in-data-[motion=off]:transition-none in-data-[motion=reduced]:transition-none',
               'data-[state=on]:focus-visible:outline-primary-foreground',
               active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
               // No slide when motion is reduced/off: the active option paints its own highlight,
