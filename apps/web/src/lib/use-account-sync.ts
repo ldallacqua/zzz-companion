@@ -5,6 +5,7 @@ import { mergeRosters, rosterFromMap, rosterToMap, sameRoster } from '@zzz/core'
 import { api, ApiError } from './api'
 import { useAccount } from './account-store'
 import { useRoster } from './roster-store'
+import { useProgressSync } from './use-progress-sync'
 
 const SAVE_DELAY_MS = 700
 
@@ -112,8 +113,12 @@ export function useAccountSync() {
   }, [])
 }
 
-/** Mount once in the layout (not in <Providers>, so stories control the stores themselves). */
+/**
+ * Mount once in the layout (not in <Providers>, so stories control the stores themselves): keeps
+ * the roster and the story progress in step with the signed-in account.
+ */
 export function AccountSync() {
   useAccountSync()
+  useProgressSync()
   return null
 }

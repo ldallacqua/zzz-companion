@@ -6,7 +6,7 @@ import { index, integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlit
  * Change it here, then run `pnpm --filter @zzz/api db:generate` to write a migration.
  *
  * The first five tables are Better Auth's (names and fields must match what it expects; keys of
- * the exported `schema` object are its model names). `roster_entry` is ours.
+ * the exported `schema` object are its model names). `roster_entry` and `progress` are ours.
  */
 
 const now = sql`(cast(unixepoch('subsecond') * 1000 as integer))`
@@ -105,4 +105,16 @@ export const rosterEntry = sqliteTable(
   (t) => [primaryKey({ columns: [t.userId, t.agentId] })],
 )
 
-export const schema = { user, session, account, verification, rateLimit, rosterEntry }
+/** The player's story progress (ADR 0014). One row per player; no row = never synced. */
+export const progress = sqliteTable('progress', {
+  userId: text('user_id')
+    .primaryKey()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  /** Segment id from `@zzz/story`, or null = not started. Unknown ids are kept (newer web build). */
+  lastSegmentId: text('last_segment_id'),
+  /** When the player set it on their device. The most recent choice wins across devices. */
+  setAt: integer('set_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: updatedAt(),
+})
+
+export const schema = { user, session, account, verification, rateLimit, rosterEntry, progress }

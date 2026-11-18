@@ -155,9 +155,9 @@ export const features: Feature[] = [
     act: 'bento',
     title: { en: 'Private by default', 'pt-BR': 'Privado por padrão' },
     description: {
-      en: 'No tracking. Progress and settings stay in your browser; an account is optional and only syncs your Agents.',
+      en: 'No tracking. Settings stay in your browser; an account is optional and only syncs your progress and Agents.',
       'pt-BR':
-        'Sem rastreamento. Progresso e ajustes ficam no seu navegador; a conta é opcional e só sincroniza seus Agentes.',
+        'Sem rastreamento. Os ajustes ficam no seu navegador; a conta é opcional e só sincroniza seu progresso e seus Agentes.',
     },
   },
   {
@@ -167,9 +167,9 @@ export const features: Feature[] = [
     act: 'bento',
     title: { en: 'Accounts & sync', 'pt-BR': 'Conta e sincronização' },
     description: {
-      en: 'An optional account keeps your Agents on every device. No email spam, no tracking; delete it any time.',
+      en: 'An optional account keeps your progress and Agents on every device. No email spam, no tracking; delete it any time.',
       'pt-BR':
-        'Uma conta opcional leva seus Agentes para qualquer aparelho. Sem e-mails, sem rastreamento; apague quando quiser.',
+        'Uma conta opcional leva seu progresso e seus Agentes para qualquer aparelho. Sem e-mails, sem rastreamento; apague quando quiser.',
     },
   },
   {

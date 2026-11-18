@@ -1,4 +1,4 @@
-import { RosterSchema, type Roster } from '@zzz/core'
+import { RosterSchema, SavedProgressSchema, type Roster, type SavedProgress } from '@zzz/core'
 import { API_URL, accountsEnabled } from './api-config'
 
 export { API_URL, accountsEnabled }
@@ -156,5 +156,24 @@ export const api = {
 
   async putRoster(token: string, entries: Roster, signal?: AbortSignal) {
     await request('/roster', { method: 'PUT', token, json: { entries }, signal })
+  },
+
+  /** The account's story progress; null when it has never been saved (or is unreadable). */
+  async getProgress(token: string, signal?: AbortSignal): Promise<SavedProgress | null> {
+    const { body } = await request<{ progress: unknown }>('/progress', { token, signal })
+    const parsed = SavedProgressSchema.safeParse(body.progress)
+    return parsed.success ? parsed.data : null
+  },
+
+  /** Saves progress; the answer is what the account keeps (a more recent choice wins). */
+  async putProgress(token: string, progress: SavedProgress, signal?: AbortSignal) {
+    const { body } = await request<{ progress: unknown }>('/progress', {
+      method: 'PUT',
+      token,
+      json: progress,
+      signal,
+    })
+    const parsed = SavedProgressSchema.safeParse(body.progress)
+    return parsed.success ? parsed.data : progress
   },
 }

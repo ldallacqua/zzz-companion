@@ -90,19 +90,19 @@ an optional account. That roster is what the coming build and pull advice will s
 
 ## ✦ Features
 
-|     | Feature                       | What you get                                                                                                                                                                  |
-| :-: | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, **short** or in **full** — researched from the game's transcripts, with sources.                                                |
-| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                                                                     |
-| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.      |
-| 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress. |
-| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                    |
-| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds and pull advice.                                          |
-| ☁️  | **Accounts & sync**           | Optional email + password account that keeps your Agents on every device. Guest picks merge in when you sign in; delete it any time.                                          |
-| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                      |
-| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                      |
-| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                          |
-| 🔒  | **Private by default**        | No tracking. Progress and settings live in your browser; an account is optional and only syncs your Agents.                                                                   |
+|     | Feature                       | What you get                                                                                                                                                                            |
+| :-: | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, **short** or in **full** — researched from the game's transcripts, with sources.                                                          |
+| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                                                                               |
+| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.                |
+| 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress.           |
+| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                              |
+| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds and pull advice.                                                    |
+| ☁️  | **Accounts & sync**           | Optional email + password account that keeps your story progress and Agents on every device (the most recent progress wins). Guest picks merge in when you sign in; delete it any time. |
+| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                                |
+| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                                |
+| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                                    |
+| 🔒  | **Private by default**        | No tracking. Settings live in your browser; an account is optional and only syncs your progress and Agents.                                                                             |
 
 ### On the roadmap
 
@@ -206,7 +206,8 @@ flowchart LR
 - **Local-first**: progress, preferences and the Agent roster persist in `localStorage`; the site
   is a fully static export served by Vercel.
 - **Optional accounts** ([ADR 0011](docs/adr/0011-accounts-and-roster-sync.md)): a separate Hono
-  API with Better Auth (email + password) and Turso syncs the roster across devices. Without it
+  API with Better Auth (email + password) and Turso syncs the roster and story progress across
+  devices ([ADR 0014](docs/adr/0014-progress-sync.md): the most recent progress wins). Without it
   (or offline) everything still works on the device; signing in merges what you picked as a guest.
 - **Landing page** ([ADR 0013](docs/adr/0013-cinematic-landing.md)): server-rendered sections with
   tiny client islands; motion is CSS gated by the user's Animations setting, scroll-driven where the

@@ -73,6 +73,38 @@ test.describe('accounts', () => {
     await other.close()
   })
 
+  test('story progress follows the account to another browser', async ({ page, browser }, info) => {
+    const email = uniqueEmail(info.project.name)
+    await createAccount(page, email)
+    await expect(page.getByRole('heading', { name: 'Wise' })).toBeVisible()
+
+    // Set progress while signed in; it is saved to the account.
+    await page.goto('/en')
+    const saved = page.waitForResponse(
+      (r) => r.url().endsWith('/api/progress') && r.request().method() === 'PUT' && r.ok(),
+    )
+    await page.getByRole('button', { name: 'Set my progress' }).first().click()
+    const dialog = page.getByRole('dialog')
+    await dialog.getByRole('button', { name: /Business × Strangeness × Justness/ }).click()
+    await dialog.getByTestId('pick-p-phaethon').click()
+    await page.keyboard.press('Escape')
+    await saved
+
+    // Another browser, with no progress of its own, signs in and is at the same part.
+    const other = await browser.newContext()
+    const page2 = await other.newPage()
+    await seedProgress(page2, null)
+    await page2.goto('/en/account')
+    await page2.getByLabel('Email').fill(email)
+    await page2.getByLabel('Password', { exact: true }).fill(PASSWORD)
+    await page2.getByRole('button', { name: /^Sign in/ }).click()
+    await expect(page2.getByRole('heading', { name: 'Wise' })).toBeVisible()
+    await page2.goto('/en/recap')
+    await expect(page2.getByTestId('segment-p-phaethon')).toBeVisible({ timeout: 10_000 })
+    await expect(page2.getByTestId('segment-p-hacker')).toHaveCount(0)
+    await other.close()
+  })
+
   test('the nudge opens Create account and comes back to My Agents', async ({ page }, info) => {
     await page.goto('/en/agents')
     await tile(page, 'ellen').click()
