@@ -6,6 +6,14 @@ import { Segmented } from '@zzz/ui'
 import { useCompanion, type MotionPreference } from '@/lib/store'
 import { useMotionLevel } from './providers'
 
+/** Position in the page from layout alone: an animation's transform is not a layout shift. */
+function layoutTop(el: HTMLElement | null): number | undefined {
+  if (!el) return undefined
+  let y = 0
+  for (let n: HTMLElement | null = el; n; n = n.offsetParent as HTMLElement | null) y += n.offsetTop
+  return y
+}
+
 /**
  * The app's real Animations setting (the same one as in Settings), next to a tiny CRT that shows
  * what it does: it powers on with full motion, fades in when reduced and simply sits there when off.
@@ -20,11 +28,11 @@ export function MotionSwitch() {
   const ref = useRef<HTMLDivElement>(null)
 
   const change = (value: MotionPreference) => {
-    const before = ref.current?.getBoundingClientRect().top
+    const before = layoutTop(ref.current)
     setMotion(value)
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
-        const after = ref.current?.getBoundingClientRect().top
+        const after = layoutTop(ref.current)
         if (before !== undefined && after !== undefined && after !== before) {
           window.scrollBy({ top: after - before, behavior: 'instant' })
         }
@@ -33,10 +41,10 @@ export function MotionSwitch() {
   }
 
   return (
-    <div ref={ref} className="gap-4 flex w-full flex-col items-center">
+    <div ref={ref} className="gap-3 flex w-full flex-col items-center">
       <div
         aria-hidden
-        className="h-16 w-24 p-1 relative bg-surface-2 ring-1 ring-border-strong chamfer-sm"
+        className="h-12 w-20 p-1 relative bg-surface-2 ring-1 ring-border-strong chamfer-sm"
       >
         <div className="relative size-full overflow-hidden bg-[#050506]">
           <div

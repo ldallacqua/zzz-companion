@@ -145,6 +145,10 @@ export function LandingShield() {
 
             <div className="pin:in-data-[motion-start=full]:static pin:in-data-[motion-start=full]:self-center sticky top-[76px] z-10 self-start [grid-area:mock] in-data-[motion-start=off]:static">
               <ShieldStage scene={scene} />
+              <div
+                aria-hidden
+                className="inset-x-0 h-6 lg:hidden pointer-events-none absolute top-full bg-gradient-to-b from-band to-transparent in-data-[motion-start=off]:hidden"
+              />
             </div>
 
             <div className="lg:pl-8 relative [grid-area:steps]">

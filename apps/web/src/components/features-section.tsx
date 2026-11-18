@@ -178,8 +178,8 @@ function Tile({
             className={cn(
               'relative',
               hero
-                ? 'sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:flex-1 aspect-square'
-                : 'h-44 lg:min-h-44 lg:flex-1',
+                ? 'sm:aspect-[4/3] md:aspect-[2/1] lg:aspect-auto lg:flex-1 aspect-square'
+                : 'h-44',
             )}
           >
             {children}

@@ -110,7 +110,7 @@ export const features: Feature[] = [
     description: {
       en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds and pull advice.',
       'pt-BR':
-        'Marque os Agentes que você tem e o Mindscape de cada um. Rápido mesmo com o elenco inteiro, e a base para builds e conselhos de pulls.',
+        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds e dos conselhos de pulls.',
     },
   },
   {

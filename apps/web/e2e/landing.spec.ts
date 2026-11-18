@@ -70,4 +70,23 @@ test.describe('landing page', () => {
     expect(Math.abs(after - before)).toBeLessThan(40)
     await expect(off).toBeInViewport()
   })
+
+  test('switching motion back on never replays arrivals or moves the setting', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await seedProgress(page, null, { motion: 'full' })
+    await page.goto('/en/')
+    const tile = page.locator('[data-feature-id="motion"]')
+    await tile.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+    await introDone(page)
+    await expect(tile).not.toHaveAttribute('data-armed')
+    for (const name of ['Off', 'Full', 'Reduced', 'Full']) {
+      const radio = tile.getByRole('radio', { name })
+      const before = (await radio.boundingBox())!.y
+      await radio.click()
+      await page.waitForTimeout(50)
+      expect(await tile.evaluate((el) => getComputedStyle(el).opacity), name).toBe('1')
+      await page.waitForTimeout(250)
+      expect(Math.abs((await radio.boundingBox())!.y - before), name).toBeLessThanOrEqual(2)
+    }
+  })
 })

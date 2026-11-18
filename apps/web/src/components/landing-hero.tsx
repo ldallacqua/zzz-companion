@@ -37,7 +37,7 @@ export function LandingHero() {
     <section
       data-landing=""
       data-testid="landing-hero"
-      className="lp-hero pt-10 pb-14 sm:pt-16 lg:flex lg:min-h-[clamp(680px,calc(100svh-4rem),960px)] lg:items-center lg:py-16 relative isolate"
+      className="lp-hero pt-10 pb-14 sm:pt-16 lg:flex lg:min-h-[clamp(560px,calc(100svh-4rem),960px)] lg:items-center lg:py-16 relative isolate"
     >
       <HeroBackdrop />
 
@@ -51,7 +51,7 @@ export function LandingHero() {
           <div className="lp-nudge mt-5 relative">
             <h1
               aria-label={t('title')}
-              className="font-black lg:text-[min(13vw,11.5rem)] display text-[clamp(4.5rem,28vw,11.5rem)] leading-[0.82] tracking-[-0.02em]"
+              className="font-black lg:text-[min(13vw,11.5rem,24svh)] display text-[clamp(4.5rem,28vw,11.5rem)] leading-[0.82] tracking-[-0.02em]"
             >
               {/* One word per line; the space stays in the text so the heading reads "New Eridu". */}
               {words.map((word, i) => (
@@ -138,7 +138,7 @@ function ImpactCopy({ words, className }: { words: string[]; className: string }
     <p
       aria-hidden
       className={cn(
-        'lp-impact inset-0 font-black lg:text-[min(13vw,11.5rem)] pointer-events-none absolute -z-10 display text-[clamp(4.5rem,28vw,11.5rem)] leading-[0.82] tracking-[-0.02em]',
+        'lp-impact inset-0 font-black lg:text-[min(13vw,11.5rem,24svh)] pointer-events-none absolute -z-10 display text-[clamp(4.5rem,28vw,11.5rem)] leading-[0.82] tracking-[-0.02em]',
         className,
       )}
     >
