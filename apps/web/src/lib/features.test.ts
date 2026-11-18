@@ -23,4 +23,8 @@ describe('feature registry ↔ README', () => {
     const ids = features.map((f) => f.id)
     expect(new Set(ids).size).toBe(ids.length)
   })
+
+  it('planned features close the landing page (Next time on); shipped ones sit in an act', () => {
+    for (const f of features) expect(f.act === 'next', f.id).toBe(f.status === 'planned')
+  })
 })

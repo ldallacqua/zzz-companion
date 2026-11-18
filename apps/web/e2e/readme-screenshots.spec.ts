@@ -14,6 +14,13 @@ test.skip(!process.env.SCREENSHOTS, 'Only runs via `pnpm screenshots`')
 test('README screenshots', async ({ page }, testInfo) => {
   await seedProgress(page, 'i2b-farewell', { motion: 'off' })
   if (testInfo.project.name === 'desktop') {
+    // The landing page's cold open (returning reader: the monitor says where they are).
+    await page.setViewportSize({ width: 1280, height: 800 })
+    await page.goto('/en/')
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(1200)
+    await page.screenshot({ path: out('screenshot-landing.png') })
+
     await page.setViewportSize({ width: 1280, height: 860 })
     await page.goto('/en/recap/')
     const segment = page.getByTestId('segment-z-hollow-zero')

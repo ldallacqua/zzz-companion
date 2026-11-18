@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { features } from '../src/lib/features'
 import { seedProgress } from './helpers'
 
 test.describe('intel cards (clickable names)', () => {
@@ -45,11 +46,13 @@ test.describe('static-host routing', () => {
     await expect(page).toHaveURL(/\/en\/$/)
   })
 
-  test('the landing page lists the features', async ({ page }) => {
+  test('the landing page shows every feature in the registry exactly once', async ({ page }) => {
     await seedProgress(page, null)
     await page.goto('/pt-BR/')
-    const features = page.getByTestId('features')
-    await expect(features).toContainText('Nomes clicáveis')
-    await expect(features).toContainText('Conselheiro de pulls')
+    for (const f of features) {
+      const entry = page.locator(`[data-feature-id="${f.id}"]`)
+      await expect(entry, f.id).toHaveCount(1)
+      await expect(entry).toContainText(f.title['pt-BR'])
+    }
   })
 })

@@ -86,7 +86,10 @@ const preview: Preview = {
     // Mirror the app's boot script: the motion level is in place before the first frame.
     const level = globals.motion === 'system' || !globals.motion ? null : globals.motion
     MotionGlobalConfig.skipAnimations = level === 'off'
-    if (level) document.documentElement.dataset.motion = level
+    if (level) {
+      document.documentElement.dataset.motion = level
+      document.documentElement.dataset.motionStart = level
+    }
     useCompanion.setState({
       lastSegmentId: 'i2b-farewell',
       recapMode: 'full',

@@ -8,6 +8,9 @@
 @theme {
   /* Surfaces */
   --color-background: #08080a;
+  /* Slightly lifted full-bleed bands (landing acts, outro). */
+  --color-band: #0b0b0e;
+  --color-band-strong: #0e0e11;
   --color-surface: #111114;
   --color-surface-2: #18181c;
   --color-surface-3: #222228;
@@ -18,6 +21,8 @@
   --color-foreground: #f3f3ee;
   --color-muted: #9a9aa3;
   --color-subtle: #8a8a93; /* ≥ 4.5:1 on every surface token (WCAG AA) */
+  /* Unlit text on the background: 3.4:1, for large type only (≥ 24px). */
+  --color-dim: #64646e;
 
   /* Brand */
   --color-primary: #c6ff2e;
@@ -136,6 +141,12 @@
 }
 @utility chamfer-tr {
   --cut: 12px;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+
+/* One cut corner (top right), for bento tiles. */
+@utility chamfer-tr-lg {
+  --cut: 16px;
   clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
 }
 

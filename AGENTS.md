@@ -103,8 +103,8 @@ These are part of the definition of done — a change is not finished until they
    (`pnpm screenshots`) when the UI they show changes noticeably.
 2. **The landing page always reflects the most important features.** Every notable feature —
    shipped or planned — has an entry in `apps/web/src/lib/features.ts` (both locales). That
-   registry renders the landing page "Features" section, so add/update/re-status the entry in the
-   same change that ships the feature.
+   registry renders the landing page (each entry once, in the act its `act` names; ADR 0013), so
+   add/update/re-status the entry in the same change that ships the feature.
 3. **README and the registry agree.** `apps/web/src/lib/features.test.ts` fails if README.md
    doesn't mention every registry entry by its English title — fix the README, never the test.
 4. ADRs: a new architectural decision gets a new file in `docs/adr/`; a feature's behavior lives
@@ -201,6 +201,9 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
   highlight drawn by a child layer (e.g. a sliding `motion.span`) gets `-z-10` and the control
   gets `isolate`, so the highlight sits under the ring instead of covering it. `e2e/focus.spec.ts`
   checks this with pixels, with motion on.
+- Landing page motion lives in `apps/web/src/app/landing.css` (ADR 0013): CSS gated by
+  `data-motion`, the HTML is the final frame, and arrival animations only play on `[data-arm]`
+  blocks. Product-shot mocks are `inert` and never show story text.
 - Scroll reveals wrap one card each, never a whole long list (`Reveal` fires when any part is on
   screen; a list taller than a phone would stay hidden). Reading text uses `riseInSolid`.
 - Commits: Conventional Commits (`feat:`, `fix:`, `content:`, `docs:`…).

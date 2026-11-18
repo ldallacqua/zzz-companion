@@ -1,15 +1,21 @@
-import type { Localized } from '@zzz/core'
+import type { Locale, Localized } from '@zzz/core'
 
 /**
  * Single source of truth for the product's feature list.
  *
- * - The landing page "Features" section renders straight from this array.
+ * - The landing page renders straight from this array: each entry in the act named by `act`.
  * - `features.test.ts` fails if README.md doesn't mention every entry by its English title.
  *
  * Shipping a notable feature? Add or update it here (and in README) in the same change.
  * See AGENTS.md → "Docs that must stay in sync".
  */
 export type FeatureStatus = 'shipped' | 'planned'
+/**
+ * Where the landing page shows the feature: the act whose scene demonstrates it (`shield`:
+ * Act 1, `bento`: Act 2, `roster`: Act 3) or `next` ("Next time on", for planned features).
+ * Every entry is rendered exactly once (the e2e tests check `[data-feature-id]`).
+ */
+export type FeatureAct = 'shield' | 'bento' | 'roster' | 'next'
 export type FeatureIcon =
   | 'tv'
   | 'shield'
@@ -29,6 +35,7 @@ export interface Feature {
   id: string
   status: FeatureStatus
   icon: FeatureIcon
+  act: FeatureAct
   title: Localized<string>
   description: Localized<string>
 }
@@ -38,6 +45,7 @@ export const features: Feature[] = [
     id: 'recap',
     status: 'shipped',
     icon: 'tv',
+    act: 'shield',
     title: { en: 'Story recap', 'pt-BR': 'Recap da história' },
     description: {
       en: 'Prologue → Chapter 2 Interlude, part by part, short or in full — researched from the game’s transcripts.',
@@ -49,6 +57,7 @@ export const features: Feature[] = [
     id: 'spoiler-gating',
     status: 'shipped',
     icon: 'shield',
+    act: 'shield',
     title: { en: 'Spoiler shield', 'pt-BR': 'Escudo anti-spoiler' },
     description: {
       en: 'Tell it where you are and nothing past that point shows up — not in the recap, the characters or the glossary.',
@@ -60,6 +69,7 @@ export const features: Feature[] = [
     id: 'intel-cards',
     status: 'shipped',
     icon: 'pointer',
+    act: 'bento',
     title: { en: 'Tap-to-explain names', 'pt-BR': 'Nomes clicáveis' },
     description: {
       en: 'Characters, factions and terms in the recap — and the faces of who was there — are tappable: an intel card explains who or what they are, as of that point in the story.',
@@ -71,6 +81,7 @@ export const features: Feature[] = [
     id: 'characters',
     status: 'shipped',
     icon: 'users',
+    act: 'bento',
     title: { en: 'Character files', 'pt-BR': 'Fichas de personagens' },
     description: {
       en: 'Everyone you’ve met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in.',
@@ -82,6 +93,7 @@ export const features: Feature[] = [
     id: 'glossary',
     status: 'shipped',
     icon: 'book',
+    act: 'bento',
     title: { en: 'Searchable glossary', 'pt-BR': 'Glossário com busca' },
     description: {
       en: 'Hollows, Ethereals, H.A.N.D., TOPS… every term and faction, unlocked as the story introduces it.',
@@ -93,17 +105,19 @@ export const features: Feature[] = [
     id: 'roster',
     status: 'shipped',
     icon: 'roster',
+    act: 'roster',
     title: { en: 'My Agents roster', 'pt-BR': 'Meus Agentes' },
     description: {
-      en: 'Tick the Agents you own and their Mindscape: fast enough for 60 of them, and the base for builds and pull advice.',
+      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds and pull advice.',
       'pt-BR':
-        'Marque os Agentes que você tem e o Mindscape de cada um. Rápido até para 60, e a base para builds e conselhos de pulls.',
+        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds e dos conselhos de pulls.',
     },
   },
   {
     id: 'i18n',
     status: 'shipped',
     icon: 'languages',
+    act: 'bento',
     title: { en: 'English + Português', 'pt-BR': 'Inglês + Português' },
     description: {
       en: 'Full Brazilian Portuguese with the game’s official localized terms.',
@@ -114,6 +128,7 @@ export const features: Feature[] = [
     id: 'motion',
     status: 'shipped',
     icon: 'sparkles',
+    act: 'bento',
     title: { en: 'Motion with an off switch', 'pt-BR': 'Animações com botão de desligar' },
     description: {
       en: 'CRT power-ons, glitch titles and hazard tape — or Reduced / Off in one tap. Follows your system setting by default.',
@@ -125,6 +140,7 @@ export const features: Feature[] = [
     id: 'responsive',
     status: 'shipped',
     icon: 'smartphone',
+    act: 'bento',
     title: { en: 'Phone to desktop', 'pt-BR': 'Do celular ao desktop' },
     description: {
       en: 'Built mobile-first with a thumb-friendly tab bar; tested on phone, tablet and desktop.',
@@ -136,6 +152,7 @@ export const features: Feature[] = [
     id: 'local-first',
     status: 'shipped',
     icon: 'lock',
+    act: 'bento',
     title: { en: 'Private by default', 'pt-BR': 'Privado por padrão' },
     description: {
       en: 'No tracking. Progress and settings stay in your browser; an account is optional and only syncs your Agents.',
@@ -147,6 +164,7 @@ export const features: Feature[] = [
     id: 'accounts',
     status: 'shipped',
     icon: 'cloud',
+    act: 'bento',
     title: { en: 'Accounts & sync', 'pt-BR': 'Conta e sincronização' },
     description: {
       en: 'An optional account keeps your Agents on every device. No email spam, no tracking; delete it any time.',
@@ -158,6 +176,7 @@ export const features: Feature[] = [
     id: 'builds',
     status: 'planned',
     icon: 'swords',
+    act: 'next',
     title: { en: 'Character builds', 'pt-BR': 'Builds de personagens' },
     description: {
       en: 'Recommended W-Engines and Drive Discs, plus what your current gear is missing.',
@@ -168,6 +187,7 @@ export const features: Feature[] = [
     id: 'pull-advisor',
     status: 'planned',
     icon: 'dice',
+    act: 'next',
     title: { en: 'Pull advisor', 'pt-BR': 'Conselheiro de pulls' },
     description: {
       en: 'Should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans.',
@@ -176,3 +196,7 @@ export const features: Feature[] = [
     },
   },
 ]
+
+/** A feature's title in one locale, e.g. for a landing-page label (falls back to the id). */
+export const featureTitle = (id: string, locale: Locale): string =>
+  features.find((f) => f.id === id)?.title[locale] ?? id

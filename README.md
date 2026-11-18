@@ -52,6 +52,12 @@
 
 <table>
   <tr>
+    <td colspan="2"><img src="docs/assets/screenshot-landing.png" alt="The landing page: the NEW ERIDU title card next to a CRT monitor with Belle, Wise and Eous stepping out of the frame" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>The landing page plays like an episode: cold open, three acts and a sign-off</sub></td>
+  </tr>
+  <tr>
     <td width="66%"><img src="docs/assets/screenshot-recap.png" alt="Recap with an intel card open on H.A.N.D." /></td>
     <td width="34%"><img src="docs/assets/screenshot-mobile.png" alt="Recap on a phone" /></td>
   </tr>
@@ -202,6 +208,9 @@ flowchart LR
 - **Optional accounts** ([ADR 0011](docs/adr/0011-accounts-and-roster-sync.md)): a separate Hono
   API with Better Auth (email + password) and Turso syncs the roster across devices. Without it
   (or offline) everything still works on the device; signing in merges what you picked as a guest.
+- **Landing page** ([ADR 0013](docs/adr/0013-cinematic-landing.md)): server-rendered sections with
+  tiny client islands; motion is CSS gated by the user's Animations setting, scroll-driven where the
+  browser supports it, and the HTML is always the final frame.
 - Decisions are documented as [ADRs](docs/adr); feature specs live in [`docs/features`](docs/features).
 
 ```

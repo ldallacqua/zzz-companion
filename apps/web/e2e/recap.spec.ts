@@ -66,6 +66,20 @@ test.describe('layout', () => {
       await seedProgress(page, 'i2b-farewell')
       await page.goto(path)
       await page.waitForLoadState('networkidle')
+      // Measure the settled page: an intro animation may travel outside it while it plays.
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter(
+              (a) =>
+                a.timeline === document.timeline &&
+                a.playState === 'running' &&
+                a.effect?.getComputedTiming().iterations !== Infinity,
+            )
+            .map((a) => a.finished.catch(() => undefined)),
+        ),
+      )
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       )
