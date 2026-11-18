@@ -510,3 +510,13 @@ body:has([data-landing]) [data-ticker] {
     background-position: -90px -20px;
   }
 }
+
+/* ---------------------------------------------------------------- Backdrop mark (BigMark) */
+
+/* An outlined "ZZZ" drawn by an SVG mask over currentColor: decoration that is never text. */
+.lp-mark {
+  aspect-ratio: 698 / 270;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 698 270'%3E%3Cg fill='none' stroke='%23000' stroke-width='3'%3E%3Cpath transform='translate(55 0) skewX(-12)' d='M0 0H200V48L74 212H200V260H0V212L126 48H0Z'/%3E%3Cpath transform='translate(270 0) skewX(-12)' d='M0 0H200V48L74 212H200V260H0V212L126 48H0Z'/%3E%3Cpath transform='translate(485 0) skewX(-12)' d='M0 0H200V48L74 212H200V260H0V212L126 48H0Z'/%3E%3C/g%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
