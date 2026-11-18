@@ -89,4 +89,29 @@ test.describe('landing page', () => {
       expect(Math.abs((await radio.boundingBox())!.y - before), name).toBeLessThanOrEqual(2)
     }
   })
+
+  test('the Act 1 mock never outgrows its box while the scene plays (iPad Pro 13 landscape)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1376, height: 1032 })
+    await seedProgress(page, null, { motion: 'full' })
+    await page.goto('/en/')
+    const track = page.locator('#how [class*="h-[240vh]"]')
+    await expect(track).toHaveCount(1)
+    for (const f of [0.1, 0.35, 0.5, 0.8, 1]) {
+      await track.evaluate((el, f) => {
+        const r = el.getBoundingClientRect()
+        window.scrollTo({
+          top: r.top + scrollY + f * (r.height - innerHeight),
+          behavior: 'instant',
+        })
+      }, f)
+      await page.waitForTimeout(600)
+      const { mock, box } = await page.getByTestId('shield-mock').evaluate((el) => ({
+        mock: el.getBoundingClientRect().height,
+        box: el.parentElement!.parentElement!.getBoundingClientRect().height,
+      }))
+      expect(mock, `at ${f}`).toBeLessThanOrEqual(box + 1)
+    }
+  })
 })

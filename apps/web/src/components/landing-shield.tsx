@@ -201,10 +201,17 @@ export function LandingShield() {
 /** Design size of the product shot; it is scaled to fit (a screenshot, never reflowed). */
 const MOCK_WIDTH = 480
 
-/** Scales the mock to its column (and, under the sticky header on phones, to half the screen). */
+/**
+ * Scales the mock to its column (and, under the sticky header on phones, to half the screen).
+ *
+ * The box reserves the mock's tallest state (the final scene, which the first render shows): the
+ * mock grows in Full mode, and a box measured on a shorter beat would cut its bottom off (Safari
+ * clips it) or shift the pinned stage.
+ */
 function ShieldStage({ scene }: { scene: ShieldScene }) {
   const box = useRef<HTMLDivElement>(null)
   const inner = useRef<HTMLDivElement>(null)
+  const tallest = useRef(0)
   const [fit, setFit] = useState<{ s: number; h: number; x: number } | null>(null)
 
   useLayoutEffect(() => {
@@ -212,14 +219,17 @@ function ShieldStage({ scene }: { scene: ShieldScene }) {
     const mock = inner.current
     if (!el || !mock) return
     const measure = () => {
+      tallest.current = Math.max(tallest.current, mock.offsetHeight)
+      const height = tallest.current
       const desktop = window.innerWidth >= 1024
       const maxH = desktop ? window.innerHeight - 140 : window.innerHeight * 0.5
-      const s = Math.min(el.clientWidth / MOCK_WIDTH, maxH / mock.offsetHeight, 1.45)
-      setFit({ s, h: mock.offsetHeight * s, x: (el.clientWidth - MOCK_WIDTH * s) / 2 })
+      const s = Math.min(el.clientWidth / MOCK_WIDTH, maxH / height, 1.45)
+      setFit({ s, h: height * s, x: (el.clientWidth - MOCK_WIDTH * s) / 2 })
     }
     measure()
     const ro = new ResizeObserver(measure)
     ro.observe(el)
+    ro.observe(mock)
     window.addEventListener('resize', measure)
     return () => {
       ro.disconnect()

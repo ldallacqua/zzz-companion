@@ -30,6 +30,7 @@ export type FeatureIcon =
   | 'dice'
   | 'roster'
   | 'cloud'
+  | 'rotate'
 
 export interface Feature {
   id: string
@@ -108,9 +109,9 @@ export const features: Feature[] = [
     act: 'roster',
     title: { en: 'My Agents roster', 'pt-BR': 'Meus Agentes' },
     description: {
-      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds and pull advice.',
+      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for rotations, builds and pull advice.',
       'pt-BR':
-        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds e dos conselhos de pulls.',
+        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das rotações, das builds e dos conselhos de pulls.',
     },
   },
   {
@@ -170,6 +171,18 @@ export const features: Feature[] = [
       en: 'An optional account keeps your progress and Agents on every device. No email spam, no tracking; delete it any time.',
       'pt-BR':
         'Uma conta opcional leva seu progresso e seus Agentes para qualquer aparelho. Sem e-mails, sem rastreamento; apague quando quiser.',
+    },
+  },
+  {
+    id: 'rotations',
+    status: 'planned',
+    icon: 'rotate',
+    act: 'next',
+    title: { en: 'Team rotations', 'pt-BR': 'Rotações de equipe' },
+    description: {
+      en: 'How to play the teams you can build: who opens, which skills to chain and when to swap Agents.',
+      'pt-BR':
+        'Como jogar com as equipes que você monta: quem abre a luta, quais habilidades encadear e quando trocar de Agente.',
     },
   },
   {
