@@ -200,8 +200,9 @@ function Monitor({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* The cast: over the glass (same box), free above it, clipped at its bottom edge. */}
-      <div className="lp-cast-layer top-2 inset-x-2 sm:top-2.5 sm:inset-x-2.5 pointer-events-none absolute aspect-[4/3] [clip-path:inset(-40%_-30%_0_-30%)]">
+      {/* The cast: over the glass (same box), free above it, clipped at its bottom edge. Clipped
+          sideways too, in layout: if the CDN serves a wide placeholder, the page must not widen. */}
+      <div className="lp-cast-layer top-2 inset-x-2 sm:top-2.5 sm:inset-x-2.5 pointer-events-none absolute aspect-[4/3] overflow-x-clip [clip-path:inset(-40%_-30%_0_-30%)]">
         <div className="inset-0 absolute flex items-end justify-center">
           {CAST.map(({ id, delay, z }) => {
             const c = charactersById.get(id)
