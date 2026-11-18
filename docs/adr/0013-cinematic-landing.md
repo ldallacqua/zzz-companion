@@ -51,7 +51,7 @@ scroll-scrubbed; state changes are triggered and play on their own clock.
   not focusable, out of contrast checks. They never show story text: placeholder bars and the
   protagonists' names only.
 - **The feature registry places each feature in an act** (`act: 'shield' | 'bento' | 'roster' |
-  'next'`). Every entry renders exactly once with `data-feature-id` (E2E and Storybook check it), so
+'next'`). Every entry renders exactly once with `data-feature-id` (E2E and Storybook check it), so
   the landing still reflects the registry (AGENTS.md "Docs that must stay in sync").
 - The header ticker is hidden on the home page only (`body:has([data-landing])`).
 

@@ -35,13 +35,17 @@ import { Portrait } from './portrait'
 import { useMotionLevel } from './providers'
 import { SpecFooter } from './spec-footer'
 
-const DESKTOP = '(min-width: 64rem)'
-const subscribeDesktop = (onChange: () => void) => {
-  const mql = window.matchMedia(DESKTOP)
+/** Wide and tall enough to pin the act (keep in sync with the `pin` variant in globals.css). */
+const PIN_QUERY = '(min-width: 64rem) and (min-height: 47.5rem)'
+const subscribePin = (onChange: () => void) => {
+  const mql = window.matchMedia(PIN_QUERY)
   mql.addEventListener('change', onChange)
   return () => mql.removeEventListener('change', onChange)
 }
-const isDesktop = () => window.matchMedia(DESKTOP).matches
+const canPin = () => window.matchMedia(PIN_QUERY).matches
+/** The motion level when the page loaded (boot script). It never changes while the page is open. */
+const motionAtLoad = () => document.documentElement.dataset.motionStart ?? 'full'
+const neverChanges = () => () => {}
 
 const STEPS = [
   { title: 'step1', body: 'step1Body' },
@@ -52,23 +56,28 @@ const STEPS = [
 /**
  * Act 1, "the shield": how it works, shown on a product shot of the recap.
  *
- * - Desktop with full motion: the act is 240vh tall and its stage sticks; scrolling walks the
- *   mock through the three steps (marker travels, later parts get redacted, Short → Full, a name
- *   opens its intel card, character files unlock) while the step list and its rail follow.
- * - Phones/tablets (or reduced motion): the mock sticks under the header and the step captions
- *   scroll past it; the caption in view sets the scene.
+ * - Large, tall screens with full motion: the act is 240vh tall and its stage sticks; scrolling
+ *   walks the mock through the three steps (marker travels, later parts get redacted, Short → Full,
+ *   a name opens its intel card, character files unlock) while the step list and its rail follow.
+ * - Otherwise (phones, tablets, short laptops, reduced motion): the mock sticks under the header and
+ *   the step captions scroll past it; the caption in view sets the scene.
  * - Motion off (and the HTML before hydration): no sticking, the final scene, all steps.
+ *
+ * The layout mode comes from the motion level at load (`data-motion-start`), so changing the
+ * Animations setting on the page never reflows it; the live level only decides whether it plays.
  */
 export function LandingShield() {
   const t = useTranslations('home')
   const track = useRef<HTMLDivElement>(null)
   const stepsRef = useRef<HTMLOListElement>(null)
-  // The server render (and the first client render) is the static final frame: no media query.
-  const desktop = useSyncExternalStore(subscribeDesktop, isDesktop, () => false)
+  // The server render (and the first client render) is the static final frame.
+  const tall = useSyncExternalStore(subscribePin, canPin, () => false)
+  const start = useSyncExternalStore(neverChanges, motionAtLoad, () => 'off')
   const level = useMotionLevel()
-  const pinned = desktop && level === 'full'
+  const pinned = tall && start === 'full'
+  const captions = !pinned && start !== 'off'
 
-  // Desktop: scroll position → scene.
+  // Pinned: scroll position → scene.
   const { scrollYProgress } = useScroll({ target: track, offset: ['start start', 'end end'] })
   const [scrollScene, setScrollScene] = useState<ShieldScene | null>(null)
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
@@ -76,10 +85,10 @@ export function LandingShield() {
     if (pinned) setScrollScene((s) => (s && sameScene(s, next) ? s : next))
   })
 
-  // Phones/tablets: the caption crossing the band under the sticky mock → scene.
+  // Captions: the one crossing the band under the sticky mock → scene.
   const [stepScene, setStepScene] = useState<ShieldScene | null>(null)
   useEffect(() => {
-    if (pinned || level === 'off') return
+    if (!captions) return
     const items = Array.from(stepsRef.current?.children ?? [])
     const io = new IntersectionObserver(
       (entries) => {
@@ -90,14 +99,14 @@ export function LandingShield() {
             setStepScene(sceneForStep(-1))
         }
       },
-      { rootMargin: '-70% 0px -16% 0px' },
+      { rootMargin: '-60% 0px -22% 0px' },
     )
     items.forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [pinned, level])
+  }, [captions])
 
   const scene =
-    level === 'off'
+    level === 'off' || start === 'off'
       ? SHIELD_FINAL
       : pinned
         ? (scrollScene ?? sceneAt(scrollYProgress.get()))
@@ -109,7 +118,7 @@ export function LandingShield() {
     <section
       id="how"
       aria-labelledby="how-title"
-      className="lp-shield pt-24 pb-24 sm:pt-32 lg:pt-40 relative isolate"
+      className="lp-shield pt-16 pb-24 sm:pt-24 lg:pt-28 relative isolate"
       data-testid="landing-shield"
     >
       <div
@@ -118,23 +127,23 @@ export function LandingShield() {
       />
       <ActBumper act={t('act', { n: 1 })} title={t('actShield')} />
 
-      <div ref={track} className="mt-10 lg:mt-6 lg:in-data-[motion=full]:h-[240vh]">
-        <div className="lg:in-data-[motion=full]:top-16 lg:in-data-[motion=full]:sticky lg:in-data-[motion=full]:flex lg:in-data-[motion=full]:h-[calc(100svh-4rem)] lg:in-data-[motion=full]:items-center">
+      <div ref={track} className="mt-10 lg:mt-6 pin:in-data-[motion-start=full]:h-[240vh]">
+        <div className="pin:in-data-[motion-start=full]:sticky pin:in-data-[motion-start=full]:top-16 pin:in-data-[motion-start=full]:flex pin:in-data-[motion-start=full]:h-[calc(100svh-4rem)] pin:in-data-[motion-start=full]:items-center-safe">
           <div className="lp-shield-grid gap-x-12 gap-y-8 grid w-full">
             <header className="[grid-area:head]">
               <p className="gap-3 text-xs font-semibold flex items-center font-mono tracking-[0.3em] text-primary uppercase">
                 <span className="w-8 h-px bg-primary" aria-hidden />
-                {t('shieldKicker')}
+                {t('stepsTitle')}
               </p>
               <h2
                 id="how-title"
-                className="mt-4 font-black lg:text-[clamp(3rem,4.6vw,4.5rem)] display text-[clamp(2.75rem,11vw,5rem)] leading-[0.88] text-balance"
+                className="mt-4 font-black lg:text-[clamp(2.75rem,min(4.6vw,7.5svh),4.5rem)] display text-[clamp(2.75rem,11vw,5rem)] leading-[0.88] text-balance"
               >
                 {t('shieldTitle')}
               </h2>
             </header>
 
-            <div className="lg:static lg:self-center sticky top-[76px] z-10 self-start [grid-area:mock] in-data-[motion=off]:static">
+            <div className="pin:in-data-[motion-start=full]:static pin:in-data-[motion-start=full]:self-center sticky top-[76px] z-10 self-start [grid-area:mock] in-data-[motion-start=off]:static">
               <ShieldStage scene={scene} />
             </div>
 
@@ -148,12 +157,12 @@ export function LandingShield() {
                   style={pinned ? { scaleY: scrollYProgress } : undefined}
                 />
               </span>
-              <ol ref={stepsRef} className="lg:space-y-7">
+              <ol ref={stepsRef} className="pin:in-data-[motion-start=full]:space-y-7">
                 {STEPS.map(({ title, body }, i) => (
                   <li
                     key={title}
                     data-active={!pinned || scene.step >= i}
-                    className="group/step pt-6 lg:min-h-0 lg:pt-0 in-data-[motion=off]:min-h-0 min-h-[58svh]"
+                    className="group/step pt-6 in-data-[motion-start=off]:min-h-0 pin:in-data-[motion-start=full]:min-h-0 pin:in-data-[motion-start=full]:pt-0 min-h-[30svh]"
                   >
                     <div className="gap-5 flex">
                       <span className="text-5xl lg:group-data-[active=false]/step:text-subtle display text-primary tabular-nums transition-colors duration-500">
@@ -188,7 +197,7 @@ export function LandingShield() {
 /** Design size of the product shot; it is scaled to fit (a screenshot, never reflowed). */
 const MOCK_WIDTH = 480
 
-/** Scales the mock to its column (and, under the sticky header on phones, to ~56% of the screen). */
+/** Scales the mock to its column (and, under the sticky header on phones, to half the screen). */
 function ShieldStage({ scene }: { scene: ShieldScene }) {
   const box = useRef<HTMLDivElement>(null)
   const inner = useRef<HTMLDivElement>(null)
@@ -200,7 +209,7 @@ function ShieldStage({ scene }: { scene: ShieldScene }) {
     if (!el || !mock) return
     const measure = () => {
       const desktop = window.innerWidth >= 1024
-      const maxH = desktop ? window.innerHeight - 140 : window.innerHeight * 0.56
+      const maxH = desktop ? window.innerHeight - 140 : window.innerHeight * 0.5
       const s = Math.min(el.clientWidth / MOCK_WIDTH, maxH / mock.offsetHeight, 1.45)
       setFit({ s, h: mock.offsetHeight * s, x: (el.clientWidth - MOCK_WIDTH * s) / 2 })
     }
@@ -501,11 +510,11 @@ function MockPart({
         {intel && name && (
           <motion.div
             key="intel"
-            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.24, ease: [0.2, 0.9, 0.1, 1], delay: 0.18 }}
-            className="left-16 w-64 absolute bottom-[calc(100%-0.25rem)] z-30 origin-bottom-left bg-info p-px shadow-[0_20px_40px_-12px_rgb(0_0_0/0.9)] chamfer-sm"
+            className="left-16 w-64 absolute top-[calc(100%-0.25rem)] z-30 origin-top-left bg-info p-px shadow-[0_20px_40px_-12px_rgb(0_0_0/0.9)] chamfer-sm"
           >
             <div className="gap-3 p-3 flex bg-surface-2 chamfer-sm">
               <span

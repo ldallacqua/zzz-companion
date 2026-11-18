@@ -79,6 +79,10 @@ body:has([data-landing]) [data-ticker] {
   }
 }
 
+/* Clip the travelling highlight: a clip-path hides it but doesn't stop it widening the page. */
+.lp-sheen {
+  overflow: hidden;
+}
 .lp-sheen::after {
   content: '';
   position: absolute;
@@ -455,10 +459,7 @@ body:has([data-landing]) [data-ticker] {
 }
 @keyframes lp-lit {
   from {
-    color: var(--color-dim);
-  }
-  to {
-    color: var(--lit, var(--color-foreground));
+    opacity: 0.45;
   }
 }
 @keyframes lp-rotate-in {

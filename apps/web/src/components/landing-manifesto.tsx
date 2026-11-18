@@ -20,7 +20,7 @@ export function LandingManifesto() {
   return (
     <div
       data-testid="landing-manifesto"
-      className="lp-manifesto py-24 sm:py-32 lg:min-h-svh flex min-h-[70svh] items-center"
+      className="lp-manifesto py-16 sm:py-24 lg:min-h-[80svh] flex min-h-[56svh] items-center"
     >
       <p className="font-semibold lg:ml-[8.333%] max-w-[16em] text-[clamp(2rem,5.2vw,4.75rem)] leading-[1.08] tracking-[-0.035em] text-balance">
         {words.map(({ word, accent }, i) => (

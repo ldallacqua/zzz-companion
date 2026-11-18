@@ -82,7 +82,7 @@ export function IntelArt() {
         </div>
 
         <div
-          className="lp-pop sm:-top-[58%] absolute -top-[62%] left-[6%] w-[19rem] max-w-[88%] origin-bottom-left bg-info p-px shadow-[0_24px_48px_-12px_rgb(0_0_0/0.95)] chamfer-sm"
+          className="lp-pop sm:-top-[58%] left-3 absolute -top-[62%] w-[19rem] max-w-[88%] origin-bottom-left bg-info p-px shadow-[0_24px_48px_-12px_rgb(0_0_0/0.95)] chamfer-sm"
           style={d(520)}
         >
           <div className="gap-3 p-3 flex bg-surface-2 chamfer-sm">
@@ -175,10 +175,7 @@ export function FilesArt() {
               ) : (
                 <div className="inset-0 gap-2 absolute grid place-content-center justify-items-center border-2 border-dashed border-accent/60 bg-background chamfer">
                   <span className="text-6xl display text-subtle">?</span>
-                  <span className="gap-1 flex items-center font-mono text-[0.55rem] tracking-[0.2em] text-subtle uppercase">
-                    <Lock className="size-3" />
-                    {tc('classified')}
-                  </span>
+                  <Lock className="size-4 text-subtle" />
                 </div>
               )}
             </div>
@@ -191,7 +188,6 @@ export function FilesArt() {
 
 /** Glossary search: "Hol|" is typed, the unlocked term answers, a later one stays redacted. */
 export function GlossaryArt() {
-  const tg = useTranslations('glossary')
   const te = useTranslations('entity')
   const tm = useTranslations('home')
   const locale = useLocale() as Locale
@@ -211,7 +207,6 @@ export function GlossaryArt() {
             {typed}
           </span>
           <span className="h-4 w-px bg-primary" />
-          <span className="sr-only">{tg('title')}</span>
         </div>
         <div className="mt-2 lp-rise" style={d(650)}>
           <div className="gap-3 px-3 py-2.5 flex items-center bg-surface-2">
@@ -253,13 +248,13 @@ export function LanguagesArt() {
             <span
               lang={row.lang}
               className={cn(
-                'lp-flip px-3 py-2 text-2xl relative flex-1 origin-top bg-surface-2 display leading-none ring-1 ring-border-strong',
+                'lp-flip px-3 py-2 text-2xl relative isolate flex-1 origin-top bg-surface-2 display leading-none ring-1 ring-border-strong',
                 i === 1 && 'text-primary',
               )}
               style={d(250 + i * 220)}
             >
               {row.word}
-              <span className="inset-x-0 absolute top-1/2 h-px bg-background/80" />
+              <span className="inset-x-0 absolute top-1/2 -z-10 h-px bg-background/80" />
             </span>
           </div>
         ))}

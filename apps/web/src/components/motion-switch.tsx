@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Segmented } from '@zzz/ui'
 import { useCompanion, type MotionPreference } from '@/lib/store'
@@ -8,15 +9,31 @@ import { useMotionLevel } from './providers'
 /**
  * The app's real Animations setting (the same one as in Settings), next to a tiny CRT that shows
  * what it does: it powers on with full motion, fades in when reduced and simply sits there when off.
+ *
+ * Changing it keeps the control where it is on screen, even if anything above it reflows.
  */
 export function MotionSwitch() {
   const t = useTranslations('settings')
   const motion = useCompanion((s) => s.motion)
   const setMotion = useCompanion((s) => s.setMotion)
   const level = useMotionLevel()
+  const ref = useRef<HTMLDivElement>(null)
+
+  const change = (value: MotionPreference) => {
+    const before = ref.current?.getBoundingClientRect().top
+    setMotion(value)
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const after = ref.current?.getBoundingClientRect().top
+        if (before !== undefined && after !== undefined && after !== before) {
+          window.scrollBy({ top: after - before, behavior: 'instant' })
+        }
+      }),
+    )
+  }
 
   return (
-    <div className="gap-4 flex w-full flex-col items-center">
+    <div ref={ref} className="gap-4 flex w-full flex-col items-center">
       <div
         aria-hidden
         className="h-16 w-24 p-1 relative bg-surface-2 ring-1 ring-border-strong chamfer-sm"
@@ -39,11 +56,13 @@ export function MotionSwitch() {
           </div>
         </div>
       </div>
+      {/* 2 × 2: four options fit any tile width in both languages ("Desligadas" is long). */}
       <Segmented<MotionPreference>
+        className="sm:w-full grid w-full max-w-[20rem] grid-cols-2"
         label={t('motion')}
         layoutId="landing-motion"
         value={motion}
-        onValueChange={setMotion}
+        onValueChange={change}
         options={[
           { value: 'system', label: t('motionSystem') },
           { value: 'full', label: t('motionFull') },

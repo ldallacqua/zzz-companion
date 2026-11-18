@@ -54,7 +54,7 @@ export function LandingOutro() {
       </h2>
 
       <div className="mt-10 grid min-h-[7.5rem] place-items-center">
-        <p className="max-w-md text-lg leading-relaxed text-muted in-data-[progress=set]:hidden">
+        <p className="max-w-md text-lg leading-relaxed text-balance text-muted in-data-[progress=set]:hidden">
           {t('statusEmpty')}
         </p>
         <ProgressLine variant="status" className="hidden in-data-[progress=set]:block" />

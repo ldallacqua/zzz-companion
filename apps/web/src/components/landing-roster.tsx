@@ -43,12 +43,9 @@ export function LandingRoster() {
       <div className="mt-12 relative left-1/2 w-screen -translate-x-1/2 overflow-x-clip">
         <IconRow agents={ROW_A} className="lp-row-a" />
         <div data-arm="" className="lp-rise max-w-3xl px-4 py-14 sm:py-20 mx-auto text-center">
-          <p className="text-xs font-semibold font-mono tracking-[0.3em] text-primary uppercase">
-            {t('rosterKicker')}
-          </p>
           <h2
             id="roster-title"
-            className="mt-4 font-black display text-[clamp(2.75rem,8vw,5.75rem)] leading-[0.9] text-balance"
+            className="font-black display text-[clamp(2.75rem,8vw,5.75rem)] leading-[0.9] text-balance"
           >
             {t('rosterTitle')}
           </h2>

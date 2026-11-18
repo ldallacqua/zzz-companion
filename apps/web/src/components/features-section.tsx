@@ -134,7 +134,6 @@ function Slate({ index, total }: { index: number; total: number }) {
       <span>
         {String(index).padStart(2, '0')} / {String(total).padStart(2, '0')}
       </span>
-      <span className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_#c6ff2e]" />
     </div>
   )
 }
@@ -179,8 +178,8 @@ function Tile({
             className={cn(
               'relative',
               hero
-                ? 'sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:flex-1 aspect-[4/5]'
-                : 'h-44 lg:min-h-36 lg:flex-1',
+                ? 'sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:flex-1 aspect-square'
+                : 'h-44 lg:min-h-44 lg:flex-1',
             )}
           >
             {children}

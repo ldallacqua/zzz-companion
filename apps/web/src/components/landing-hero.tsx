@@ -120,7 +120,7 @@ export function LandingHero() {
           </div>
         </div>
 
-        <div className="max-lg:overflow-x-clip lp-hero-tv lg:col-span-6 lg:-mr-[4vw] xl:-mr-12 relative [perspective:1600px]">
+        <div className="max-lg:overflow-x-clip max-lg:mx-auto max-lg:mt-16 max-lg:w-full max-lg:max-w-[34rem] lp-hero-tv lg:col-span-6 lg:-mr-[4vw] xl:-mr-12 relative [perspective:1600px]">
           <TvStage>
             <div className="lp-tilt">
               <Monitor locale={locale} />
@@ -237,7 +237,7 @@ function Monitor({ locale }: { locale: Locale }) {
 
       {/* On-screen display, above the cast. It powers on and off with the screen. */}
       <div className="lp-osd top-2 inset-x-2 sm:top-2.5 sm:inset-x-2.5 pointer-events-none absolute aspect-[4/3]">
-        <div className="lp-bug top-3 left-3 gap-2 px-2 py-1 font-bold absolute flex items-center bg-background/85 font-mono text-[0.62rem] tracking-[0.2em] text-foreground uppercase">
+        <div className="lp-bug max-sm:hidden top-3 left-3 gap-2 px-2 py-1 font-bold absolute flex items-center bg-background/85 font-mono text-[0.62rem] tracking-[0.2em] text-foreground uppercase">
           <span
             aria-hidden
             className="motion-ambient size-2 animate-[blink_1.4s_steps(2,start)_infinite] bg-danger"
@@ -275,7 +275,7 @@ function HeroBackdrop() {
       aria-hidden
       className="inset-y-0 pointer-events-none absolute left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
     >
-      <div className="inset-0 absolute bg-[radial-gradient(45%_42%_at_74%_62%,#c6ff2e1c,transparent_70%),radial-gradient(35%_35%_at_6%_96%,#ff5a1f12,transparent_70%)]" />
+      <div className="inset-0 absolute bg-[radial-gradient(45%_42%_at_74%_62%,#c6ff2e1c,transparent_70%),radial-gradient(40%_30%_at_6%_76%,#ff5a1f12,transparent_70%)]" />
       <div className="lp-hero-mark absolute -top-[3%] -right-[5%]">
         <BigMark className="text-[clamp(14rem,40vw,38rem)] text-primary/[0.06]" />
       </div>

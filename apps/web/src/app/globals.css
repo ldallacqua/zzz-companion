@@ -3,6 +3,9 @@
 @import '../../../../packages/ui/src/styles.css';
 @import './landing.css';
 
+/* Screens tall and wide enough to pin the landing page's Act 1 (keep in sync with landing-shield). */
+@custom-variant pin (@media (min-width: 64rem) and (min-height: 47.5rem));
+
 /* Workspace packages live outside this app, so Tailwind must be told to scan them. */
 @source '../../../../packages/ui/src';
 
