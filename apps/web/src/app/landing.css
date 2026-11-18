@@ -1,0 +1,511 @@
+/*
+ * Landing page ("One episode") motion and scenes. See docs/adr/0013-cinematic-landing.md.
+ *
+ * Rules that keep it fast and safe:
+ *  - Everything here is gated by <html data-motion>, which the boot script sets before the first
+ *    paint, so nothing waits for React and "Off" never flashes an animation.
+ *  - The default markup is the FINAL frame. Arrival animations only run on elements that
+ *    <LandingArm> marked `data-armed` (below the fold when the page mounted); without JavaScript,
+ *    or above the fold, everything is simply there.
+ *  - Only transform, opacity and clip-path animate. Scroll-scrubbed effects use CSS scroll-driven
+ *    animations where supported; elsewhere the static end state shows.
+ */
+
+/* The home page gets clean air under the header: no ticker band. */
+body:has([data-landing]) [data-ticker] {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- Cold open (hero) */
+
+.lp-impact {
+  visibility: hidden;
+}
+.lp-afterglow {
+  opacity: 0;
+}
+
+:root[data-motion='full'] {
+  & .lp-word {
+    animation: lp-slam 520ms var(--ease-snap) both;
+    animation-delay: calc(60ms + var(--i, 0) * 140ms);
+  }
+  & .lp-impact {
+    animation: lp-impact 90ms linear 700ms;
+  }
+  & .lp-nudge {
+    animation: lp-nudge 90ms steps(2) 700ms;
+  }
+  & .lp-led {
+    animation: lp-led 100ms steps(1, end) both;
+  }
+  & :is(.lp-screen, .lp-cast-layer, .lp-osd) {
+    animation: lp-power-on 680ms var(--ease-snap) both;
+  }
+  & .lp-flash {
+    animation: lp-flash 760ms linear both;
+  }
+  & .lp-rise-cast {
+    animation: lp-rise-cast 520ms var(--ease-out-expo) var(--d, 560ms) both;
+  }
+  & .lp-eous {
+    animation: lp-hop 480ms var(--ease-out-expo) 760ms both;
+  }
+  & .lp-bug {
+    animation: lp-wipe 240ms steps(6) 820ms both;
+  }
+  & .lp-third-bar {
+    animation: lp-draw 240ms var(--ease-snap) 860ms both;
+  }
+  & .lp-third-text {
+    animation: lp-slide 280ms var(--ease-out-expo) 900ms both;
+  }
+  & .lp-sheen::after {
+    animation: lp-sheen 600ms var(--ease-out-expo) 1000ms both;
+  }
+  & .lp-scan-drift {
+    animation: lp-scan-drift 9s linear infinite;
+  }
+
+  /* Leaving the hero switches the TV off; coming back switches it on (set by <TvStage>). */
+  & .lp-tv[data-power='off'] :is(.lp-screen, .lp-cast-layer, .lp-osd) {
+    animation: lp-power-off 300ms cubic-bezier(0.7, 0, 0.84, 0) both;
+  }
+  & .lp-tv[data-power='on'] :is(.lp-screen, .lp-cast-layer, .lp-osd) {
+    animation: lp-power-back 520ms var(--ease-snap) both;
+  }
+  & .lp-tv[data-power='off'] .lp-afterglow {
+    animation: lp-afterglow 900ms ease-out 250ms both;
+  }
+}
+
+.lp-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+}
+
+/* The monitor's resting angle and the mouse tilt (variables set by <TvStage>). */
+@media (min-width: 64rem) {
+  .lp-tilt {
+    transform: rotateY(calc(-8deg + var(--ry, 0) * 3deg)) rotateX(calc(2deg - var(--rx, 0) * 2deg));
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+}
+.lp-glare {
+  background: radial-gradient(
+    circle at calc(var(--gx, 0.3) * 100%) calc(var(--gy, 0.2) * 100%),
+    rgb(255 255 255 / 0.07),
+    transparent 45%
+  );
+}
+
+@keyframes lp-slam {
+  0% {
+    transform: translateY(0.16em) skewX(-10deg) scale(1.04);
+  }
+  60% {
+    transform: translateY(-0.03em) skewX(2deg) scale(1);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes lp-impact {
+  from,
+  to {
+    visibility: visible;
+  }
+}
+@keyframes lp-nudge {
+  50% {
+    transform: translate(2px, -1px);
+  }
+}
+@keyframes lp-led {
+  from {
+    background-color: #7a1f2b;
+    box-shadow: none;
+  }
+}
+@keyframes lp-power-on {
+  0%,
+  38% {
+    transform: scale(0.72, 0.006);
+  }
+  59% {
+    transform: scale(1, 0.006);
+  }
+  90% {
+    transform: scale(1, 1.02);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes lp-flash {
+  0%,
+  53% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes lp-rise-cast {
+  from {
+    transform: translateY(14%);
+  }
+}
+@keyframes lp-hop {
+  0% {
+    transform: translateY(30%) scaleY(0.9);
+  }
+  60% {
+    transform: translateY(-4%) scaleY(1.06);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes lp-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes lp-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes lp-slide {
+  from {
+    transform: translateX(-12px);
+  }
+}
+@keyframes lp-sheen {
+  to {
+    transform: translateX(120%);
+  }
+}
+@keyframes lp-scan-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 120px;
+  }
+}
+@keyframes lp-power-off {
+  0% {
+    transform: none;
+  }
+  60% {
+    transform: scale(1, 0.006);
+  }
+  100% {
+    transform: scale(0, 0.006);
+  }
+}
+@keyframes lp-power-back {
+  0% {
+    transform: scale(0, 0.006);
+  }
+  35% {
+    transform: scale(1, 0.006);
+  }
+  85% {
+    transform: scale(1, 1.02);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes lp-afterglow {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+/* ---------------------------------------------------------------- Act 1 layout */
+
+/* Phones: heading, the sticky product shot, then the step captions. Desktop: two columns. */
+.lp-shield-grid {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'head' 'mock' 'steps';
+}
+@media (min-width: 64rem) {
+  .lp-shield-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'head mock' 'steps mock';
+  }
+}
+
+/* ---------------------------------------------------------------- Arrivals (armed) */
+
+/* Until an armed block arrives, it waits on its first frame. */
+[data-armed]:not([data-inview]),
+[data-armed]:not([data-inview]) * {
+  animation-play-state: paused !important;
+}
+
+:root[data-motion='full'] [data-armed] {
+  &.lp-rise,
+  & .lp-rise {
+    animation: lp-rise 700ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+  & .lp-draw {
+    animation: lp-draw 600ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+  & .lp-stamp {
+    animation: lp-stamp 420ms cubic-bezier(0.3, 1.5, 0.5, 1) var(--d, 0ms) both;
+  }
+  & .lp-deal {
+    animation: lp-deal 640ms cubic-bezier(0.25, 1.25, 0.5, 1) var(--d, 0ms) both;
+  }
+  & .lp-pop {
+    animation: lp-pop 240ms var(--ease-snap) var(--d, 0ms) both;
+  }
+  & .lp-ripple {
+    animation: lp-ripple 600ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+  & .lp-type {
+    animation: lp-wipe 600ms steps(var(--n, 3)) var(--d, 0ms) both;
+  }
+  & .lp-wipe {
+    animation: lp-wipe 360ms var(--ease-snap) var(--d, 0ms) both;
+  }
+  & .lp-flip {
+    animation: lp-flip 520ms var(--ease-snap) var(--d, 0ms) both;
+  }
+  & .lp-dash {
+    animation: lp-dash 700ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+  & .lp-tape {
+    animation: lp-tape 520ms cubic-bezier(0.3, 1.4, 0.5, 1) var(--d, 0ms) both;
+  }
+  & .lp-fill {
+    animation: lp-fill 900ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+}
+/* Reduced motion: blocks fade in, nothing travels. */
+:root[data-motion='reduced'] [data-armed] {
+  &.lp-rise,
+  & .lp-rise {
+    animation: lp-fade 300ms ease-out var(--d, 0ms) both;
+  }
+}
+
+@keyframes lp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
+@keyframes lp-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes lp-stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.35) rotate(-8deg);
+  }
+}
+@keyframes lp-deal {
+  from {
+    transform: translate(var(--from-x, 0), 40%) rotate(0deg);
+  }
+}
+@keyframes lp-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+}
+@keyframes lp-ripple {
+  from {
+    opacity: 0.9;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+@keyframes lp-flip {
+  from {
+    transform: perspective(400px) rotateX(-90deg);
+  }
+}
+@keyframes lp-dash {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes lp-tape {
+  from {
+    transform: rotate(-6deg) scale(1.04);
+  }
+}
+@keyframes lp-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ---------------------------------------------------------------- Scroll-driven scenes */
+
+@supports (animation-timeline: view()) {
+  :root[data-motion='full'] {
+    /* Hero exit: the copy lifts away, the monitor and the backdrop fall behind (parallax). */
+    & .lp-hero {
+      view-timeline: --lp-hero block;
+    }
+    & .lp-hero-copy {
+      animation: lp-copy-out linear both;
+      animation-timeline: --lp-hero;
+      animation-range: exit 15% exit 75%;
+    }
+    & .lp-hero-tv {
+      animation: lp-tv-out linear both;
+      animation-timeline: --lp-hero;
+      animation-range: exit 0% exit 100%;
+    }
+    & .lp-hero-mark {
+      animation: lp-mark-out linear both;
+      animation-timeline: --lp-hero;
+      animation-range: exit 0% exit 100%;
+    }
+
+    /* Manifesto: each word lights up in turn as the statement crosses the screen. */
+    & .lp-manifesto {
+      view-timeline: --lp-manifesto block;
+    }
+    & .lp-lit {
+      animation: lp-lit linear both;
+      animation-timeline: --lp-manifesto;
+      animation-range: cover calc(22% + var(--i) / var(--n) * 36%) cover
+        calc(26% + var(--i) / var(--n) * 36%);
+    }
+
+    /* Act 1: the product shot turns to face the reader as the act arrives. */
+    & .lp-shield {
+      view-timeline: --lp-shield block;
+    }
+    @media (min-width: 64rem) {
+      & .lp-rotate-in {
+        animation: lp-rotate-in linear both;
+        animation-timeline: --lp-shield;
+        animation-range: entry 0% entry 100%;
+      }
+    }
+
+    /* Act 3: the two rows of Agents slide against each other while you scroll (never on their own). */
+    & .lp-row-a {
+      animation: lp-row-a linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    & .lp-row-b {
+      animation: lp-row-b linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+.lp-lit {
+  color: var(--lit, var(--color-foreground));
+}
+
+@keyframes lp-copy-out {
+  to {
+    translate: 0 -80px;
+    opacity: 0;
+  }
+}
+@keyframes lp-tv-out {
+  to {
+    translate: 0 90px;
+  }
+}
+@keyframes lp-mark-out {
+  to {
+    translate: 0 200px;
+  }
+}
+@keyframes lp-lit {
+  from {
+    color: var(--color-dim);
+  }
+  to {
+    color: var(--lit, var(--color-foreground));
+  }
+}
+@keyframes lp-rotate-in {
+  from {
+    transform: perspective(1600px) rotateY(-12deg) rotateX(4deg) scale(0.94);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes lp-row-a {
+  from {
+    translate: -12% 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@keyframes lp-row-b {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -12% 0;
+  }
+}
+
+/* ---------------------------------------------------------------- Noise (grain, TV static) */
+
+.lp-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+:root[data-motion='full'] .lp-static {
+  animation: lp-noise-shift 0.5s steps(4) infinite;
+}
+@keyframes lp-noise-shift {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: -60px 40px;
+  }
+  50% {
+    background-position: 50px -70px;
+  }
+  75% {
+    background-position: -90px -20px;
+  }
+}

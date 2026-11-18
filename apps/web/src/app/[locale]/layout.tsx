@@ -75,7 +75,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
               {t('skip')}
             </a>
             <SiteHeader />
-            <Marquee items={ticker} />
+            <Marquee items={ticker} data-ticker="" />
             {/* tabIndex -1: focusable by script (skip link, sheets whose opener is gone), not by Tab */}
             <main
               id="main"

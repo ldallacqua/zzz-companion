@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { expect } from 'storybook/test'
+import { features } from '@/lib/features'
 import { HomeView } from './home-view'
 
 const meta = {
   title: 'Screens/Home',
   component: HomeView,
   tags: ['autodocs'],
-  parameters: { nextjs: { navigation: { pathname: '/en' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/en' } } },
   decorators: [
     (Story) => (
-      <main className="max-w-6xl mx-auto">
+      <main className="max-w-6xl px-4 sm:px-6 mx-auto overflow-x-clip">
         <Story />
       </main>
     ),
@@ -19,10 +20,16 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** Landing: CRT hero with the Phaethon siblings, call to action and the features registry. */
+/**
+ * The landing page as one episode: cold open, "previously on", three acts, next time on and the
+ * sign-off. Every feature in the registry appears exactly once.
+ */
 export const Returning: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, canvasElement }) => {
     await expect(canvas.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    for (const f of features) {
+      await expect(canvasElement.querySelectorAll(`[data-feature-id="${f.id}"]`).length).toBe(1)
+    }
   },
 }
 

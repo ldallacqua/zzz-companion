@@ -58,10 +58,23 @@ export function Providers({ children }: { children: ReactNode }) {
   }, [locale])
 
   const level = useMotionLevel()
+  const hydrated = useCompanion((s) => s.hydrated)
   useEffect(() => {
+    // Until the saved preference is loaded, `level` is the default ("system"); the boot script's
+    // value is the right one, so don't overwrite it (an "Off" reader would get a burst of motion).
+    if (!hydrated) return
     document.documentElement.dataset.motion = level
     MotionGlobalConfig.skipAnimations = level === 'off'
-  }, [level])
+  }, [level, hydrated])
+
+  // Keep the boot script's `data-progress` in step with the store, so CSS that swaps first-paint
+  // states (e.g. the landing page's calls to action) follows progress set or reset on the page.
+  const hasProgress = useCompanion((s) => s.lastSegmentId !== null)
+  useEffect(() => {
+    if (!hydrated) return
+    if (hasProgress) document.documentElement.dataset.progress = 'set'
+    else delete document.documentElement.dataset.progress
+  }, [hydrated, hasProgress])
 
   return (
     <MotionConfig reducedMotion={level === 'full' ? 'never' : 'always'}>{children}</MotionConfig>

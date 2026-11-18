@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import '../../../../packages/ui/src/styles.css';
+@import './landing.css';
 
 /* Workspace packages live outside this app, so Tailwind must be told to scan them. */
 @source '../../../../packages/ui/src';
