@@ -146,6 +146,54 @@ describe('api', () => {
     expect(other.entries).toEqual([])
   })
 
+  it('requires a session for progress', async () => {
+    expect((await call('/progress')).status).toBe(401)
+    expect((await call('/progress', { method: 'PUT', json: {} })).status).toBe(401)
+  })
+
+  it('stores progress, keeps the most recent choice and isolates players', async () => {
+    const { token: a } = await signUp('progress-a@example.com')
+    const { token: b } = await signUp('progress-b@example.com')
+    const get = async (token: string) =>
+      ((await (await call('/progress', { token })).json()) as { progress: unknown }).progress
+    const put = (token: string, json: unknown) => call('/progress', { method: 'PUT', token, json })
+
+    expect(await get(a!)).toBeNull()
+
+    const first = await put(a!, { lastSegmentId: 'c1a-train', setAt: 2000 })
+    expect(first.status).toBe(200)
+    expect(await get(a!)).toEqual({ lastSegmentId: 'c1a-train', setAt: 2000 })
+
+    // Moving back on purpose is a newer choice: it wins.
+    await put(a!, { lastSegmentId: 'p-strongbox', setAt: 3000 })
+    expect(await get(a!)).toEqual({ lastSegmentId: 'p-strongbox', setAt: 3000 })
+
+    // An older device can't roll it back; the answer is the account's copy.
+    const stale = await put(a!, { lastSegmentId: 'i2b-farewell', setAt: 2500 })
+    expect(await stale.json()).toEqual({
+      progress: { lastSegmentId: 'p-strongbox', setAt: 3000 },
+    })
+    expect(await get(a!)).toEqual({ lastSegmentId: 'p-strongbox', setAt: 3000 })
+
+    // Resetting (not started) is a choice too.
+    await put(a!, { lastSegmentId: null, setAt: 4000 })
+    expect(await get(a!)).toEqual({ lastSegmentId: null, setAt: 4000 })
+
+    expect(await get(b!)).toBeNull()
+  })
+
+  it('rejects invalid progress', async () => {
+    const { token } = await signUp('progress-invalid@example.com')
+    for (const json of [
+      { lastSegmentId: 'Not An Id', setAt: 1 },
+      { lastSegmentId: 'c1a-train', setAt: -1 },
+      { lastSegmentId: 'c1a-train' },
+    ]) {
+      const res = await call('/progress', { method: 'PUT', token: token!, json })
+      expect(res.status, JSON.stringify(json)).toBe(400)
+    }
+  })
+
   it('rejects invalid rosters', async () => {
     const { token } = await signUp('invalid@example.com')
     for (const entries of [
@@ -163,12 +211,17 @@ describe('api', () => {
     expect(garbage.status).toBe(400)
   })
 
-  it('deletes the account and its roster with the password', async () => {
+  it('deletes the account, its roster and its progress with the password', async () => {
     const { token } = await signUp('gone@example.com')
     await call('/roster', {
       method: 'PUT',
       token: token!,
       json: { entries: [{ agentId: 'anby', mindscape: 1 }] },
+    })
+    await call('/progress', {
+      method: 'PUT',
+      token: token!,
+      json: { lastSegmentId: 'c1a-train', setAt: 1000 },
     })
     const wrong = await call('/auth/delete-user', {
       method: 'POST',
@@ -193,6 +246,10 @@ describe('api', () => {
       'select count(*) as n from roster_entry where user_id not in (select id from user)',
     )
     expect(Number(orphans.rows[0]!.n)).toBe(0)
+    const progressOrphans = await db.$client.execute(
+      'select count(*) as n from progress where user_id not in (select id from user)',
+    )
+    expect(Number(progressOrphans.rows[0]!.n)).toBe(0)
   })
 
   it('rate-limits repeated sign-in attempts from one client', async () => {

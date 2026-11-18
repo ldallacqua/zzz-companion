@@ -28,7 +28,7 @@ export function LandingOutro() {
       >
         <div className="inset-0 absolute bg-[radial-gradient(50%_60%_at_50%_100%,#c6ff2e1a,transparent_70%)]" />
         <div className="absolute bottom-[-12%] left-1/2 -translate-x-1/2">
-          <BigMark className="text-[clamp(14rem,45vw,42rem)] text-primary/[0.05]" />
+          <BigMark className="w-[clamp(22rem,74vw,68rem)] text-primary/[0.05]" />
         </div>
         <div className="lp-noise inset-0 absolute opacity-[0.03]" />
       </div>

@@ -40,7 +40,8 @@ site is a static export (on GitHub Pages then; on Vercel since [ADR 0012](0012-v
     page (XSS). The site renders no user-generated HTML and loads no third-party scripts, which
     keeps that risk low; moving both to one site later (custom domain) would allow `HttpOnly`
     cookies instead.
-  - CORS allows only `WEB_ORIGINS`; `GET/PUT /api/roster` require a session.
+  - CORS allows only `WEB_ORIGINS`; `GET/PUT /api/roster` require a session. (Story progress
+    syncs too since [ADR 0014](0014-progress-sync.md): `GET/PUT /api/progress`.)
 - **Database: Turso (libSQL)** through Drizzle ORM. SQLite-compatible, so development and tests
   use a local file (`file:./.data/dev.db`) with no account and no network. Migrations are SQL files
   in `apps/api/drizzle/`, generated from `src/db/schema.ts` and applied by `db:migrate` (and by the

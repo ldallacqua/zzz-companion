@@ -2,11 +2,17 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { secureHeaders } from 'hono/secure-headers'
 import { eq, max } from 'drizzle-orm'
-import { RosterSchema, ROSTER_MAX_ENTRIES } from '@zzz/core'
+import {
+  newerProgress,
+  RosterSchema,
+  ROSTER_MAX_ENTRIES,
+  SavedProgressSchema,
+  type SavedProgress,
+} from '@zzz/core'
 import { z } from 'zod'
 import type { Auth } from './auth'
 import type { Db } from './db/client'
-import { rosterEntry } from './db/schema'
+import { progress, rosterEntry } from './db/schema'
 
 type Session = NonNullable<Awaited<ReturnType<Auth['api']['getSession']>>>
 type Vars = { Variables: { user: Session['user'] } }
@@ -19,6 +25,7 @@ const RosterBody = z.object({ entries: RosterSchema })
  *
  *   /api/auth/*   Better Auth (sign-up, sign-in, sign-out, get-session, delete-user…)
  *   /api/roster   GET / PUT the signed-in player's roster
+ *   /api/progress GET / PUT the signed-in player's story progress (the most recent choice wins)
  *   /api/health   liveness check
  */
 export function createApp({ db, auth, origins }: { db: Db; auth: Auth; origins: string[] }) {
@@ -85,6 +92,42 @@ export function createApp({ db, auth, origins }: { db: Db; auth: Auth; origins: 
   })
 
   app.route('/roster', roster)
+
+  // Story progress (ADR 0014): the most recent choice wins, so a device that was offline (or
+  // simply older) can't roll a newer choice back.
+  const saved = new Hono<Vars>()
+  saved.use('*', async (c, next) => {
+    const session = await auth.api.getSession({ headers: c.req.raw.headers })
+    if (!session) return c.json({ error: 'UNAUTHORIZED' }, 401)
+    c.set('user', session.user)
+    await next()
+  })
+
+  const readProgress = async (userId: string): Promise<SavedProgress | null> => {
+    const [row] = await db.select().from(progress).where(eq(progress.userId, userId))
+    return row ? { lastSegmentId: row.lastSegmentId, setAt: row.setAt.getTime() } : null
+  }
+
+  saved.get('/', async (c) => c.json({ progress: await readProgress(c.get('user').id) }))
+
+  /** Saves the device's progress unless the account already has a more recent choice. */
+  saved.put('/', async (c) => {
+    const userId = c.get('user').id
+    const parsed = SavedProgressSchema.safeParse(await c.req.json().catch(() => null))
+    if (!parsed.success) return c.json({ error: 'INVALID_PROGRESS' }, 400)
+    const current = await readProgress(userId)
+    const winner = newerProgress(parsed.data, current)
+    if (winner !== current) {
+      const values = { lastSegmentId: winner.lastSegmentId, setAt: new Date(winner.setAt) }
+      await db
+        .insert(progress)
+        .values({ userId, ...values })
+        .onConflictDoUpdate({ target: progress.userId, set: { ...values, updatedAt: new Date() } })
+    }
+    return c.json({ progress: winner })
+  })
+
+  app.route('/progress', saved)
 
   app.notFound((c) => c.json({ error: 'NOT_FOUND' }, 404))
   app.onError((err, c) => {

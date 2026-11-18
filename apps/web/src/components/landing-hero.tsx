@@ -278,7 +278,7 @@ function HeroBackdrop() {
     >
       <div className="inset-0 absolute bg-[radial-gradient(45%_42%_at_74%_62%,#c6ff2e1c,transparent_70%),radial-gradient(40%_30%_at_6%_76%,#ff5a1f12,transparent_70%)]" />
       <div className="lp-hero-mark absolute -top-[3%] -right-[5%]">
-        <BigMark className="text-[clamp(14rem,40vw,38rem)] text-primary/[0.06]" />
+        <BigMark className="w-[clamp(22rem,66vw,62rem)] text-primary/[0.06]" />
       </div>
       <div className="right-0 bottom-0 absolute h-3/4 w-3/4 halftone-lg [mask-image:radial-gradient(closest-side_at_62%_58%,black,transparent)] text-primary opacity-[0.07]" />
       <div className="lp-noise inset-0 absolute opacity-[0.03]" />
