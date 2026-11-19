@@ -17,8 +17,8 @@ import {
 } from '@zzz/ui'
 import { agentShortName, MINDSCAPE_MAX, type Agent, type Locale } from '@zzz/core'
 import { attributesById, specialtiesById } from '@zzz/game'
-import { TraitIcon } from './agent-filter-controls'
-import { resized } from './portrait'
+import { TraitIcon } from '@/lib/trait-icons'
+import { resized } from '@/lib/wiki-image'
 import { useMotionLevel } from './providers'
 
 const ICON_WIDTHS = [96, 160, 283]

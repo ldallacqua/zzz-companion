@@ -5,7 +5,8 @@ import { motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Badge, cn, ease, pullBack, wipeIn } from '@zzz/ui'
 import type { Character, Locale } from '@zzz/core'
-import { Portrait, resized } from './portrait'
+import { resized } from '@/lib/wiki-image'
+import { Portrait } from './portrait'
 import { useMotionLevel } from './providers'
 
 /** Poster height per breakpoint: a phone "cover", then a sticky column from md. */

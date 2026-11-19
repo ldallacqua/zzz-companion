@@ -57,7 +57,7 @@ import { isClassifiedWEngine, priorityLabels, statShort } from '@/lib/build-labe
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { useRoster } from '@/lib/roster-store'
 import { agentColor, HiddenAgentTile } from './agent-tile'
-import { TraitIcon } from './agent-filter-controls'
+import { TraitIcon } from '@/lib/trait-icons'
 import { ComingSoonPanel } from './coming-soon-panel'
 import { DiscSetCard } from './disc-set-card'
 import { LoadoutBoard } from './loadout-board'
@@ -439,7 +439,7 @@ function OpenBuild({
 
           <Reveal variants={riseInSolid}>
             <ComingSoonPanel id="rotation" title={t('rotation')} badge={tf('soonBadge')}>
-              {t('rotationBody')}
+              {t('rotationBody', { name: short })}
             </ComingSoonPanel>
           </Reveal>
 

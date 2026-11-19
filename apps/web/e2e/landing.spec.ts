@@ -38,6 +38,44 @@ test.describe('landing page', () => {
     })
   }
 
+  for (const locale of ['en', 'pt-BR'] as const) {
+    test(`Act 4 shows a build as an inert picture that fills its frame (${locale})`, async ({
+      page,
+    }) => {
+      await seedProgress(page, null)
+      await page.goto(`/${locale}/`)
+      const act = page.getByTestId('landing-loadout')
+      const shot = act.getByTestId('loadout-mock')
+      await expect(shot).toHaveAttribute('inert', '')
+      await expect(act.getByRole('link', { name: /builds/i })).toHaveAttribute(
+        'href',
+        new RegExp(`/${locale}/builds/?$`),
+      )
+      // The project's width, then one between the phone and `sm` designs (iPad Split View).
+      for (const width of [page.viewportSize()!.width, 600]) {
+        await page.setViewportSize({ width, height: 900 })
+        const fit = await shot.evaluate((el) => {
+          const s = el.querySelector<HTMLElement>('[data-shot]')!
+          const frame = el.getBoundingClientRect()
+          const picture = s.getBoundingClientRect()
+          const scale = picture.width / s.offsetWidth
+          const pad = parseFloat(getComputedStyle(s).paddingBottom) * scale
+          const content = s.lastElementChild!.getBoundingClientRect()
+          return {
+            // The picture fills the frame: no empty panel beside or under it.
+            gapRight: Math.abs(frame.width - picture.width),
+            gapBottom: Math.abs(frame.height - picture.height),
+            // The content ends inside the bottom padding, never on the frame's edge.
+            intoPadding: content.bottom - (frame.bottom - pad),
+          }
+        })
+        expect(fit.gapRight, `at ${width}`).toBeLessThanOrEqual(1)
+        expect(fit.gapBottom, `at ${width}`).toBeLessThanOrEqual(1)
+        expect(fit.intoPadding, `at ${width}`).toBeLessThanOrEqual(0.5)
+      }
+    })
+  }
+
   test('the Animations setting fits its tile at 360px in Portuguese', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 740 })
     await seedProgress(page, null)

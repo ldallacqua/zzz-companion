@@ -55,7 +55,7 @@
     <td colspan="2"><img src="docs/assets/screenshot-landing.png" alt="The landing page: the NEW ERIDU title card next to a CRT monitor with Belle, Wise and Eous stepping out of the frame" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><sub>The landing page plays like an episode: cold open, three acts and a sign-off</sub></td>
+    <td colspan="2" align="center"><sub>The landing page plays like an episode: cold open, four acts and a sign-off</sub></td>
   </tr>
   <tr>
     <td width="66%"><img src="docs/assets/screenshot-recap.png" alt="Recap with an intel card open on H.A.N.D." /></td>
@@ -69,7 +69,7 @@
     <td colspan="2"><img src="docs/assets/screenshot-agents.png" alt="My Agents: the seven owned Agents, each with its Mindscape level" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for builds, and soon rotations and pull advice</sub></td>
+    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for builds, and soon teams, rotations and pull advice</sub></td>
   </tr>
   <tr>
     <td colspan="2"><img src="docs/assets/screenshot-builds.png" alt="Ellen's build: the six Drive Disc slots around her portrait, the 4 + 2 set split and the ranked W-Engines" /></td>
@@ -92,8 +92,8 @@ everything or bury you in spoilers. **ZZZ Companion asks one question — _where
 you the story up to exactly that point**, in English or Brazilian Portuguese.
 
 It also keeps your **Agent roster**: who you own and at what Mindscape, on your device or synced to
-an optional account. **Builds** for every Agent put your own Agents first, and the coming team
-rotations and pull advice will start from the same roster.
+an optional account. **Builds** tell you what to equip on every Agent, your own first. Next: the
+**teams** you can field, how to play them, and whether to pull.
 
 ## ✦ Features
 
@@ -104,7 +104,7 @@ rotations and pull advice will start from the same roster.
 | 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.                                                   |
 | 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress.                                              |
 | 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                                                                 |
-| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds, rotations and pull advice.                                                                            |
+| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds, and soon teams, rotations and pull advice.                                                            |
 | ⚔️  | **Character builds**          | What to equip on every Agent: W-Engines in order, Drive Disc sets, main stats for slots 4–6, substats and skill priority, with variants where it matters. Mark the W-Engines you own to see the best one you already have. |
 | ☁️  | **Accounts & sync**           | Optional email + password account that keeps your story progress and Agents on every device (the most recent progress wins). Guest picks merge in when you sign in; delete it any time.                                    |
 | 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                                                                   |
@@ -114,9 +114,10 @@ rotations and pull advice will start from the same roster.
 
 ### On the roadmap
 
-- [ ] 🔁 **Team rotations** — how to play each build and the teams you can make: who opens, which skills to chain and when to swap Agents
+- [ ] 👥 **Teams** — the best teams for every Agent: the ones you can field today, and the ones you're one Agent away from
+- [ ] 🔁 **Rotations** — how to play each build in each team: who opens, which skills to chain and when to swap Agents
 - [ ] ☁️ Your W-Engines synced with your account, and a Drive Disc inventory ("what your gear is missing")
-- [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans
+- [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and the teams a pull would complete
 - [ ] ✉️ Email for accounts: verification and password reset
 - [ ] 📚 More chapters (Chapter 3 onward), Agent Stories as optional tracks
 - [ ] 📲 Installable PWA with offline recap

@@ -19,11 +19,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** Act 3: two rows of Agent icons around the My Agents pitch. */
+/** Act 3: two rows of Agent icons around the My Agents pitch, then the act's spec line. */
 export const Default: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, canvasElement }) => {
     await expect(canvas.getByRole('heading', { level: 2 })).toHaveTextContent('One roster')
     await expect(canvas.getByRole('link', { name: 'Open My Agents' })).toBeVisible()
+    await expect(canvasElement.querySelectorAll('[data-feature-id="roster"]').length).toBe(1)
   },
 }
 

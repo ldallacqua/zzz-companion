@@ -2,25 +2,7 @@
 
 import { useId, type ReactNode } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import {
-  Anvil,
-  Atom,
-  Axe,
-  Flame,
-  HandFist,
-  Hammer,
-  HeartHandshake,
-  Hexagon,
-  Shield,
-  Snowflake,
-  Sparkle,
-  Sun,
-  Sword,
-  Wind,
-  X,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { X, type LucideIcon } from 'lucide-react'
 import { Button, cn, Segmented, Sheet, SheetContent } from '@zzz/ui'
 import type { AgentRank, Locale } from '@zzz/core'
 import { attributesById, baseAttributes, specialtiesById, usedSpecialties } from '@zzz/game'
@@ -30,43 +12,7 @@ import {
   type AgentFilters as Filters,
   type AgentSort,
 } from '@/lib/agent-filters'
-
-const ATTRIBUTE_ICONS: Record<string, LucideIcon> = {
-  physical: HandFist,
-  fire: Flame,
-  ice: Snowflake,
-  electric: Zap,
-  ether: Sparkle,
-  wind: Wind,
-  lumiflux: Sun,
-}
-const SPECIALTY_ICONS: Record<string, LucideIcon> = {
-  attack: Sword,
-  stun: Hammer,
-  anomaly: Atom,
-  support: HeartHandshake,
-  defense: Shield,
-  rupture: Axe,
-  armorer: Anvil,
-}
-
-/** An attribute's or specialty's icon (attribute variants use their base's icon). */
-export function TraitIcon({
-  kind,
-  id,
-  ...props
-}: { kind: 'attribute' | 'specialty'; id: string } & React.ComponentProps<LucideIcon>) {
-  const key = kind === 'attribute' ? (attributesById.get(id)?.base ?? id) : id
-  const Icon = (kind === 'attribute' ? ATTRIBUTE_ICONS : SPECIALTY_ICONS)[key] ?? Hexagon
-  return <Icon {...props} />
-}
-
-/** Icon for an attribute id; variants use their base attribute's icon. */
-export function attributeIcon(id: string): LucideIcon {
-  const base = attributesById.get(id)?.base ?? id
-  return ATTRIBUTE_ICONS[base] ?? Hexagon
-}
-export const specialtyIcon = (id: string): LucideIcon => SPECIALTY_ICONS[id] ?? Hexagon
+import { attributeIcon, specialtyIcon } from '@/lib/trait-icons'
 
 const RANKS: AgentRank[] = ['S', 'A']
 

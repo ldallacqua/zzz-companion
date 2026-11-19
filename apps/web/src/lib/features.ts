@@ -12,10 +12,11 @@ import type { Locale, Localized } from '@zzz/core'
 export type FeatureStatus = 'shipped' | 'planned'
 /**
  * Where the landing page shows the feature: the act whose scene demonstrates it (`shield`:
- * Act 1, `bento`: Act 2, `roster`: Act 3) or `next` ("Next time on", for planned features).
+ * Act 1, `bento`: Act 2, `roster`: Act 3, `loadout`: Act 4) or `next` ("Next time on", for
+ * planned features).
  * Every entry is rendered exactly once (the e2e tests check `[data-feature-id]`).
  */
-export type FeatureAct = 'shield' | 'bento' | 'roster' | 'next'
+export type FeatureAct = 'shield' | 'bento' | 'roster' | 'loadout' | 'next'
 export type FeatureIcon =
   | 'tv'
   | 'shield'
@@ -31,6 +32,7 @@ export type FeatureIcon =
   | 'roster'
   | 'cloud'
   | 'rotate'
+  | 'team'
 
 export interface Feature {
   id: string
@@ -39,6 +41,8 @@ export interface Feature {
   act: FeatureAct
   title: Localized<string>
   description: Localized<string>
+  /** Planned features: the ids of the features it builds on, shown on its "Next time on" card. */
+  needs?: string[]
 }
 
 export const features: Feature[] = [
@@ -109,9 +113,9 @@ export const features: Feature[] = [
     act: 'roster',
     title: { en: 'My Agents roster', 'pt-BR': 'Meus Agentes' },
     description: {
-      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds, rotations and pull advice.',
+      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds, teams, rotations and pull advice.',
       'pt-BR':
-        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds, das rotações e dos conselhos de pulls.',
+        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds, das equipes, das rotações e dos conselhos de pulls.',
     },
   },
   {
@@ -177,7 +181,7 @@ export const features: Feature[] = [
     id: 'builds',
     status: 'shipped',
     icon: 'swords',
-    act: 'roster',
+    act: 'loadout',
     title: { en: 'Character builds', 'pt-BR': 'Builds de personagens' },
     description: {
       en: 'What to equip on every Agent: W-Engines in order, Drive Disc sets, main stats and substats, with the best W-Engine you already have.',
@@ -186,16 +190,30 @@ export const features: Feature[] = [
     },
   },
   {
+    id: 'teams',
+    status: 'planned',
+    icon: 'team',
+    act: 'next',
+    title: { en: 'Teams', 'pt-BR': 'Equipes' },
+    description: {
+      en: 'The best teams for every Agent: the ones you can field today, and the ones you’re one Agent away from.',
+      'pt-BR':
+        'As melhores equipes para cada Agente: as que você já monta hoje e as que estão a um Agente de distância.',
+    },
+    needs: ['roster', 'builds'],
+  },
+  {
     id: 'rotations',
     status: 'planned',
     icon: 'rotate',
     act: 'next',
-    title: { en: 'Team rotations', 'pt-BR': 'Rotações de equipe' },
+    title: { en: 'Rotations', 'pt-BR': 'Rotações' },
     description: {
-      en: 'How to play each build and the teams you can make: who opens, which skills to chain and when to swap Agents.',
+      en: 'How to play each build in each team: who opens, which skills to chain and when to swap Agents.',
       'pt-BR':
-        'Como jogar cada build e as equipes que você monta: quem abre a luta, quais habilidades encadear e quando trocar de Agente.',
+        'Como jogar cada build em cada equipe: quem abre a luta, quais habilidades encadear e quando trocar de Agente.',
     },
+    needs: ['builds', 'teams'],
   },
   {
     id: 'pull-advisor',
@@ -204,10 +222,11 @@ export const features: Feature[] = [
     act: 'next',
     title: { en: 'Pull advisor', 'pt-BR': 'Conselheiro de pulls' },
     description: {
-      en: 'Should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans.',
+      en: 'Should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and the teams a pull would complete.',
       'pt-BR':
-        'Vale a pena puxar no banner atual? Chances pelo seu pity e moeda, pesadas contra seus Agentes e seus planos.',
+        'Vale a pena puxar no banner atual? Chances pelo seu pity e moeda, pesadas contra seus Agentes e as equipes que um pull completaria.',
     },
+    needs: ['roster', 'teams'],
   },
 ]
 

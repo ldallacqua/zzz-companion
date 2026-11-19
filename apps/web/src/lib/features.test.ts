@@ -27,4 +27,13 @@ describe('feature registry ↔ README', () => {
   it('planned features close the landing page (Next time on); shipped ones sit in an act', () => {
     for (const f of features) expect(f.act === 'next', f.id).toBe(f.status === 'planned')
   })
+
+  it('a planned feature only builds on features listed before it', () => {
+    for (const [i, f] of features.entries()) {
+      if (!f.needs) continue
+      expect(f.status, f.id).toBe('planned')
+      const earlier = features.slice(0, i).map((e) => e.id)
+      for (const need of f.needs) expect(earlier, `${f.id} needs ${need}`).toContain(need)
+    }
+  })
 })
