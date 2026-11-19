@@ -6,6 +6,7 @@ import { useLocale } from 'next-intl'
 import { useCompanion, type MotionPreference } from '@/lib/store'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-preference'
 import { useAccount } from '@/lib/account-store'
+import { useArsenal } from '@/lib/arsenal-store'
 import { useRoster } from '@/lib/roster-store'
 
 export type MotionLevel = 'full' | 'reduced' | 'off'
@@ -46,6 +47,7 @@ export function Providers({ children }: { children: ReactNode }) {
     void useCompanion.persist.rehydrate()
     void useAccount.persist.rehydrate()
     void useRoster.persist.rehydrate()
+    void useArsenal.persist.rehydrate()
   }, [])
 
   const locale = useLocale()

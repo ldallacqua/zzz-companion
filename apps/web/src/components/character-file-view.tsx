@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { ArrowLeft } from 'lucide-react'
-import { Badge, Button, cn, ease, GlitchText, Reveal, riseInSolid, stampIn } from '@zzz/ui'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { Badge, Button, cn, ease, GlitchText, Panel, Reveal, riseInSolid, stampIn } from '@zzz/ui'
 import {
   appearancesOf,
   knownHistoryAt,
@@ -19,7 +19,6 @@ import { useDocumentTitle } from '@/lib/use-document-title'
 import { useUi } from '@/lib/ui-store'
 import { Appearances } from './appearances'
 import { CharacterPoster, LockedPoster } from './character-poster'
-import { ComingSoonPanel } from './coming-soon-panel'
 import { Dossier, usePartLabel } from './dossier'
 import { RelatedCharacters } from './related-characters'
 
@@ -72,7 +71,6 @@ function BackLink({ href }: { href: string }) {
 
 function OpenFile({ character, justUnlocked }: { character: Character; justUnlocked: boolean }) {
   const t = useTranslations('characterFile')
-  const tf = useTranslations('features')
   const locale = useLocale() as Locale
   const story = useStory()
   const part = usePartLabel()
@@ -160,16 +158,37 @@ function OpenFile({ character, justUnlocked }: { character: Character; justUnloc
           <Reveal variants={riseInSolid}>
             <RelatedCharacters related={related} />
           </Reveal>
+          {/* Every playable character is an Agent with a build (@zzz/game tests). Linking without
+              importing the game data keeps it out of this page's bundle. */}
           {character.playable && (
             <Reveal variants={riseInSolid}>
-              <ComingSoonPanel id="build" title={t('buildTitle')} badge={tf('soonBadge')}>
-                {t('buildBody', { name })}
-              </ComingSoonPanel>
+              <BuildLink id={character.id} name={name} />
             </Reveal>
           )}
         </div>
       </div>
     </>
+  )
+}
+
+/** A playable character's build (Agent ids equal story character ids). */
+function BuildLink({ id, name }: { id: string; name: string }) {
+  const t = useTranslations('characterFile')
+  return (
+    <section id="build" aria-labelledby="build-title" className="mt-12 scroll-mt-28">
+      <Panel innerClassName="p-5 sm:p-6">
+        <h2 id="build-title" className="text-3xl display">
+          {t('buildTitle')}
+        </h2>
+        <p className="mt-2 max-w-[60ch] text-muted">{t('buildBody', { name })}</p>
+        <Button asChild variant="outline" className="mt-4">
+          <Link href={`/builds/${id}`}>
+            {t('buildCta')}
+            <ArrowRight aria-hidden />
+          </Link>
+        </Button>
+      </Panel>
+    </section>
   )
 }
 

@@ -3,13 +3,16 @@ import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
 import { Barlow_Condensed, Geist, Geist_Mono } from 'next/font/google'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Marquee } from '@zzz/ui'
 import { routing } from '@/i18n/routing'
 import { localizedAlternates, SITE_ORIGIN } from '@/lib/seo'
 import { bootScript, Providers } from '@/components/providers'
 import { MobileNav, SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+
+/** Message namespaces only one route uses (the builds pages add `builds` themselves). */
+const ROUTE_ONLY_MESSAGES = ['builds']
 import { ProgressPicker } from '@/components/progress-picker'
 import { SettingsSheet } from '@/components/settings-sheet'
 import { LazyAccountSync } from '@/lib/account-sync-lazy'
@@ -53,6 +56,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   const tt = await getTranslations('ticker')
   const ticker = (['t1', 't2', 't3', 't4', 't5'] as const).map((k) => tt(k))
 
+  // Route-only namespaces stay out of every page's HTML; their route adds them back
+  // (<RouteMessages>).
+  const messages = await getMessages()
+  const sharedMessages = Object.fromEntries(
+    Object.entries(messages).filter(([ns]) => !ROUTE_ONLY_MESSAGES.includes(ns)),
+  )
+
   return (
     <html
       lang={locale}
@@ -67,7 +77,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body className="min-h-dvh overflow-x-clip">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={sharedMessages}>
           <Providers>
             <a
               href="#main"

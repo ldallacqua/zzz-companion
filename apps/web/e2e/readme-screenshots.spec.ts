@@ -49,6 +49,17 @@ test('README screenshots', async ({ page }, testInfo) => {
     await page.waitForLoadState('networkidle')
     await page.waitForTimeout(800)
     await page.screenshot({ path: out('screenshot-agents.png') })
+
+    // Ellen's build, with a lower W-Engine marked as owned ("Best you have").
+    await page.addInitScript(() => {
+      const state = { wEngines: ['myriad-eclipse'] }
+      localStorage.setItem('zzz-arsenal', JSON.stringify({ state, version: 1 }))
+    })
+    await page.goto('/en/builds/ellen/')
+    await expect(page.getByTestId('best-you-have')).toBeVisible({ timeout: 30_000 })
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(800)
+    await page.screenshot({ path: out('screenshot-builds.png') })
   } else {
     await page.goto('/pt-BR/recap/')
     await page

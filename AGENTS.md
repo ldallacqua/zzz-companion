@@ -7,8 +7,9 @@ This is the single source of truth; tool-specific files only point here.
 
 **ZZZ Companion** — an unofficial, spoiler-safe companion web app for _Zenless Zone Zero_.
 MVP feature: a story recap that stops exactly at the player's progress. Players can also record the
-Agents they own ("My Agents", with optional account sync). Next: team rotations, character builds and pull (gacha)
-recommendations built on that roster. See `docs/features/` for specs and `docs/adr/` for decisions.
+Agents they own ("My Agents", with optional account sync) and see a recommended build for every
+Agent ("Builds"). Next: team rotations (per build) and pull (gacha) recommendations built on that
+roster. See `docs/features/` for specs and `docs/adr/` for decisions.
 
 ## Commands (run from the repo root)
 
@@ -42,7 +43,7 @@ apps/web            Next.js (App Router) — routes, screens, i18n. No domain lo
 apps/api            Accounts API: Hono + Better Auth + Drizzle on Turso/libSQL (ADR 0011).
 packages/core       Pure TypeScript domain: Zod schemas, timeline, spoiler gating. No React, no I/O.
 packages/story      Story content (chapters, characters, glossary) validated against core schemas.
-packages/game       Game data (Agents, attributes, specialties, factions): not story, not gated.
+packages/game       Game data (Agents, traits, W-Engines, Drive Discs, stats, builds): not story, not gated.
 packages/ui         Design system: shadcn-style components + ZZZ tokens + motion primitives.
 apps/web/.storybook Storybook config (stories live next to each component as *.stories.tsx).
 deploy/storybook    Vercel project for Storybook (its vercel.json builds from the repo root).
@@ -126,7 +127,7 @@ first. Gate 4 is a review you run before the PR is merged.
    render, pass its `play` function and have **zero axe violations** (`a11y.test = 'error'`,
    including colour contrast). Fix the component, never disable a rule to make it pass.
 3. **Lighthouse runs before every merge of a feature into `main`.** `pnpm lighthouse` builds the
-   static site and audits home, recap, characters, glossary and My Agents (mobile emulation, 3 runs per
+   static site and audits home, recap, characters, glossary, My Agents and builds (mobile emulation, 3 runs per
    page; Performance is the median of the three scores). Thresholds (`lighthouserc.cjs`):
    Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO ≥ 95. Never lower a threshold
    (or loosen how runs are aggregated) to merge; fix the regression.
@@ -187,6 +188,25 @@ a suspect is cleared, a company is exposed. Glossary and character texts are the
    Turso first, then `vercel deploy --prod` from the repo root. Production code reaches the
    database only through the HTTP client (`apps/api/src/db/remote.ts`): no native modules in the
    bundle (`pnpm --filter @zzz/api build:vercel` builds it locally).
+
+## Builds (ADR 0015)
+
+1. **Builds are researched, never written from memory.** Each Agent's picks come from their build
+   guide (cited in the build's `sources`), checked against the items' effects on the wiki. Keep the
+   picks only: never copy a guide's write-ups, percentages or calculations.
+2. **W-Engines and Drive Disc sets are wiki data** (`packages/game/src/w-engines.ts`,
+   `disc-sets.ts`): names in both locales from each page's "Other Languages" table, icons hotlinked
+   from the wiki CDN. What each item does lives in `gear-notes.ts`, **in our own words**, both
+   locales; every item a build recommends needs one (`builds.test.ts`).
+3. **Stats and slots are data** (`stats.ts`): main stats must be ones their slot can roll, substats
+   ones a disc can roll. Flat stats say "(flat)" in lists; never show a bare "ATK" next to "ATK%".
+4. **Dates:** `updated` = the version a build's picks last changed in; `BUILDS_REVIEWED_FOR` = the
+   version all builds were last re-checked for. Bump it only after re-checking every build; when
+   it falls behind `GAME_VERSION`, every build page warns that picks may have changed.
+5. **A new Agent needs a build** in the same change (`builds.test.ts` fails otherwise).
+   Variants (`variants`) are only for builds the sources clearly split; each gets a name.
+6. **Spoiler Agents stay classified** on build pages and in other Agents' W-Engine lists (their
+   signature W-Engine) until the reader shows or owns them, as in My Agents.
 
 ## Conventions
 

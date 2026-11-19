@@ -31,6 +31,9 @@ module.exports = {
         'http://localhost/pt-BR/recap/',
         // My Agents: ~60 icons from the wiki CDN (lazy below the fold).
         'http://localhost/en/agents/',
+        // Builds: the index (~60 icons, like My Agents) and one Agent's page.
+        'http://localhost/en/builds/',
+        'http://localhost/pt-BR/builds/ellen/',
         // A character file as a first-time visitor sees it (the generic locked shell).
         'http://localhost/en/characters/nicole/',
       ],

@@ -161,6 +161,11 @@
   }
 }
 
+/* Flat-topped hexagon (the build page's Agent socket). */
+@utility clip-hex {
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+
 /* Larger cut for big frames (character file poster). */
 @utility chamfer-lg {
   --cut: 24px;

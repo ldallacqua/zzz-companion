@@ -9,6 +9,7 @@ import { useCompanion, type CompanionState } from '@/lib/store'
 import { useUi } from '@/lib/ui-store'
 import { useAccount } from '@/lib/account-store'
 import { useRoster, type SyncStatus } from '@/lib/roster-store'
+import { useArsenal } from '@/lib/arsenal-store'
 import type { AccountUser } from '@/lib/api'
 import en from '../messages/en.json'
 import ptBR from '../messages/pt-BR.json'
@@ -36,7 +37,9 @@ declare module '@storybook/nextjs-vite' {
     /** Account state (default: accounts available on this build, signed out). */
     account?: { enabled?: boolean; user?: AccountUser | null }
     /** Roster on this device (default: empty guest roster). */
-    roster?: { owned?: Record<string, number>; sync?: SyncStatus }
+    roster?: { owned?: Record<string, number>; sync?: SyncStatus; revealed?: string[] }
+    /** W-Engines the player marked as owned (default: none). */
+    arsenal?: { wEngines?: string[] }
   }
 }
 
@@ -111,8 +114,10 @@ const preview: Preview = {
       owner: user ? user.id : null,
       dirty: false,
       sync: parameters.roster?.sync ?? (user ? 'saved' : 'local'),
+      revealed: parameters.roster?.revealed ?? [],
       hydrated: true,
     })
+    useArsenal.setState({ wEngines: parameters.arsenal?.wEngines ?? [], hydrated: true })
   },
   decorators: [
     (Story, { globals }) => {

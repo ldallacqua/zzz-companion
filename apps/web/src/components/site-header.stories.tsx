@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 /** Official ZZ mark + wordmark, desktop nav with a sliding active pill, progress chip, settings. */
 export const Default: Story = {
   play: async ({ canvas, userEvent }) => {
-    await expect(canvas.getByRole('link', { name: 'ZZZ Companion' })).toBeInTheDocument()
+    await expect(canvas.getByRole('link', { name: 'ZZZ Companion · Home' })).toBeInTheDocument()
     await userEvent.click(canvas.getByRole('button', { name: /progress/i }))
     await expect(useUi.getState().pickerOpen).toBe(true)
   },
