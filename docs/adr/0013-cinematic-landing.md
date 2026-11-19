@@ -51,7 +51,8 @@ scroll-scrubbed; state changes are triggered and play on their own clock.
   not focusable, out of contrast checks. They never show story text: placeholder bars and the
   protagonists' names only. Game screens (Act 4's build page) show game data only, and never a
   spoiler Agent. A static mock is scaled with CSS alone (`.lp-shot`: a fixed design size per
-  breakpoint, scaled by its box's width), so it needs no client code; Act 1's scripted scene
+  breakpoint, scaled to its column's width worked out from viewport units, which every engine
+  recomputes on resize; Safari keeps container units stale), so it needs no client code; Act 1's scripted scene
   measures itself instead.
 - **The feature registry places each feature in an act** (`act: 'shield' | 'bento' | 'roster' |
 'loadout' | 'next'`). Every entry renders exactly once with `data-feature-id` (E2E and Storybook check it), so

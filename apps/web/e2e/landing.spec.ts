@@ -51,7 +51,9 @@ test.describe('landing page', () => {
         'href',
         new RegExp(`/${locale}/builds/?$`),
       )
-      // The project's width, then one between the phone and `sm` designs (iPad Split View).
+      // The project's width, then a resize to one between the phone and `sm` designs (iPad Split
+      // View, a phone turned sideways): the shot must follow the resize (Safari keeps stale
+      // container units, so its scale comes from viewport units).
       for (const width of [page.viewportSize()!.width, 600]) {
         await page.setViewportSize({ width, height: 900 })
         const fit = await shot.evaluate((el) => {
@@ -62,6 +64,8 @@ test.describe('landing page', () => {
           const pad = parseFloat(getComputedStyle(s).paddingBottom) * scale
           const content = s.lastElementChild!.getBoundingClientRect()
           return {
+            // The frame (sized from the viewport) never outgrows its column.
+            outgrows: (el as HTMLElement).offsetWidth - el.parentElement!.clientWidth,
             // The picture fills the frame: no empty panel beside or under it.
             gapRight: Math.abs(frame.width - picture.width),
             gapBottom: Math.abs(frame.height - picture.height),
@@ -69,6 +73,7 @@ test.describe('landing page', () => {
             intoPadding: content.bottom - (frame.bottom - pad),
           }
         })
+        expect(fit.outgrows, `at ${width}`).toBeLessThanOrEqual(0)
         expect(fit.gapRight, `at ${width}`).toBeLessThanOrEqual(1)
         expect(fit.gapBottom, `at ${width}`).toBeLessThanOrEqual(1)
         expect(fit.intoPadding, `at ${width}`).toBeLessThanOrEqual(0.5)
