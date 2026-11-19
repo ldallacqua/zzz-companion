@@ -3,7 +3,15 @@
 import { Fragment } from 'react'
 import { motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { BookOpenText, Home, Settings2, SquareUserRound, Users, Library } from 'lucide-react'
+import {
+  BookOpenText,
+  Home,
+  Library,
+  Settings2,
+  SquareUserRound,
+  Swords,
+  Users,
+} from 'lucide-react'
 import { cn, spring } from '@zzz/ui'
 import type { Locale } from '@zzz/core'
 import { Link, usePathname } from '@/i18n/navigation'
@@ -13,12 +21,14 @@ import { AccountButton } from './account-button'
 import { GameMark } from './game-mark'
 
 const NAV = [
-  { href: '/', key: 'home', icon: Home },
-  { href: '/recap', key: 'recap', icon: BookOpenText },
-  { href: '/characters', key: 'characters', icon: Users },
-  { href: '/glossary', key: 'glossary', icon: Library },
+  // Phones reach home through the logo: the tab bar keeps five tabs.
+  { href: '/', key: 'home', icon: Home, mobile: false },
+  { href: '/recap', key: 'recap', icon: BookOpenText, mobile: true },
+  { href: '/characters', key: 'characters', icon: Users, mobile: true },
+  { href: '/glossary', key: 'glossary', icon: Library, mobile: true },
   // Tools (not story): set apart by a divider in the desktop nav.
-  { href: '/agents', key: 'agents', icon: SquareUserRound },
+  { href: '/agents', key: 'agents', icon: SquareUserRound, mobile: true },
+  { href: '/builds', key: 'builds', icon: Swords, mobile: true },
 ] as const
 
 function isActive(pathname: string, href: string) {
@@ -42,9 +52,13 @@ export function SiteHeader() {
   return (
     <header className="top-0 backdrop-blur-md sticky z-40 border-b border-border bg-background/85">
       <div className="h-16 max-w-6xl gap-3 px-4 sm:px-6 mx-auto flex items-center">
-        <Link href="/" className="group gap-2.5 flex items-center" aria-label="ZZZ Companion">
+        <Link
+          href="/"
+          className="group gap-2.5 flex items-center"
+          aria-label={`ZZZ Companion · ${t('nav.home')}`}
+        >
           <GameMark className="h-9 transition-transform duration-300 group-hover:-skew-x-6" />
-          <span className="leading-tight lg:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase transition-colors group-hover:text-primary">
+          <span className="leading-tight xl:block hidden font-mono text-[0.65rem] tracking-[0.2em] text-muted uppercase transition-colors group-hover:text-primary">
             {'//'}
             <br />
             Companion
@@ -53,20 +67,20 @@ export function SiteHeader() {
 
         <nav
           aria-label={t('nav.main')}
-          className="ml-2 gap-0.5 lg:ml-6 lg:gap-1 md:flex hidden items-center"
+          className="ml-2 gap-0.5 xl:ml-6 xl:gap-1 lg:flex hidden items-center"
         >
           {NAV.map(({ href, key }) => {
             const active = isActive(pathname, href)
             return (
               <Fragment key={href}>
                 {href === '/agents' && (
-                  <span aria-hidden className="mx-0.5 h-4 lg:mx-1 w-px bg-border-strong" />
+                  <span aria-hidden className="mx-0.5 h-4 xl:mx-1 w-px bg-border-strong" />
                 )}
                 <Link
                   href={href}
                   aria-current={current(pathname, href)}
                   className={cn(
-                    'px-1.5 py-2 text-xs font-semibold lg:px-3 lg:tracking-[0.16em] relative font-mono tracking-[0.1em] whitespace-nowrap uppercase transition-colors',
+                    'px-1.5 py-2 text-xs font-semibold xl:px-3 xl:tracking-[0.16em] relative font-mono tracking-[0.1em] whitespace-nowrap uppercase transition-colors',
                     active ? 'text-primary-foreground' : 'text-muted hover:text-foreground',
                   )}
                 >
@@ -131,17 +145,17 @@ export function SiteHeader() {
   )
 }
 
-/** Thumb-friendly tab bar for phones and small tablets. */
+/** Thumb-friendly tab bar for phones and tablets (below lg, where six nav items don't fit). */
 export function MobileNav() {
   const t = useTranslations('nav')
   const pathname = usePathname()
   return (
     <nav
       aria-label={t('main')}
-      className="inset-x-0 bottom-0 backdrop-blur-md md:hidden fixed z-40 border-t border-border bg-background/92 pb-[env(safe-area-inset-bottom)]"
+      className="inset-x-0 bottom-0 backdrop-blur-md lg:hidden fixed z-40 border-t border-border bg-background/92 pb-[env(safe-area-inset-bottom)]"
     >
       <ul className="max-w-md mx-auto grid grid-cols-5">
-        {NAV.map(({ href, key, icon: Icon }) => {
+        {NAV.filter((item) => item.mobile).map(({ href, key, icon: Icon }) => {
           const active = isActive(pathname, href)
           return (
             <li key={href}>

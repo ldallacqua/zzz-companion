@@ -103,7 +103,7 @@ function useAgentMeta(agent: Agent) {
     .join(' · ')
 }
 
-function RankAttrTag({ agent }: { agent: Agent }) {
+export function RankAttrTag({ agent }: { agent: Agent }) {
   return (
     <span
       aria-hidden

@@ -55,15 +55,20 @@ export function LandingRoster() {
           <p className="mt-5 max-w-xl text-lg leading-relaxed mx-auto text-muted">
             {t('rosterBody')}
           </p>
-          <Button asChild variant="outline" size="lg" className="mt-8">
-            <Link href="/agents">
-              {t('rosterCta')}
-              <ArrowRight
-                className="group-hover/button:translate-x-1 transition-transform"
-                aria-hidden
-              />
-            </Link>
-          </Button>
+          <div className="mt-8 gap-3 flex flex-wrap justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/agents">
+                {t('rosterCta')}
+                <ArrowRight
+                  className="group-hover/button:translate-x-1 transition-transform"
+                  aria-hidden
+                />
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="lg">
+              <Link href="/builds">{t('rosterBuildsCta')}</Link>
+            </Button>
+          </div>
         </div>
         <IconRow agents={ROW_B} className="lp-row-b" />
       </div>

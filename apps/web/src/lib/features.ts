@@ -109,9 +109,9 @@ export const features: Feature[] = [
     act: 'roster',
     title: { en: 'My Agents roster', 'pt-BR': 'Meus Agentes' },
     description: {
-      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for rotations, builds and pull advice.',
+      en: 'Tick the Agents you own and their Mindscape: fast enough for the whole roster, and the base for builds, rotations and pull advice.',
       'pt-BR':
-        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das rotações, das builds e dos conselhos de pulls.',
+        'Marque os Agentes que você tem e o Mindscape de cada um: rápido mesmo com todos os Agentes, e a base das builds, das rotações e dos conselhos de pulls.',
     },
   },
   {
@@ -174,26 +174,27 @@ export const features: Feature[] = [
     },
   },
   {
+    id: 'builds',
+    status: 'shipped',
+    icon: 'swords',
+    act: 'roster',
+    title: { en: 'Character builds', 'pt-BR': 'Builds de personagens' },
+    description: {
+      en: 'What to equip on every Agent: W-Engines in order, Drive Disc sets, main stats and substats, with the best W-Engine you already have.',
+      'pt-BR':
+        'O que equipar em cada Agente: Motores-W em ordem, conjuntos de Discos, status principais e substatus, com o melhor Motor-W que você já tem.',
+    },
+  },
+  {
     id: 'rotations',
     status: 'planned',
     icon: 'rotate',
     act: 'next',
     title: { en: 'Team rotations', 'pt-BR': 'Rotações de equipe' },
     description: {
-      en: 'How to play the teams you can build: who opens, which skills to chain and when to swap Agents.',
+      en: 'How to play each build and the teams you can make: who opens, which skills to chain and when to swap Agents.',
       'pt-BR':
-        'Como jogar com as equipes que você monta: quem abre a luta, quais habilidades encadear e quando trocar de Agente.',
-    },
-  },
-  {
-    id: 'builds',
-    status: 'planned',
-    icon: 'swords',
-    act: 'next',
-    title: { en: 'Character builds', 'pt-BR': 'Builds de personagens' },
-    description: {
-      en: 'Recommended W-Engines and Drive Discs, plus what your current gear is missing.',
-      'pt-BR': 'Motores-W e Discos recomendados, e o que falta no seu equipamento atual.',
+        'Como jogar cada build e as equipes que você monta: quem abre a luta, quais habilidades encadear e quando trocar de Agente.',
     },
   },
   {

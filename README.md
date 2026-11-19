@@ -69,7 +69,13 @@
     <td colspan="2"><img src="docs/assets/screenshot-agents.png" alt="My Agents: the seven owned Agents, each with its Mindscape level" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for upcoming rotations, builds and pull advice</sub></td>
+    <td colspan="2" align="center"><sub>Tick the Agents you own and their Mindscape — the base for builds, and soon rotations and pull advice</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/assets/screenshot-builds.png" alt="Ellen's build: the six Drive Disc slots around her portrait, the 4 + 2 set split and the ranked W-Engines" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>A build for every Agent: what to put in each disc slot, the sets, and the best W-Engine you already have</sub></td>
   </tr>
   <tr>
     <td colspan="2"><img src="docs/assets/screenshot-character.png" alt="Nekomata's character file: full-body art, what you know now and earlier notes" /></td>
@@ -86,28 +92,30 @@ everything or bury you in spoilers. **ZZZ Companion asks one question — _where
 you the story up to exactly that point**, in English or Brazilian Portuguese.
 
 It also keeps your **Agent roster**: who you own and at what Mindscape, on your device or synced to
-an optional account. That roster is what the coming team rotations, builds and pull advice will start from.
+an optional account. **Builds** for every Agent put your own Agents first, and the coming team
+rotations and pull advice will start from the same roster.
 
 ## ✦ Features
 
-|     | Feature                       | What you get                                                                                                                                                                            |
-| :-: | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, **short** or in **full** — researched from the game's transcripts, with sources.                                                          |
-| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                                                                               |
-| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.                |
-| 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress.           |
-| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                              |
-| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for rotations, builds and pull advice.                                         |
-| ☁️  | **Accounts & sync**           | Optional email + password account that keeps your story progress and Agents on every device (the most recent progress wins). Guest picks merge in when you sign in; delete it any time. |
-| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                                |
-| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                                |
-| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                                    |
-| 🔒  | **Private by default**        | No tracking. Settings live in your browser; an account is optional and only syncs your progress and Agents.                                                                             |
+|     | Feature                       | What you get                                                                                                                                                                                                               |
+| :-: | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📼  | **Story recap**               | Prologue → Chapter 2 Interlude, part by part, **short** or in **full** — researched from the game's transcripts, with sources.                                                                                             |
+| 🛡️  | **Spoiler shield**            | Nothing past your progress appears — not in the recap, the characters or the glossary. Enforced by tests.                                                                                                                  |
+| 👆  | **Tap-to-explain names**      | Characters, factions and terms inside the recap — and the faces of who was there — open an intel card, explained _as of that part of the story_, never with later facts.                                                   |
+| 🗂️  | **Character files**           | Everyone you've met, each with a file that grows as you play: full-body art, what you know now and how it changed, and every part they appear in. Nothing past your progress.                                              |
+| 📖  | **Searchable glossary**       | Hollows, Ethereals, TOPS, H.A.N.D.… unlocked as the story introduces them.                                                                                                                                                 |
+| 🧾  | **My Agents roster**          | Tick the Agents you own (all 62, through v3.3) and their Mindscape — search, filters, Mark all. The base for builds, rotations and pull advice.                                                                            |
+| ⚔️  | **Character builds**          | What to equip on every Agent: W-Engines in order, Drive Disc sets, main stats for slots 4–6, substats and skill priority, with variants where it matters. Mark the W-Engines you own to see the best one you already have. |
+| ☁️  | **Accounts & sync**           | Optional email + password account that keeps your story progress and Agents on every device (the most recent progress wins). Guest picks merge in when you sign in; delete it any time.                                    |
+| 🌐  | **English + Português**       | Full pt-BR using the game's official localized terms (Esfera Negra, Etéreo, Interlaço…).                                                                                                                                   |
+| 🎬  | **Motion with an off switch** | CRT power-ons, glitch titles, hazard tape and scroll-linked timelines — or _Reduced_ / _Off_ in one tap.                                                                                                                   |
+| 📱  | **Phone to desktop**          | Mobile-first with a thumb-friendly tab bar; E2E-tested on phone, tablet and desktop.                                                                                                                                       |
+| 🔒  | **Private by default**        | No tracking. Settings live in your browser; an account is optional and only syncs your progress and Agents.                                                                                                                |
 
 ### On the roadmap
 
-- [ ] 🔁 **Team rotations** — how to play the teams you can build: who opens, which skills to chain and when to swap Agents
-- [ ] ⚔️ **Character builds** — recommended W-Engines and Drive Discs, plus what your gear is missing
+- [ ] 🔁 **Team rotations** — how to play each build and the teams you can make: who opens, which skills to chain and when to swap Agents
+- [ ] ☁️ Your W-Engines synced with your account, and a Drive Disc inventory ("what your gear is missing")
 - [ ] 🎲 **Pull advisor** — should you pull on the current banner? Odds from your pity and currency, weighed against your Agents and plans
 - [ ] ✉️ Email for accounts: verification and password reset
 - [ ] 📚 More chapters (Chapter 3 onward), Agent Stories as optional tracks
@@ -184,7 +192,7 @@ flowchart LR
   subgraph packages
     ui["@zzz/ui<br/>shadcn-style design system<br/>ZZZ tokens + motion presets"]
     story["@zzz/story<br/>chapters · characters · glossary<br/>(typed, validated content)"]
-    game["@zzz/game<br/>Agents · attributes · specialties<br/>(researched game data)"]
+    game["@zzz/game<br/>Agents · W-Engines · Drive Discs · builds<br/>(researched game data)"]
     core["@zzz/core<br/>Zod schemas · timeline · spoiler gating<br/>entity linking · roster rules"]
   end
   db[("Turso / libSQL")]
@@ -210,6 +218,10 @@ flowchart LR
   API with Better Auth (email + password) and Turso syncs the roster and story progress across
   devices ([ADR 0014](docs/adr/0014-progress-sync.md): the most recent progress wins). Without it
   (or offline) everything still works on the device; signing in merges what you picked as a guest.
+- **Builds are researched data** ([ADR 0015](docs/adr/0015-builds-data.md)): each Agent's
+  recommendations are compiled from a community build guide (credited on the page) and checked
+  against the item effects on the wiki; W-Engine and Drive Disc names (en + pt-BR) and icons come
+  from the wiki, and item summaries are our own words. Tests check every reference, slot and locale.
 - **Landing page** ([ADR 0013](docs/adr/0013-cinematic-landing.md)): server-rendered sections with
   tiny client islands; motion is CSS gated by the user's Animations setting, scroll-driven where the
   browser supports it, and the HTML is always the final frame.
@@ -220,7 +232,7 @@ apps/web          Next.js app — routes, screens, i18n messages, Storybook (.st
 apps/api          Accounts API — Hono, Better Auth, Drizzle migrations (drizzle/)
 packages/core     Pure TypeScript domain (no React, no I/O)
 packages/story    Story content, characters, factions, glossary
-packages/game     Game data: every playable Agent, attributes, specialties, factions
+packages/game     Game data: Agents, traits, W-Engines, Drive Disc sets, stats and builds
 packages/ui       Design system components + tokens
 deploy/storybook  Vercel project for Storybook (builds from the repo root)
 docs/             ADRs, feature specs, README assets
@@ -236,7 +248,7 @@ branch protection requires, and every new feature also gets a UI/UX expert revie
 | `pnpm verify`  | Formatting, strict types, lint, unit + content tests (incl. spoiler-leak checks on every text)                                                                                                                      |
 | `pnpm e2e`     | Playwright on phone, tablet and desktop (+ iPhone WebKit in CI) with axe                                                                                                                                            |
 | **Storybook**  | [Every component has stories](https://zzz-companion-storybook.vercel.app/); each story renders, passes its interactions and has zero axe violations                                                                 |
-| **Lighthouse** | Home, recap, characters, glossary and My Agents audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                                 |
+| **Lighthouse** | Home, recap, characters, glossary, My Agents and builds audited on the static build: Perf ≥ 90, A11y 100, BP ≥ 95, SEO ≥ 95                                                                                         |
 | **UX review**  | One senior product-designer agent ([`ux-reviewer`](.claude/agents/ux-reviewer.md)) reviews each new feature: hierarchy, states, responsive, a11y, copy in both languages. Blockers and Highs are fixed before merge |
 
 ## ✦ Built for humans _and_ AI agents
@@ -258,6 +270,10 @@ words, gated with `unlockedAt` and translated to both languages**.
 - **Recap text** (`packages/story`) — written for this project after researching the
   [Zenless Zone Zero Wiki](https://zenless-zone-zero.fandom.com/) transcripts; CC BY-SA 4.0 with
   attribution to the wiki.
+- **Build recommendations** (`packages/game/src/builds.ts`) — compiled from each Agent's build
+  guide on [Prydwen.gg](https://www.prydwen.gg/zenless/), linked from every build page; we keep the
+  picks, never their write-ups or calculations. Item names and icons come from the wiki; item
+  summaries are our own words.
 - **Trademarks & game assets** — _Zenless Zone Zero_, the "ZZ" logo, character names, artwork and
   all related trademarks are the trademarks and copyrights of **miHoYo / HoYoverse** (COGNOSPHERE
   PTE. LTD.). This is an unofficial, non-profit fan project, not affiliated with or endorsed by

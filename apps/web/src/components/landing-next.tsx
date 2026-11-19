@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import { cn } from '@zzz/ui'
 import type { Locale } from '@zzz/core'
 import { features } from '@/lib/features'
 
@@ -41,7 +42,13 @@ export function LandingNext() {
           {t('nextTimeOn')}
         </h2>
         <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted">{t('nextBody')}</p>
-        <div data-arm="" className="mt-8 gap-4 sm:grid-cols-3 grid">
+        <div
+          data-arm=""
+          className={cn(
+            'mt-8 gap-4 grid',
+            planned.length >= 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2',
+          )}
+        >
           {planned.map((f, i) => (
             <article
               key={f.id}
