@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "ZZZ Companion — Anteriormente em Nova Eridu",
-    "description": "Recap da história de Zenless Zone Zero sem spoilers, que para exatamente onde você está."
+    "description": "Recap da história de Zenless Zone Zero sem spoilers, que para exatamente onde você está, além da sua lista de Agentes e de uma build para cada um."
   },
   "nav": {
     "home": "Início",
@@ -60,14 +60,14 @@
     "mockLocked": "Bloqueado",
     "mockPart": "Parte {n}",
     "rosterTitle": "Todos os seus Agentes. Uma lista só.",
-    "rosterBody": "Toque nos Agentes que você tem e ajuste o Mindscape. As builds já mostram estes Agentes primeiro, e as rotações e os conselhos de pulls também vão partir desta lista. Ela fica neste aparelho ou sincronizada com uma conta.",
+    "rosterBody": "Toque nos Agentes que você tem e ajuste o Mindscape. As builds colocam esses Agentes primeiro, e as equipes, as rotações e os conselhos de pulls também vão partir desta lista. Ela fica neste aparelho ou sincronizada com uma conta.",
     "rosterCta": "Abrir Meus Agentes",
     "outroKicker": "Sua vez",
     "outroTitle": "Continue exatamente de onde parou.",
     "act": "Ato {n}",
     "actShield": "O escudo",
     "actBetween": "As ferramentas",
-    "actRoster": "Meus Agentes",
+    "actRoster": "O elenco",
     "nextTimeOn": "No próximo episódio",
     "shieldOn": "Escudo ligado",
     "on": "Ligado",
@@ -78,9 +78,14 @@
     "noSignal": "Sem sinal ainda",
     "toBeContinued": "Continua…",
     "rosterStat": "{count} Agentes · até a v{version}",
-    "nextBody": "Em produção. Vão partir do seu recap e da sua lista de Agentes.",
+    "nextBody": "Em produção, nesta ordem. Cada um parte do que vem antes.",
     "statusEmpty": "Diga onde você está e o recap para exatamente ali.",
-    "rosterBuildsCta": "Ver builds"
+    "actLoadout": "O equipamento",
+    "loadoutTitle": "Cada Agente, bem equipado.",
+    "loadoutStat": "{count} builds · conferidas na v{version}",
+    "loadoutBody": "Seis slots de Disco, a divisão de conjuntos <nb>4 + 2</nb> e todos os <nb>Motores-W</nb> em ordem. Marque os <nb>Motores-W</nb> que você tem e a build aponta o melhor que você já pode equipar.",
+    "loadoutCta": "Abrir builds",
+    "needs": "Com base em"
   },
   "recap": {
     "kicker": "Recap da história",
@@ -138,7 +143,7 @@
     "motionOff": "Desligadas",
     "recapMode": "Modo padrão do recap",
     "data": "Seus dados",
-    "dataHint": "Os ajustes ficam só neste navegador. Seu progresso na história e seus Agentes também, a menos que você entre numa conta; aí eles sincronizam com ela. Sem rastreamento.",
+    "dataHint": "Os ajustes e seus Motores-W ficam só neste navegador. Seu progresso na história e seus Agentes também, a menos que você entre numa conta; aí eles sincronizam com ela. Sem rastreamento.",
     "reset": "Zerar progresso",
     "resetDone": "Progresso zerado",
     "about": "Sobre",
@@ -157,7 +162,7 @@
   "footer": {
     "disclaimer": "Projeto de fã não oficial e sem fins lucrativos — sem vínculo ou endosso da miHoYo / HoYoverse. Zenless Zone Zero, seu logo, nomes e artes de personagens são marcas e direitos autorais da miHoYo / HoYoverse (COGNOSPHERE) e são usados aqui sem fins comerciais.",
     "legal": "© All rights reserved by HoYoverse. Outras propriedades e quaisquer direitos sobre elas (incluindo propriedade intelectual) que não derivam de Zenless Zone Zero pertencem aos seus respectivos donos.",
-    "sources": "Recaps pesquisados na Zenless Zone Zero Wiki (CC BY-SA).",
+    "sources": "Recaps e dados do jogo pesquisados na Zenless Zone Zero Wiki (CC BY-SA). As fontes de cada build estão na página dela.",
     "repo": "Código aberto"
   },
   "notFound": {
@@ -209,8 +214,8 @@
   "agents": {
     "kicker": "Seu elenco",
     "title": "Meus Agentes",
-    "metaDescription": "Marque os Agentes de Zenless Zone Zero que você tem e o Mindscape de cada um — a base para builds, rotações e conselhos de pulls.",
-    "lede": "Marque os Agentes que você tem e o Mindscape de cada um. As builds já colocam esses Agentes primeiro; as rotações e os conselhos de pulls vão usar esta lista quando chegarem.",
+    "metaDescription": "Marque os Agentes de Zenless Zone Zero que você tem e o Mindscape de cada um — a base para builds, equipes, rotações e conselhos de pulls.",
+    "lede": "Marque os Agentes que você tem e o Mindscape de cada um. As builds já colocam esses Agentes primeiro; as equipes, as rotações e os conselhos de pulls vão usar esta lista quando chegarem.",
     "hintKicker": "Comece aqui",
     "hint": "Toque em cada Agente que você tem. Só isso. Ajuste o Mindscape no botão M embaixo de cada um. Tem todos os Rank A? Filtre por Rank A e use Marcar todos.",
     "owned": "Tenho",
@@ -324,8 +329,8 @@
     "substatsLede": "O que procurar em cada Disco, em ordem de importância.",
     "skills": "Prioridade de habilidades",
     "skillsLede": "Quais habilidades evoluir primeiro.",
-    "rotation": "Rotação",
-    "rotationBody": "O passo a passo para jogar esta build chega junto com as rotações de equipe.",
+    "rotation": "Equipes e rotação",
+    "rotationBody": "As melhores equipes para {name}, quais delas você já monta com seus Agentes e como jogar esta build em cada uma.",
     "sources": "Fontes",
     "sourcesBody": "Escolhas compiladas do guia de builds da comunidade abaixo e conferidas com os efeitos de cada item na Zenless Zone Zero Wiki, que também fornece os nomes e ícones dos itens. Os resumos dos itens são escritos por nós.",
     "guide": "Guia de build: {label}",
@@ -400,7 +405,7 @@
   "account": {
     "kicker": "ID de Proxy",
     "title": "Conta",
-    "lede": "Opcional. Entre para ter seus Agentes em qualquer aparelho. O resto funciona sem conta.",
+    "lede": "Opcional. Entre para ter seu progresso e seus Agentes em qualquer aparelho. O resto funciona sem conta.",
     "mode": "Entrar ou criar conta",
     "signIn": "Entrar",
     "create": "Criar conta",
@@ -417,10 +422,10 @@
     "noResetSignIn": "Esqueceu a senha? Ainda não há como recuperar, desculpe. Seus Agentes neste aparelho não são afetados.",
     "whyTitle": "Por que criar uma conta?",
     "why1": "Seu progresso e seus Agentes em qualquer aparelho",
-    "why2": "Pronta para as rotações e os conselhos de pulls quando chegarem",
+    "why2": "Pronta para as equipes, as rotações e os conselhos de pulls quando chegarem",
     "why3": "Sem anúncios, sem rastreamento, sem e-mails",
     "storeTitle": "O que guardamos",
-    "storeBody": "Seu e-mail, nome de Proxy, sua senha com hash (nunca em texto puro) e sua lista de Agentes. O progresso da história fica no seu navegador. Apague tudo quando quiser.",
+    "storeBody": "Seu e-mail, nome de Proxy, sua senha com hash (nunca em texto puro), sua lista de Agentes e a última parte da história que você terminou. Seus Motores-W e ajustes ficam no seu navegador. Apague tudo quando quiser.",
     "errors": {
       "nameRequired": "Digite um nome de Proxy.",
       "nameLength": "Use até 32 caracteres.",
@@ -448,10 +453,10 @@
     "unsyncedRetry": "Tentar salvar de novo",
     "unsyncedConfirm": "Sair mesmo assim",
     "dangerTitle": "Excluir conta",
-    "dangerBody": "Exclui sua conta e os Agentes salvos nela, para sempre. Seu progresso na história neste navegador continua.",
+    "dangerBody": "Exclui para sempre sua conta, com o progresso e os Agentes salvos nela. O que está neste navegador continua.",
     "deleteOpen": "Excluir conta…",
     "deleteTitle": "Excluir sua conta?",
-    "deleteBody": "Isso apaga {email}, seu nome de Proxy e seus Agentes salvos do nosso servidor. Não dá para desfazer.",
+    "deleteBody": "Isso apaga {email}, seu nome de Proxy e seu progresso e Agentes salvos do nosso servidor. Não dá para desfazer.",
     "deletePassword": "Digite sua senha para confirmar",
     "deleteConfirm": "Excluir para sempre",
     "deletePending": "Excluindo…",

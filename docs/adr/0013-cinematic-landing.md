@@ -18,7 +18,7 @@ ran.
 
 **Creative concept: "one episode".** The page is built like an episode of the show the reader is
 catching up on: cold open → "previously on" → Act 1 (the shield) → Act 2 (between sessions) →
-Act 3 (the roster) → "next time on" → sign-off. Two devices tie it together: a TV that powers on
+Act 3 (the roster) → Act 4 (the loadout, added with Builds) → "next time on" → sign-off. Two devices tie it together: a TV that powers on
 in the hero and switches off as you leave it, and a broadcast graphics package (channel bug,
 lower-third, act bumpers). Every animation demonstrates the product (the marker is your progress,
 the redaction is the shield, the popping card is tap-to-explain). Continuous, spatial things are
@@ -49,9 +49,13 @@ scroll-scrubbed; state changes are triggered and play on their own clock.
 - **Mocks are product shots.** They use the app's real tokens and components at real density,
   scaled as a picture (never reflowed), and they are `inert`: hidden from assistive technology,
   not focusable, out of contrast checks. They never show story text: placeholder bars and the
-  protagonists' names only.
+  protagonists' names only. Game screens (Act 4's build page) show game data only, and never a
+  spoiler Agent. A static mock is scaled with CSS alone (`.lp-shot`: a fixed design size per
+  breakpoint, scaled to its column's width worked out from viewport units, which every engine
+  recomputes on resize; Safari keeps container units stale), so it needs no client code; Act 1's scripted scene
+  measures itself instead.
 - **The feature registry places each feature in an act** (`act: 'shield' | 'bento' | 'roster' |
-'next'`). Every entry renders exactly once with `data-feature-id` (E2E and Storybook check it), so
+'loadout' | 'next'`). Every entry renders exactly once with `data-feature-id` (E2E and Storybook check it), so
   the landing still reflects the registry (AGENTS.md "Docs that must stay in sync").
 - The header ticker is hidden on the home page only (`body:has([data-landing])`).
 

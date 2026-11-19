@@ -22,7 +22,8 @@ const LATEST = agents.reduce(
  * Act 3, "the roster": two full-bleed rows of Agent icons that slide against each other only while
  * the reader scrolls (a CSS scroll-driven animation, never on its own), around the pitch for
  * My Agents. Some icons wear the real tile's "owned" check and Mindscape level, so the feature
- * reads without words. Text never sits over the moving rows. Server-rendered.
+ * reads without words. Text never sits over the moving rows. Act 4 (the loadout) follows on the same
+ * band. Server-rendered.
  */
 export function LandingRoster() {
   const t = useTranslations('home')
@@ -32,7 +33,7 @@ export function LandingRoster() {
     <section
       aria-labelledby="roster-title"
       data-testid="landing-roster"
-      className="py-24 sm:py-32 relative isolate"
+      className="pt-24 pb-12 sm:pt-32 relative isolate"
     >
       <div
         aria-hidden
@@ -55,7 +56,7 @@ export function LandingRoster() {
           <p className="mt-5 max-w-xl text-lg leading-relaxed mx-auto text-muted">
             {t('rosterBody')}
           </p>
-          <div className="mt-8 gap-3 flex flex-wrap justify-center">
+          <div className="mt-8">
             <Button asChild variant="outline" size="lg">
               <Link href="/agents">
                 {t('rosterCta')}
@@ -64,9 +65,6 @@ export function LandingRoster() {
                   aria-hidden
                 />
               </Link>
-            </Button>
-            <Button asChild variant="ghost" size="lg">
-              <Link href="/builds">{t('rosterBuildsCta')}</Link>
             </Button>
           </div>
         </div>

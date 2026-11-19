@@ -12,12 +12,19 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** The planned features, as the next episode's preview (from the registry: `act: 'next'`). */
+/**
+ * The planned features, as the next episode's preview (from the registry: `act: 'next'`), in the
+ * order they'll ship, each with the features it builds on.
+ */
 export const Default: Story = {
-  play: async ({ canvas }) => {
-    for (const f of features.filter((f) => f.act === 'next')) {
+  play: async ({ canvas, canvasElement }) => {
+    const planned = features.filter((f) => f.act === 'next')
+    for (const f of planned) {
       await expect(canvas.getByRole('heading', { name: f.title.en })).toBeVisible()
     }
+    const cards = [...canvasElement.querySelectorAll<HTMLElement>('[data-feature-id]')]
+    await expect(cards.map((c) => c.dataset.featureId)).toEqual(planned.map((f) => f.id))
+    await expect(cards[0]).toHaveTextContent('Builds on: My Agents roster · Character builds')
   },
 }
 

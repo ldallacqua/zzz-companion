@@ -31,7 +31,7 @@ What to equip on every Agent. Data and sourcing: [ADR 0015](../adr/0015-builds-d
   alternatives. When the source names no 2-piece set, the board says the other two slots can be
   any set.
 - **Substats** and **skill priority** as ordered chains (ties shown with "=").
-- **Rotation**: reserved, "Soon" — it arrives with team rotations, per variant.
+- **Teams & rotation**: reserved, "Soon" — the best teams for the Agent (and the ones you can field) arrive with [Teams](teams.md), then how to play the build in each, per variant, with rotations.
 - **Sources**: the build guide it was compiled from and the wiki, plus a note that item summaries
   are our own words. If builds were last reviewed for an older version than the game's, a warning
   says some picks may have changed.
@@ -41,8 +41,9 @@ What to equip on every Agent. Data and sourcing: [ADR 0015](../adr/0015-builds-d
 
 - Header (from lg): Home · Recap · Characters · Glossary | Agents · Builds. Below lg (phones and
   tablets) the tab bar has Recap · Characters · Glossary · Agents · Builds; the logo links home.
-- The character file's Build section links to the Agent's build; the landing page's roster act
-  has "See builds". "All builds" returns to the Agent's tile in the index.
+- The character file's Build section links to the Agent's build; the landing page's Act 4
+  (the loadout) shows a build page and links to the index. "All builds" returns to the Agent's
+  tile in the index.
 
 ## Data on the device
 

@@ -3,6 +3,7 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { cn } from '@zzz/ui'
 import type { Character } from '@zzz/core'
+import { FANDOM_REVISION, resized } from '@/lib/wiki-image'
 
 export type PortraitFraming = 'bust' | 'face' | 'full'
 type Focus = Character['focus']
@@ -141,15 +142,6 @@ export function Portrait({
       )}
     />
   )
-}
-
-const FANDOM_REVISION = '/revision/latest'
-
-/** Fandom/Vignette URLs accept `/scale-to-width-down/{w}`; anything else is returned as is. */
-export function resized(src: string, width: number): string {
-  return src.includes(FANDOM_REVISION)
-    ? src.replace(FANDOM_REVISION, `${FANDOM_REVISION}/scale-to-width-down/${width}`)
-    : src
 }
 
 function srcSet(src: string): string | undefined {

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Disc3, Swords } from 'lucide-react'
 import { cn } from '@zzz/ui'
-import { resized } from './portrait'
+import { resized } from '@/lib/wiki-image'
 
 /**
  * A W-Engine or Drive Disc icon, hotlinked from the wiki CDN at twice its size. If it can't load

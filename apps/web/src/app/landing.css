@@ -262,6 +262,47 @@ body:has([data-landing]) [data-ticker] {
   }
 }
 
+/*
+ * A product shot laid out at a fixed design size (--w × --h, in px) and scaled like a picture,
+ * never reflowed. The frame's width (--box) and the shot's scale (--box / design width;
+ * `tan(atan2(a, b))` = a / b without units) come from the same value, so the picture always fills
+ * its frame, up to 1.2×. --box is the column's width worked out from the viewport (`main` is
+ * `max-w-6xl px-4 sm:px-6`; Act 4 stacks below xl and gives the shot 44rem from xl), not from
+ * container units: Safari doesn't recompute those on resize (phone rotation, Split View), while
+ * every engine recomputes viewport units. From sm it leaves room for a classic scrollbar (17px),
+ * so it never outgrows the column. `e2e/landing.spec.ts` checks both. Arrival animations go on an
+ * ancestor, never on `[data-shot]`, whose transform is the scale.
+ */
+.lp-shot {
+  --w: 360;
+  --h: 656;
+  --col: calc(100vw - 2rem);
+  --box: min(var(--col), calc(var(--w) * 1.2px));
+  position: relative;
+  width: var(--box);
+  aspect-ratio: var(--w) / var(--h);
+}
+@media (min-width: 40rem) {
+  .lp-shot {
+    --w: 720;
+    --h: 466;
+    --col: calc(100vw - 3rem - 17px);
+  }
+}
+@media (min-width: 80rem) {
+  .lp-shot {
+    --col: 44rem;
+  }
+}
+.lp-shot > [data-shot] {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: calc(var(--w) * 1px);
+  height: calc(var(--h) * 1px);
+  transform-origin: 0 0;
+  transform: scale(tan(atan2(var(--box), calc(var(--w) * 1px))));
+}
+
 /* ---------------------------------------------------------------- Arrivals (armed) */
 
 /* Until an armed block arrives, it waits on its first frame. */
@@ -423,6 +464,15 @@ body:has([data-landing]) [data-ticker] {
       }
     }
 
+    /* Act 4: from xl its product shot sits on the left, so it turns in from the other side. */
+    @media (min-width: 80rem) {
+      & .lp-rotate-in-l {
+        animation: lp-rotate-in-l linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+
     /* Act 3: the two rows of Agents slide against each other while you scroll (never on their own). */
     & .lp-row-a {
       animation: lp-row-a linear both;
@@ -465,6 +515,14 @@ body:has([data-landing]) [data-ticker] {
 @keyframes lp-rotate-in {
   from {
     transform: perspective(1600px) rotateY(-12deg) rotateX(4deg) scale(0.94);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes lp-rotate-in-l {
+  from {
+    transform: perspective(1600px) rotateY(12deg) rotateX(4deg) scale(0.94);
   }
   to {
     transform: none;

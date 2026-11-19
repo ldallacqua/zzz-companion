@@ -3,7 +3,6 @@
 import { useId, type CSSProperties } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { Lock } from 'lucide-react'
 import { cn, spring } from '@zzz/ui'
 import {
   agentShortName,
@@ -13,23 +12,10 @@ import {
   type MainStatSlot,
   type WEngine,
 } from '@zzz/core'
-import { discSetsById, fixedSlotStats, wEnginesById } from '@zzz/game'
-import { statName, statShort } from '@/lib/build-labels'
+import { discSetsById, wEnginesById } from '@zzz/game'
 import { AgentIcon, agentColor } from './agent-tile'
 import { GameIcon } from './game-icon'
-
-/** Where each slot sits around the Agent: 1 on top, then clockwise, like the game's disc ring. */
-const PLACE: Record<string, string> = {
-  '1': 'col-start-2 row-start-1',
-  '2': 'col-start-3 row-start-2',
-  '3': 'col-start-3 row-start-4',
-  '4': 'col-start-2 row-start-5',
-  '5': 'col-start-1 row-start-4',
-  '6': 'col-start-1 row-start-2',
-}
-const SLOTS = ['1', '2', '3', '4', '5', '6'] as const
-const isMainSlot = (slot: string): slot is MainStatSlot =>
-  slot === '4' || slot === '5' || slot === '6'
+import { FixedBay, isMainSlot, LIT_TEXT, LitBay as LitSlot, SLOTS } from './loadout-parts'
 
 export interface LoadoutBoardProps {
   agent: Agent
@@ -190,82 +176,26 @@ export function LoadoutBoard({
   )
 }
 
-function FixedBay({ slot }: { slot: string }) {
-  const t = useTranslations('builds')
-  const locale = useLocale() as Locale
-  const stat = statName(fixedSlotStats[slot as '1' | '2' | '3'], locale)
-  return (
-    <li className={cn(PLACE[slot], 'min-w-0 row-span-2')}>
-      <div className="h-full bg-border p-px chamfer-sm">
-        <div className="px-2.5 py-1.5 flex h-full flex-col justify-center bg-surface chamfer-sm">
-          <span aria-hidden className="font-mono text-[0.6rem] tracking-[0.14em] text-subtle">
-            {slot.padStart(2, '0')}
-          </span>
-          <span aria-hidden className="text-base display leading-none text-muted">
-            {stat}
-          </span>
-          <span
-            aria-hidden
-            className="mt-1 gap-1 flex items-center font-mono text-[0.58rem] tracking-[0.1em] text-subtle uppercase"
-          >
-            <Lock className="size-3" />
-            {t('fixed')}
-          </span>
-          <span className="sr-only">{`${t('slot', { slot })}: ${stat} (${t('fixed')})`}</span>
-        </div>
-      </div>
-    </li>
-  )
-}
-
+/** A lit slot whose value rolls to the new stat when the variant changes it. */
 function LitBay({ slot, groups }: { slot: MainStatSlot; groups: string[][] }) {
-  const t = useTranslations('builds')
-  const locale = useLocale() as Locale
-  const primary = (groups[0] ?? []).map((id) => statShort(id, locale)).join(' / ')
-  const rest = groups.slice(1)
-  const spoken = groups
-    .map((g) => g.map((id) => statName(id, locale)).join(` ${t('tied')} `))
-    .join(`, ${t('then')} `)
-
   return (
-    <li className={cn(PLACE[slot], 'min-w-0 row-span-2')} data-testid={`slot-${slot}`}>
-      <div className="h-full bg-(--agent) p-px chamfer-sm">
-        <div className="px-2.5 py-1.5 relative flex h-full flex-col justify-center overflow-hidden bg-surface-2 chamfer-sm">
-          <span aria-hidden className="inset-0 absolute halftone text-(--agent) opacity-10" />
-          <span
-            aria-hidden
-            className="font-bold relative font-mono text-[0.6rem] tracking-[0.14em] text-(--agent)"
+    <LitSlot
+      slot={slot}
+      groups={groups}
+      renderValue={(value) => (
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.span
+            key={value}
+            className={LIT_TEXT}
+            initial={{ y: '60%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={spring.snappy}
           >
-            {slot.padStart(2, '0')}
-          </span>
-          <span aria-hidden className="relative">
-            <AnimatePresence initial={false} mode="popLayout">
-              <motion.span
-                key={primary}
-                className="sm:text-lg md:text-[0.95rem] lg:text-lg block display text-[0.95rem] leading-none break-words"
-                initial={{ y: '60%', opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={spring.snappy}
-              >
-                {primary}
-              </motion.span>
-            </AnimatePresence>
-          </span>
-          {rest.length > 0 && (
-            <span
-              aria-hidden
-              className="mt-1 leading-tight relative line-clamp-2 font-mono text-[0.58rem] text-muted"
-            >
-              ›{' '}
-              {rest
-                .map((group) => group.map((id) => statShort(id, locale)).join(' = '))
-                .join(' › ')}
-            </span>
-          )}
-          <span className="sr-only">{`${t('slot', { slot })}: ${spoken}`}</span>
-        </div>
-      </div>
-    </li>
+            {value}
+          </motion.span>
+        </AnimatePresence>
+      )}
+    />
   )
 }
